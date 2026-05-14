@@ -5,24 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- ═══ SEO ═══════════════════════════════════════════════════════════ -->
-  <title>The Insiders Map by Insiders — Guia Real de Amsterdam 2026</title>
+  <title>The Insiders Map — Guia Real de Amsterdam</title>
   <meta name="description" content="O guia de Amsterdam de quem mora aqui: melhores restaurantes, bares, coffee shops, museus, wellness e eventos. Sem ciladas de turista." />
-  <meta name="keywords" content="dicas amsterdam, guia amsterdam 2026, melhores restaurantes amsterdam, coffee shops amsterdam, o que fazer em amsterdam, bares amsterdam" />
+  <meta name="keywords" content="dicas amsterdam, guia amsterdam, melhores restaurantes amsterdam, coffee shops amsterdam, o que fazer em amsterdam, bares amsterdam" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://theinsidersmap.com/" />
 
   <!-- ═══ OPEN GRAPH ═════════════════════════════════════════════════════ -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="The Insiders Map by Insiders — Amsterdam Real" />
-  <meta property="og:description" content="Não é guia turístico. É o WhatsApp da Mari que mora em Amsterdam." />
+  <meta property="og:title" content="The Insiders Map — Amsterdam Real" />
+  <meta property="og:description" content="Não é guia turístico. É o guia de quem mora aqui." />
   <meta property="og:url" content="https://theinsidersmap.com/" />
   <meta property="og:locale" content="pt_BR" />
   <meta property="og:locale:alternate" content="en_GB" />
 
   <!-- ═══ TWITTER CARD ═══════════════════════════════════════════════════ -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="The Insiders Map by Insiders" />
-  <meta name="twitter:description" content="Não é guia turístico. É o WhatsApp de um Insider que mora em Amsterdam." />
+  <meta name="twitter:title" content="The Insiders Map" />
+  <meta name="twitter:description" content="Não é guia turístico. É o guia de quem mora aqui." />
 
   <!-- ═══ GOOGLE ANALYTICS ══════════════════════════════════════════════ -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FFQB99311L"></script>
@@ -33,6 +33,10 @@
     gtag('config', 'G-FFQB99311L');
   </script>
 
+  <!-- ═══ LEAFLET (MAP) ════════════════════════════════════════════════ -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+
   <!-- ═══ FONTS ══════════════════════════════════════════════════════════ -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -42,15 +46,13 @@
     /* ─── TOKENS ──────────────────────────────────────────────────────── */
     :root {
       --orange:      #ff4500;
-      --dark:        #111111;
-      --slate:       #4b5563;
+      --dark:        #0d0d0d;
+      --slate:       #5a6373;
       --bg:          #ffffff;
-      --surface:     #f9f9f7;
-      --border:      3px solid #111111;
-      --border-thin: 1px solid #e5e5e5;
-      --radius:      0px;
-      --shadow-hover: 8px 8px 0px var(--orange);
-      --transition:  0.18s ease-in-out;
+      --surface:     #f7f6f3;
+      --border:      2px solid #0d0d0d;
+      --border-thin: 1px solid #e0e0e0;
+      --transition:  0.2s ease-in-out;
     }
 
     /* ─── RESET ───────────────────────────────────────────────────────── */
@@ -76,7 +78,7 @@
       width: 90%;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 60px 0 50px;
+      padding: 56px 0 52px;
       border-bottom: var(--border);
     }
     .header-top {
@@ -86,11 +88,27 @@
       gap: 1rem;
       flex-wrap: wrap;
     }
+    .header-kicker {
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 10px;
+    }
     header h1 {
       font-family: 'Bebas Neue', cursive;
-      font-size: clamp(4rem, 10vw, 8rem);
+      font-size: clamp(4.5rem, 11vw, 9rem);
       line-height: 0.85;
       letter-spacing: -2px;
+      color: var(--dark);
+    }
+    .header-tagline {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(1.4rem, 3.5vw, 2.4rem);
+      letter-spacing: 2px;
+      color: var(--orange);
+      margin-top: 6px;
     }
     .lang-btn {
       flex-shrink: 0;
@@ -98,112 +116,171 @@
       background: var(--dark);
       color: #fff;
       border: none;
-      padding: 10px 20px;
+      padding: 10px 22px;
       border-radius: 50px;
       font-weight: 800;
-      font-size: 0.7rem;
-      letter-spacing: 1.5px;
+      font-size: 0.65rem;
+      letter-spacing: 2px;
       text-transform: uppercase;
       box-shadow: 3px 3px 0 var(--orange);
       transition: box-shadow var(--transition), transform var(--transition);
     }
     .lang-btn:hover {
       transform: translate(-2px, -2px);
-      box-shadow: 5px 5px 0 var(--orange);
+      box-shadow: 6px 6px 0 var(--orange);
     }
-    .personal-intro { margin-top: 32px; max-width: 860px; }
+    .personal-intro { margin-top: 36px; max-width: 800px; }
     .intro-text {
-      font-size: clamp(1rem, 2vw, 1.25rem);
-      line-height: 1.7;
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      line-height: 1.8;
       color: var(--slate);
       font-weight: 400;
     }
     .intro-text b { color: var(--dark); font-weight: 800; }
     .tip-ouro {
-      display: inline-block;
-      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 20px;
       background: #fff8f5;
       border-left: 4px solid var(--orange);
-      padding: 10px 16px;
-      border-radius: 0 6px 6px 0;
-      font-size: 0.95rem !important;
+      padding: 12px 18px;
+      font-size: 0.92rem !important;
       color: var(--dark) !important;
-      font-weight: 600;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+    .stats-strip {
+      display: flex;
+      gap: 0;
+      margin-top: 36px;
+      border: var(--border);
+      width: fit-content;
+      overflow: hidden;
+    }
+    .stat-item {
+      padding: 14px 28px;
+      border-right: var(--border);
+      text-align: center;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      display: block;
+      font-family: 'Bebas Neue', cursive;
+      font-size: 2rem;
+      line-height: 1;
+      color: var(--orange);
+    }
+    .stat-label {
+      display: block;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--slate);
+      margin-top: 2px;
     }
 
     /* ─── CATEGORY GRID ───────────────────────────────────────────────── */
     .dashboard {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 0;
       width: 90%;
       max-width: 1200px;
-      margin: 60px auto 100px;
+      margin: 64px auto 100px;
       border-top: var(--border);
       border-left: var(--border);
     }
     .cat-card {
-      padding: 40px 28px;
+      padding: 36px 28px 32px;
       border-right: var(--border);
       border-bottom: var(--border);
       background: var(--bg);
       cursor: pointer;
       position: relative;
       overflow: hidden;
-      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      transition: background var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .cat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--orange);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s ease;
     }
     .cat-card::after {
       content: '';
       position: absolute;
       inset: 0;
       background: var(--orange);
-      transform: translateY(100%);
-      transition: transform 0.22s ease-in-out;
+      transform: translateY(101%);
+      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 0;
     }
-    .cat-card:hover::after  { transform: translateY(0); }
+    .cat-card:hover::after { transform: translateY(0); }
     .cat-card:hover .cat-emoji,
     .cat-card:hover .cat-title,
-    .cat-card:hover .cat-count { color: #fff; }
+    .cat-card:hover .cat-count,
+    .cat-card:hover .cat-arrow { color: #fff; }
     .cat-card > * { position: relative; z-index: 1; }
 
     .cat-emoji {
-      font-size: 2.2rem;
+      font-size: 2.4rem;
       display: block;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
       transition: color var(--transition);
+      line-height: 1;
     }
     .cat-title {
       display: block;
-      font-size: 0.85rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.8rem;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 2px;
+      letter-spacing: 2.5px;
       transition: color var(--transition);
+      line-height: 1.3;
     }
     .cat-count {
       display: block;
       margin-top: 8px;
-      font-size: 0.7rem;
-      font-weight: 600;
+      font-size: 0.68rem;
+      font-weight: 500;
       color: var(--slate);
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       transition: color var(--transition);
+      flex: 1;
     }
+    .cat-arrow {
+      display: block;
+      margin-top: 24px;
+      font-size: 1.1rem;
+      color: var(--orange);
+      transition: color var(--transition), transform var(--transition);
+      font-weight: 900;
+    }
+    .cat-card:hover .cat-arrow { transform: translateX(4px); }
 
     /* ─── MODAL OVERLAY ───────────────────────────────────────────────── */
     .modal {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(17, 17, 17, 0.55);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
+      background: rgba(13, 13, 13, 0.6);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
       z-index: 4000;
       justify-content: center;
       align-items: flex-end;
       padding: 0;
-      animation: fadeOverlay 0.2s ease forwards;
+      animation: fadeOverlay 0.22s ease forwards;
     }
     @media (min-width: 640px) {
       .modal { align-items: center; padding: 2rem; }
@@ -216,89 +293,105 @@
     .modal-content {
       background: var(--bg);
       width: 100%;
-      max-width: 860px;
-      max-height: 88vh;
-      padding: 48px 40px;
+      max-width: 880px;
+      max-height: 90vh;
       position: relative;
       overflow-y: auto;
       border: var(--border);
       border-bottom: none;
-      border-radius: 0;
-      box-shadow: 12px 12px 0 rgba(0,0,0,0.12);
-      animation: slideUp 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      box-shadow: 16px 16px 0 rgba(0,0,0,0.1);
+      animation: slideUp 0.3s cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
     }
     @media (min-width: 640px) {
-      .modal-content {
-        border-bottom: var(--border);
-        border-radius: 0;
-      }
+      .modal-content { border-bottom: var(--border); }
     }
     @keyframes slideUp {
-      from { transform: translateY(40px); opacity: 0; }
+      from { transform: translateY(50px); opacity: 0; }
       to   { transform: translateY(0);    opacity: 1; }
     }
-    @media (max-width: 600px) {
-      .modal-content { padding: 32px 20px; }
-    }
 
+    /* modal header stripe */
+    .modal-header {
+      background: var(--dark);
+      padding: 32px 40px 28px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .modal-header-text { flex: 1; }
+    @media (max-width: 600px) {
+      .modal-header { padding: 24px 20px 20px; }
+    }
     .modal-content h2 {
       font-family: 'Bebas Neue', cursive;
-      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
       letter-spacing: 1px;
-      margin-bottom: 4px;
       line-height: 1;
+      color: #fff;
     }
     .modal-subtitle {
-      font-size: 0.75rem;
+      font-size: 0.68rem;
       font-weight: 600;
-      color: var(--slate);
-      letter-spacing: 1.5px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 2px;
       text-transform: uppercase;
-      margin-bottom: 32px;
+      margin-top: 6px;
+    }
+    .modal-body {
+      padding: 36px 40px 48px;
+    }
+    @media (max-width: 600px) {
+      .modal-body { padding: 24px 20px 36px; }
     }
 
     .close-btn {
-      position: sticky;
-      float: right;
-      top: 0;
-      background: var(--dark);
+      background: rgba(255,255,255,0.12);
       color: #fff;
-      border: none;
-      width: 44px;
-      height: 44px;
+      border: 1px solid rgba(255,255,255,0.2);
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       font-weight: 800;
-      font-size: 1rem;
+      font-size: 0.9rem;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
       transition: background var(--transition), transform var(--transition);
-      z-index: 10;
     }
-    .close-btn:hover { background: var(--orange); transform: rotate(90deg); }
+    .close-btn:hover { background: var(--orange); border-color: var(--orange); transform: rotate(90deg); }
 
     /* ─── MODAL CONTENT ELEMENTS ──────────────────────────────────────── */
     .sub-cat {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin: 44px 0 6px;
-      font-size: 0.65rem;
+      margin: 40px 0 14px;
+      font-size: 0.6rem;
       font-weight: 800;
       color: var(--orange);
       text-transform: uppercase;
       letter-spacing: 4px;
-      border-bottom: 2px solid #efefef;
-      padding-bottom: 10px;
+      border-bottom: 2px solid #ebebeb;
+      padding-bottom: 12px;
     }
-    .sub-cat:first-of-type { margin-top: 8px; }
+    .sub-cat:first-of-type { margin-top: 0; }
 
     .item {
-      padding: 20px;
-      border: 2px solid #e8e8e8;
-      border-radius: 8px;
-      margin-bottom: 12px;
+      padding: 20px 22px;
+      border: 1.5px solid #e8e8e8;
+      border-radius: 6px;
+      margin-bottom: 10px;
       background: #fafafa;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .item:hover {
+      border-color: #ccc;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
     }
     .item:last-child { margin-bottom: 0; }
 
@@ -311,28 +404,29 @@
     .item-info { flex: 1; min-width: 0; }
     .item-info strong {
       display: block;
-      font-size: clamp(1.2rem, 3vw, 1.6rem);
+      font-size: clamp(1.1rem, 2.5vw, 1.45rem);
       color: var(--dark);
       font-weight: 800;
-      letter-spacing: -0.5px;
-      margin-bottom: 6px;
+      letter-spacing: -0.3px;
+      margin-bottom: 8px;
       line-height: 1.2;
     }
     .item-info p {
-      font-size: 0.975rem;
+      font-size: 0.95rem;
       color: var(--slate);
-      line-height: 1.6;
+      line-height: 1.65;
     }
     .item-tip {
       display: block;
       margin-top: 14px;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: var(--dark);
       font-weight: 600;
       background: #fff5f2;
-      padding: 12px 16px;
-      border-left: 4px solid var(--orange);
+      padding: 11px 16px;
+      border-left: 3px solid var(--orange);
       line-height: 1.5;
+      border-radius: 0 4px 4px 0;
     }
     .item-tip::before {
       content: '→ ';
@@ -344,12 +438,12 @@
       flex-shrink: 0;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       color: var(--dark);
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       font-weight: 900;
       border: 2px solid var(--dark);
-      padding: 10px 16px;
+      padding: 9px 16px;
       text-transform: uppercase;
       letter-spacing: 1.5px;
       white-space: nowrap;
@@ -357,56 +451,54 @@
       align-self: flex-start;
     }
     .maps-btn:hover { background: var(--dark); color: #fff; }
-    .maps-btn::before { content: '📍'; font-size: 0.75rem; }
+    .maps-btn::before { content: '📍'; font-size: 0.7rem; }
 
-    /* ─── EVENT ITEMS (Eventos modal) ─────────────────────────────────── */
+    /* ─── EVENT ITEMS ─────────────────────────────────────────────────── */
     .event-item {
-      padding: 22px 0;
+      padding: 20px 0;
       border-bottom: var(--border-thin);
       display: grid;
-      grid-template-columns: 90px 1fr auto;
+      grid-template-columns: 80px 1fr auto;
       gap: 16px;
       align-items: start;
     }
     .event-item:last-child { border-bottom: none; }
     .event-month {
-      font-size: 0.6rem;
+      font-size: 0.58rem;
       font-weight: 800;
       letter-spacing: 2px;
       text-transform: uppercase;
       color: #fff;
       background: var(--orange);
-      padding: 6px 10px;
+      padding: 8px 10px;
       text-align: center;
       line-height: 1.4;
     }
     .event-info strong {
       display: block;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 800;
       margin-bottom: 4px;
     }
-    .event-info p { font-size: 0.9rem; color: var(--slate); line-height: 1.5; }
+    .event-info p { font-size: 0.88rem; color: var(--slate); line-height: 1.55; }
 
-    /* ─── BEYOND AMS — city group ──────────────────────────────────────── */
-    .city-group {
-      margin-bottom: 8px;
-    }
+    /* ─── BEYOND AMS ──────────────────────────────────────────────────── */
+    .city-group { margin-bottom: 8px; }
     .city-label {
       display: inline-flex;
       align-items: center;
       gap: 8px;
       margin: 40px 0 4px;
-      font-size: 0.65rem;
+      font-size: 0.6rem;
       font-weight: 800;
       color: var(--orange);
       text-transform: uppercase;
       letter-spacing: 4px;
-      border-bottom: 2px solid #efefef;
+      border-bottom: 2px solid #ebebeb;
       padding-bottom: 10px;
       width: 100%;
     }
-    .city-label:first-of-type { margin-top: 8px; }
+    .city-label:first-of-type { margin-top: 0; }
 
     /* ─── DE-PARA TABLE ───────────────────────────────────────────────── */
     .depara-table {
@@ -417,7 +509,7 @@
     }
     .depara-table th {
       text-align: left;
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 2px;
@@ -427,7 +519,7 @@
       background: #fff5f2;
     }
     .depara-table td {
-      padding: 12px 12px;
+      padding: 12px;
       border-bottom: var(--border-thin);
       vertical-align: top;
       line-height: 1.5;
@@ -435,11 +527,7 @@
     .depara-table tr:last-child td { border-bottom: none; }
     .depara-table td:first-child { font-weight: 700; color: var(--dark); }
     .depara-table td:nth-child(2) { color: var(--slate); }
-    .depara-table td:last-child {
-      color: var(--dark);
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
+    .depara-table td:last-child { color: var(--dark); font-size: 0.8rem; font-weight: 600; }
     @media (max-width: 480px) {
       .depara-table { font-size: 0.8rem; }
       .depara-table td { padding: 10px 8px; }
@@ -449,15 +537,15 @@
     .city-tabs {
       width: 90%;
       max-width: 1200px;
-      margin: 48px auto 0;
+      margin: 52px auto 0;
       display: flex;
       gap: 0;
       border: var(--border);
       overflow: hidden;
     }
     .city-tab {
-      padding: 14px 28px;
-      font-size: 0.72rem;
+      padding: 13px 28px;
+      font-size: 0.68rem;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 2px;
@@ -469,36 +557,230 @@
       transition: background var(--transition), color var(--transition);
     }
     .city-tab:last-child { border-right: none; }
-    .city-tab.active {
-      background: var(--dark);
-      color: #fff;
-      cursor: default;
+    .city-tab.active { background: var(--dark); color: #fff; }
+    .city-tab.soon { color: #bbb; font-style: italic; cursor: not-allowed; }
+    .city-tab.soon::after { content: ' (em breve)'; font-size: 0.58rem; font-weight: 400; }
+    body.lang-en .city-tab.soon::after { content: ' (coming soon)'; }
+
+    /* ─── SECTION LABEL ───────────────────────────────────────────────── */
+    .section-label {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 52px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
-    .city-tab.soon {
-      color: #bbb;
-      font-style: italic;
-      cursor: not-allowed;
-    }
-    .city-tab.soon::after {
-      content: ' (em breve)';
+    .section-label span {
       font-size: 0.6rem;
-      font-weight: 400;
+      font-weight: 800;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--slate);
     }
-    body.lang-en .city-tab.soon::after {
-      content: ' (coming soon)';
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e0e0e0;
     }
 
     /* ─── RESPONSIVE ──────────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .dashboard { grid-template-columns: repeat(3, 1fr); }
+    }
     @media (max-width: 768px) {
       header { padding-top: 40px; }
       .event-item { grid-template-columns: 70px 1fr; }
       .event-item .maps-btn { grid-column: 2; }
+      .stats-strip { flex-wrap: wrap; }
+      .dashboard { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 480px) {
       .dashboard { grid-template-columns: 1fr 1fr; }
       .item-header { flex-direction: column; }
       .maps-btn { align-self: flex-start; }
+      .stat-item { padding: 12px 20px; }
     }
+
+    /* ─── HEADER ACTIONS ──────────────────────────────────────────────── */
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .action-btn {
+      flex-shrink: 0;
+      background: var(--dark);
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 0.65rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      box-shadow: 3px 3px 0 var(--orange);
+      transition: box-shadow var(--transition), transform var(--transition);
+      position: relative;
+    }
+    .action-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--orange);
+    }
+    .fav-badge {
+      position: absolute;
+      top: -6px; right: -6px;
+      background: var(--orange);
+      color: #fff;
+      font-size: 0.55rem;
+      font-weight: 900;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .fav-badge.visible { display: flex; }
+
+    /* ─── FAV HEART BUTTON ────────────────────────────────────────────── */
+    .fav-btn {
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 4px;
+      color: #ccc;
+      transition: color 0.15s, transform 0.15s;
+      flex-shrink: 0;
+      align-self: flex-start;
+      margin-top: 2px;
+    }
+    .fav-btn:hover { color: var(--orange); transform: scale(1.15); }
+    .fav-btn.active { color: var(--orange); }
+
+    /* ─── CARD FAV BADGE ──────────────────────────────────────────────── */
+    .card-fav-dot {
+      position: absolute;
+      top: 12px; right: 12px;
+      background: var(--orange);
+      color: #fff;
+      font-size: 0.55rem;
+      font-weight: 900;
+      min-width: 20px; height: 20px;
+      border-radius: 50px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 0 5px;
+      z-index: 2;
+    }
+    .card-fav-dot.visible { display: flex; }
+    .cat-card:hover .card-fav-dot { background: #fff; color: var(--orange); }
+
+    /* ─── FAVORITES MODAL ─────────────────────────────────────────────── */
+     #m-favs .fav-list-item {
+       padding: 16px 0;
+       border-bottom: var(--border-thin);
+     }
+     #m-favs .fav-list-item:last-child { border-bottom: none; }
+     #m-favs .fav-item-body { display: flex; flex-direction: column; gap: 8px; }
+     #m-favs .fav-item-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+     #m-favs .fav-name { font-weight: 700; font-size: 1rem; }
+     #m-favs .fav-cat { font-size: 0.72rem; color: var(--slate); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+     #m-favs .fav-desc { font-size: 0.88rem; color: #444; line-height: 1.5; margin: 0; }
+     #m-favs .fav-tip { font-size: 0.82rem; color: var(--slate); line-height: 1.5; margin: 0; font-style: italic; }
+     #m-favs .fav-maps-btn {
+       display: inline-flex; align-items: center; gap: 4px;
+       font-size: 0.78rem; font-weight: 700; color: var(--dark);
+       border: 1.5px solid var(--dark); padding: 4px 10px;
+       border-radius: 4px; text-decoration: none;
+       transition: background 0.15s, color 0.15s;
+       align-self: flex-start;
+     }
+     #m-favs .fav-maps-btn:hover { background: var(--dark); color: #fff; }
+     #m-favs .fav-remove {
+       background: none; border: none; font-size: 1rem;
+       cursor: pointer; color: #ccc; padding: 4px;
+       transition: color 0.15s; flex-shrink: 0;
+     }
+     #m-favs .fav-remove:hover { color: var(--orange); }
+     #m-favs .empty-state {
+       text-align: center;
+       padding: 60px 20px;
+       color: var(--slate);
+     }
+     #m-favs .empty-state .empty-emoji { font-size: 3rem; display: block; margin-bottom: 16px; }
+     #m-favs .empty-state p { font-size: 0.95rem; line-height: 1.6; }
+
+
+    /* ─── MAP MODAL ───────────────────────────────────────────────────── */
+    #m-map .modal-content { max-width: 1000px; }
+    #m-map .modal-body { padding-bottom: 0; display: flex; flex-direction: column; gap: 0; overflow: visible; }
+    #map-container {
+      height: 500px;
+      width: 100%;
+      border: var(--border);
+      flex-shrink: 0;
+    }
+    @media (max-width: 600px) { #map-container { height: 360px; } }
+    .map-legend {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 8px;
+      padding: 14px 0 16px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .map-legend::-webkit-scrollbar { display: none; }
+    .map-filter-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1.5px solid #ccc;
+      background: #fff;
+      color: #0d0d0d;
+      padding: 8px 14px;
+      border-radius: 24px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 700;
+      font-family: inherit;
+      line-height: 1;
+      min-height: 38px;
+      transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.1s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .map-filter-btn:hover  { transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+    .map-filter-btn:active { transform: scale(0.96); }
+    .map-filter-btn.active { color: #fff; border-color: transparent; }
+    .map-filter-btn .dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .map-filter-todos {
+      border-color: #0d0d0d;
+      background: #0d0d0d;
+      color: #fff;
+    }
+    .map-filter-todos:hover { background: #333; border-color: #333; }
+    .map-legend-item {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .map-legend-item:hover,
+    .map-legend-item.active { background: var(--orange); color: #fff; border-color: var(--orange); }
   </style>
 </head>
 <body class="lang-pt">
@@ -508,12 +790,51 @@
 ════════════════════════════════════════════════════════════════════════ -->
 <header>
   <div class="header-top">
-    <h1>THE INSIDERS MAP</h1>
-    <button class="lang-btn" onclick="toggleLang()" aria-label="Alternar idioma">EN / PT</button>
+    <div>
+      <div class="header-kicker pt">Guia Insider · Amsterdam</div>
+      <div class="header-kicker en">Insider Guide · Amsterdam</div>
+      <h1>THE INSIDERS MAP</h1>
+      <div class="header-tagline pt">Amsterdam. Sem filtro.</div>
+      <div class="header-tagline en">Amsterdam. Unfiltered.</div>
+    </div>
+    <div class="header-actions">
+      <button class="action-btn" onclick="openModal('m-map')" aria-label="Mapa">
+        🗺 <span class="pt">Mapa</span><span class="en">Map</span>
+      </button>
+      <button class="action-btn" onclick="openModal('m-favs')" aria-label="Favoritos" id="fav-header-btn">
+        ♡ <span class="pt">Favoritos</span><span class="en">Saved</span>
+        <span class="fav-badge" id="fav-header-badge">0</span>
+      </button>
+      <button class="action-btn lang-btn" onclick="toggleLang()" aria-label="Alternar idioma">EN / PT</button>
+    </div>
   </div>
+
+  <div class="stats-strip">
+    <div class="stat-item">
+      <span class="stat-num">80+</span>
+      <span class="stat-label pt">lugares</span>
+      <span class="stat-label en">spots</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">13</span>
+      <span class="stat-label pt">categorias</span>
+      <span class="stat-label en">categories</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">2</span>
+      <span class="stat-label pt">idiomas</span>
+      <span class="stat-label en">languages</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">0</span>
+      <span class="stat-label pt">ciladas turísticas</span>
+      <span class="stat-label en">tourist traps</span>
+    </div>
+  </div>
+
   <div class="personal-intro">
     <p class="intro-text pt">
-      Oi — sou uma insider morando em Amsterdam e trago <b>dicas além do óbvio</b>. Nada de lista
+      Sou uma insider morando em Amsterdam e trago <b>dicas além do óbvio</b>. Nada de lista
       de turista genérica: aqui só entra o que eu realmente frequento, testei ou recomendaria pra
       um amigo que acabou de chegar. Da pizza napolitana que ganha qualquer discussão ao ritual de
       sauna que salva o meu domingo. Aproveite a vibe, aprecie a arquitetura e, por favor,
@@ -523,7 +844,7 @@
       💡 Dica de ouro: se puder, pegue bike. Faz a diferença toda do rolê.
     </p>
     <p class="intro-text en">
-      Hi — I'm an insider living in Amsterdam, here to share <b>tips beyond the obvious</b>.
+      I'm an insider living in Amsterdam, here to share <b>tips beyond the obvious</b>.
       No generic tourist lists: everything here I've actually frequented, tested, or would
       recommend to a friend who just arrived. From the Neapolitan pizza that wins every argument
       to the sauna ritual that saves my Sunday. Enjoy the vibe, appreciate the architecture, and
@@ -546,15 +867,20 @@
 <!-- ═══════════════════════════════════════════════════════════════════════
      CATEGORY GRID
 ════════════════════════════════════════════════════════════════════════ -->
+<div class="section-label">
+  <span class="pt">Escolha uma categoria</span>
+  <span class="en">Pick a category</span>
+</div>
 <main>
   <nav class="dashboard" aria-label="Categorias">
 
     <div class="cat-card" onclick="openModal('m-eat')" role="button" tabindex="0"
          onkeydown="if(event.key==='Enter')openModal('m-eat')">
       <span class="cat-emoji" aria-hidden="true">🍕</span>
-      <span class="cat-title pt">Gastronomia</span>
-      <span class="cat-title en">Eats</span>
-      <span class="cat-count pt">9 lugares</span><span class="cat-count en">9 spots</span>
+       <span class="cat-title pt">Gastronomia</span>
+       <span class="cat-title en">Eats</span>
+       <span class="cat-count pt">12 lugares</span><span class="cat-count en">12 spots</span>
+      <span class="cat-arrow" aria-hidden="true">→</span>
     </div>
 
     <div class="cat-card" onclick="openModal('m-night')" role="button" tabindex="0"
@@ -562,7 +888,8 @@
       <span class="cat-emoji" aria-hidden="true">🍺</span>
       <span class="cat-title pt">Beber & Noite</span>
       <span class="cat-title en">Drinks & Night</span>
-      <span class="cat-count pt">18 lugares</span><span class="cat-count en">18 spots</span>
+      <span class="cat-count pt">23 lugares</span><span class="cat-count en">23 spots</span>
+      <span class="cat-arrow" aria-hidden="true">→</span>
     </div>
 
     <div class="cat-card" onclick="openModal('m-cafe')" role="button" tabindex="0"
@@ -571,6 +898,7 @@
       <span class="cat-title pt">Café & Brunch</span>
       <span class="cat-title en">Caffeine & Brunch</span>
       <span class="cat-count pt">8 lugares</span><span class="cat-count en">8 spots</span>
+      <span class="cat-arrow" aria-hidden="true">→</span>
     </div>
 
     <div class="cat-card" onclick="openModal('m-cs')" role="button" tabindex="0"
@@ -579,6 +907,7 @@
       <span class="cat-title pt">Coffee Shops</span>
       <span class="cat-title en">Coffee Shops</span>
       <span class="cat-count pt">3 lugares</span><span class="cat-count en">3 spots</span>
+      <span class="cat-arrow" aria-hidden="true">→</span>
     </div>
 
     <div class="cat-card" onclick="openModal('m-body')" role="button" tabindex="0"
@@ -587,6 +916,7 @@
       <span class="cat-title pt">Corpo & Mente</span>
       <span class="cat-title en">Body & Mind</span>
       <span class="cat-count pt">8 lugares</span><span class="cat-count en">8 spots</span>
+      <span class="cat-arrow" aria-hidden="true">→</span>
     </div>
 
     <div class="cat-card" onclick="openModal('m-culture')" role="button" tabindex="0"
@@ -595,6 +925,7 @@
       <span class="cat-title pt">Cultura & Arte</span>
       <span class="cat-title en">Culture & Art</span>
       <span class="cat-count pt">9 lugares</span><span class="cat-count en">9 spots</span>
+      <span class="cat-arrow" aria-hidden="true">→</span>
     </div>
 
     <div class="cat-card" onclick="openModal('m-hype')" role="button" tabindex="0"
@@ -603,6 +934,7 @@
       <span class="cat-title pt">Hype & Experiências</span>
       <span class="cat-title en">Hype & Experiences</span>
       <span class="cat-count pt">6 lugares</span><span class="cat-count en">6 spots</span>
+      <span class="cat-arrow" aria-hidden="true">→</span>
     </div>
 
     <div class="cat-card" onclick="openModal('m-find')" role="button" tabindex="0"
@@ -611,6 +943,7 @@
       <span class="cat-title pt">Garimpos</span>
       <span class="cat-title en">The Find</span>
       <span class="cat-count pt">6 lugares</span><span class="cat-count en">6 spots</span>
+      <span class="cat-arrow" aria-hidden="true">→</span>
     </div>
 
     <div class="cat-card" onclick="openModal('m-explore')" role="button" tabindex="0"
@@ -619,6 +952,7 @@
       <span class="cat-title pt">Explorar</span>
       <span class="cat-title en">Explore</span>
       <span class="cat-count pt">7 lugares</span><span class="cat-count en">7 spots</span>
+      <span class="cat-arrow" aria-hidden="true">→</span>
     </div>
 
     <div class="cat-card" onclick="openModal('m-football')" role="button" tabindex="0"
@@ -627,6 +961,7 @@
       <span class="cat-title pt">Futebol</span>
       <span class="cat-title en">Football</span>
       <span class="cat-count pt">3 estádios</span><span class="cat-count en">3 stadiums</span>
+      <span class="cat-arrow" aria-hidden="true">→</span>
     </div>
 
     <div class="cat-card" onclick="openModal('m-beyond')" role="button" tabindex="0"
@@ -635,6 +970,7 @@
       <span class="cat-title pt">Além de AMS</span>
       <span class="cat-title en">Beyond AMS</span>
       <span class="cat-count pt">8 cidades</span><span class="cat-count en">8 cities</span>
+      <span class="cat-arrow" aria-hidden="true">→</span>
     </div>
 
     <div class="cat-card" onclick="openModal('m-cal')" role="button" tabindex="0"
@@ -643,6 +979,7 @@
       <span class="cat-title pt">Eventos</span>
       <span class="cat-title en">Calendar</span>
       <span class="cat-count pt">10 eventos</span><span class="cat-count en">10 events</span>
+      <span class="cat-arrow" aria-hidden="true">→</span>
     </div>
 
     <div class="cat-card" onclick="openModal('m-br-ams')" role="button" tabindex="0"
@@ -651,6 +988,7 @@
       <span class="cat-title pt">Brasileiro em AMS</span>
       <span class="cat-title en">Brazilian in AMS</span>
       <span class="cat-count pt">guia de sobrevivência</span><span class="cat-count en">survival guide</span>
+      <span class="cat-arrow" aria-hidden="true">→</span>
     </div>
 
     <div class="cat-card" onclick="openModal('m-multas')" role="button" tabindex="0"
@@ -659,6 +997,7 @@
       <span class="cat-title pt">Como Evitar Multas</span>
       <span class="cat-title en">Avoid Fines</span>
       <span class="cat-count pt">infrações + dicas</span><span class="cat-count en">violations + tips</span>
+      <span class="cat-arrow" aria-hidden="true">→</span>
     </div>
 
     <div class="cat-card" onclick="openModal('m-shops')" role="button" tabindex="0"
@@ -667,6 +1006,7 @@
       <span class="cat-title pt">Mercados & Utilidades</span>
       <span class="cat-title en">Shops & Essentials</span>
       <span class="cat-count pt">supermercados · farmácias · mais</span><span class="cat-count en">supermarkets · pharmacies · more</span>
+      <span class="cat-arrow" aria-hidden="true">→</span>
     </div>
 
   </nav>
@@ -677,13 +1017,17 @@
 ════════════════════════════════════════════════════════════════════════ -->
 <div id="m-eat" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-eat-title">
 <div class="modal-content">
-  <button class="close-btn" onclick="closeModal('m-eat')" aria-label="Fechar">✕</button>
-  <h2 id="m-eat-title" class="pt">Gastronomia</h2>
-  <h2 class="en">Eats</h2>
-  <p class="modal-subtitle pt">Amsterdam · 9 lugares</p>
-  <p class="modal-subtitle en">Amsterdam · 9 spots</p>
-
-  <span class="sub-cat">🍕 Pizza</span>
+  <div class="modal-header">
+    <div class="modal-header-text">
+       <h2 id="m-eat-title" class="pt">Gastronomia</h2>
+       <h2 class="en">Eats</h2>
+       <p class="modal-subtitle pt">Amsterdam · 12 lugares</p>
+       <p class="modal-subtitle en">Amsterdam · 12 spots</p>
+    </div>
+    <button class="close-btn" onclick="closeModal('m-eat')" aria-label="Fechar">✕</button>
+  </div>
+  <div class="modal-body">
+<span class="sub-cat">🍕 Pizza</span>
 
   <div class="item">
     <div class="item-header">
@@ -785,7 +1129,7 @@
     </div>
   </div>
 
-  <span class="sub-cat">🥟 Street Food</span>
+   <span class="sub-cat">🥟 Street Food</span>
 
   <div class="item">
     <div class="item-header">
@@ -800,6 +1144,49 @@
     </div>
   </div>
 
+  <span class="sub-cat">🍔 Burgers</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Cannibale Royale</strong>
+        <p class="pt">O lugar certo quando você quer uma burger de verdade. Carne maturada, pão brioche, molhos que dão razão à existência. Interior escuro, som alto, sem frescura.</p>
+        <p class="en">The right call when you want a proper burger. Aged beef, brioche bun, sauces that justify their existence. Dark interior, loud music, no pretense.</p>
+        <span class="item-tip pt">Peça o Royale Burger e vai de batata frita com trufa. E se tiver com fome de verdade: a costela é surreal — uma das melhores da cidade.</span>
+        <span class="item-tip en">Get the Royale Burger with truffle fries. And if you're seriously hungry: the ribs are surreal — some of the best in the city.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Cannibale+Royale+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>The Butcher</strong>
+        <p class="pt">A burger mais hyped de Amsterdam, e ela merece. Truffle burger é a pedida clássica. Fila quase sempre — mas anda rápido. A unidade do Albert Cuypstraat é a original.</p>
+        <p class="en">Amsterdam's most hyped burger, and it earns it. Truffle burger is the classic order. There's almost always a queue — but it moves fast. Albert Cuypstraat is the original.</p>
+        <span class="item-tip pt">Não aceita reserva — é tudo fila na calçada. Vai fora do horário de pico (tipo 15h ou 17h) pra não esperar uma eternidade.</span>
+        <span class="item-tip en">No reservations — it's all queue on the sidewalk. Go off-peak (around 3pm or 5pm) to avoid waiting forever.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=The+Butcher+Amsterdam+Albert+Cuypstraat" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="sub-cat"><span class="pt">🍷 Bistrô</span><span class="en">🍷 Bistro</span></span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Paindemie</strong>
+        <p class="pt">O tipo de restaurante que Amsterdam sabe fazer bem: menu pequeno, ingredientes sérios, vinho natural na carta e uma vibe que parece que você descobriu antes de todo mundo. Sem estrelas Michelin, mas com atitude de sobra.</p>
+        <p class="en">The kind of place Amsterdam does well: small menu, serious ingredients, natural wine list, and a vibe that feels like you found it before everyone else. No Michelin stars, but attitude to spare.</p>
+        <span class="item-tip pt">Reserve. Não é grande e enche cedo. Vai pelo menu degustação se tiver disponível.</span>
+        <span class="item-tip en">Book ahead. It's small and fills up early. Go for the tasting menu if it's on.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Paindemie+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+  </div>
 </div>
 </div>
 
@@ -808,13 +1195,17 @@
 ════════════════════════════════════════════════════════════════════════ -->
 <div id="m-night" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-night-title">
 <div class="modal-content">
-  <button class="close-btn" onclick="closeModal('m-night')" aria-label="Fechar">✕</button>
-  <h2 id="m-night-title" class="pt">Beber & Noite</h2>
-  <h2 class="en">Drinks & Night</h2>
-  <p class="modal-subtitle pt">Amsterdam · 18 lugares</p>
-  <p class="modal-subtitle en">Amsterdam · 18 spots</p>
-
-  <span class="sub-cat">🍻 Roots & Vibe</span>
+  <div class="modal-header">
+    <div class="modal-header-text">
+      <h2 id="m-night-title" class="pt">Beber & Noite</h2>
+      <h2 class="en">Drinks & Night</h2>
+      <p class="modal-subtitle pt">Amsterdam · 23 lugares</p>
+      <p class="modal-subtitle en">Amsterdam · 23 spots</p>
+    </div>
+    <button class="close-btn" onclick="closeModal('m-night')" aria-label="Fechar">✕</button>
+  </div>
+  <div class="modal-body">
+<span class="sub-cat">🍻 Roots & Vibe</span>
 
   <div class="item">
     <div class="item-header">
@@ -1019,7 +1410,7 @@
     </div>
   </div>
 
-  <div class="item">
+   <div class="item">
     <div class="item-header">
       <div class="item-info">
         <strong>Belushi's</strong>
@@ -1030,6 +1421,73 @@
     </div>
   </div>
 
+  <span class="sub-cat"><span class="pt">🍷 Bares de Vinho</span><span class="en">🍷 Wine Bars</span></span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Hiding in Plain Sight</strong>
+        <p class="pt">Bar escondido no Jordaan com carta de vinho natural impressionante e ambiente que parece um segredo que ninguém quer contar. Sem sinal na porta — você ou sabe onde é, ou não entra.</p>
+        <p class="en">Hidden bar in the Jordaan with an impressive natural wine list and the kind of atmosphere people keep to themselves. No sign on the door — you either know it or you don't.</p>
+        <span class="item-tip pt">Chega cedo ou vai tarde. No meio do caminho está sempre cheio de gente que descobriu antes de você.</span>
+        <span class="item-tip en">Go early or go late. In between it's packed with people who got there first.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Hiding+in+Plain+Sight+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Vyne</strong>
+        <p class="pt">Loja e bar de vinho natural numa loja de design no Negen Straatjes. Compra a garrafa, senta no banco lá fora, toma o vinho na rua como se fosse o coisa mais normal do mundo — porque é.</p>
+        <p class="en">Natural wine shop and bar inside a design store in the Negen Straatjes. Buy the bottle, sit outside, drink on the street like it's the most normal thing in the world — because it is.</p>
+        <span class="item-tip pt">Pergunte pro staff o que chegou novo. A curadoria é boa e eles sabem do que falam.</span>
+        <span class="item-tip en">Ask the staff what's new in. The curation is solid and they know their stuff.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Vyne+Amsterdam+Negen+Straatjes" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Bar Spek</strong>
+        <p class="pt">Pequeno, barulhento e perfeito. Vinho natural, petiscos que funcionam, clientela que sabe o que está fazendo. Um dos bares mais honestos da cidade.</p>
+        <p class="en">Small, loud and perfect. Natural wine, snacks that work, clientele that knows what they're doing. One of the most honest bars in the city.</p>
+        <span class="item-tip pt">Não tem mesa reservada. Chega, pega um canto e acomoda.</span>
+        <span class="item-tip en">No reservations. Show up, grab a corner, settle in.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Bar+Spek+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Café R. de Rosa</strong>
+        <p class="pt">Brown café no Jordaan com aquela energia de lugar que existe pra quem mora na vizinhança — não pra turista. Vinho, cerveja, sem pose. O tipo de bar onde você vai uma vez e vira frequentador.</p>
+        <p class="en">Brown café in the Jordaan with the energy of a place built for locals, not tourists. Wine, beer, no attitude. The kind of bar you visit once and become a regular.</p>
+        <span class="item-tip pt">Sem pressa, sem cardápio de clichê. Senta, pede o que tiver e aproveita o Jordaan lá fora.</span>
+        <span class="item-tip en">No rush, no cliché menu. Sit down, order what's on and enjoy the Jordaan outside.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Cafe+R+de+Rosa+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Café Twee Prinsen</strong>
+        <p class="pt">Brown café clássico no Jordaan — está ali há décadas e não mudou porque não precisa. Cerveja artesanal, vinho, gente boa e zero turista perdido. Exatamente o que um bar holandês de verdade deve ser.</p>
+        <p class="en">Classic brown café in the Jordaan — been there for decades and hasn't changed because it doesn't need to. Craft beer, wine, good crowd, zero lost tourists. Exactly what a real Dutch bar should be.</p>
+        <span class="item-tip pt">Brown cafés são o bar holandês de verdade: escuros, aconchegantes e sem pressa. Este é um dos melhores do Jordaan.</span>
+        <span class="item-tip en">Brown cafés are the real Dutch bar experience: dark, cosy and unhurried. This is one of the best in the Jordaan.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Cafe+Twee+Prinsen+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+  </div>
 </div>
 </div>
 
@@ -1038,13 +1496,17 @@
 ════════════════════════════════════════════════════════════════════════ -->
 <div id="m-cafe" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-cafe-title">
 <div class="modal-content">
-  <button class="close-btn" onclick="closeModal('m-cafe')" aria-label="Fechar">✕</button>
-  <h2 id="m-cafe-title" class="pt">Café & Brunch</h2>
-  <h2 class="en">Caffeine & Brunch</h2>
-  <p class="modal-subtitle pt">Amsterdam · 8 lugares</p>
-  <p class="modal-subtitle en">Amsterdam · 8 spots</p>
-
-  <span class="sub-cat"><span class="pt">☕ Café Especial</span><span class="en">☕ Specialty Coffee</span></span>
+  <div class="modal-header">
+    <div class="modal-header-text">
+      <h2 id="m-cafe-title" class="pt">Café & Brunch</h2>
+      <h2 class="en">Caffeine & Brunch</h2>
+      <p class="modal-subtitle pt">Amsterdam · 8 lugares</p>
+      <p class="modal-subtitle en">Amsterdam · 8 spots</p>
+    </div>
+    <button class="close-btn" onclick="closeModal('m-cafe')" aria-label="Fechar">✕</button>
+  </div>
+  <div class="modal-body">
+<span class="sub-cat"><span class="pt">☕ Café Especial</span><span class="en">☕ Specialty Coffee</span></span>
 
   <div class="item">
     <div class="item-header">
@@ -1129,7 +1591,7 @@
     </div>
   </div>
 
-  <div class="item">
+   <div class="item">
     <div class="item-header">
       <div class="item-info">
         <strong>Lova</strong>
@@ -1139,7 +1601,7 @@
       <a href="https://www.google.com/maps/search/?api=1&query=Lova+Cafe+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
     </div>
   </div>
-
+  </div>
 </div>
 </div>
 
@@ -1148,12 +1610,16 @@
 ════════════════════════════════════════════════════════════════════════ -->
 <div id="m-cs" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-cs-title">
 <div class="modal-content">
-  <button class="close-btn" onclick="closeModal('m-cs')" aria-label="Fechar">✕</button>
-  <h2 id="m-cs-title">Coffee Shops</h2>
-  <p class="modal-subtitle pt">Amsterdam · 3 lugares · Exclusivo para maiores de 18 anos com documento</p>
-  <p class="modal-subtitle en">Amsterdam · 3 spots · 18+ with ID only</p>
-
-  <div class="item">
+  <div class="modal-header">
+    <div class="modal-header-text">
+      <h2 id="m-cs-title">Coffee Shops</h2>
+      <p class="modal-subtitle pt">Amsterdam · 3 lugares · Exclusivo para maiores de 18 anos com documento</p>
+      <p class="modal-subtitle en">Amsterdam · 3 spots · 18+ with ID only</p>
+    </div>
+    <button class="close-btn" onclick="closeModal('m-cs')" aria-label="Fechar">✕</button>
+  </div>
+  <div class="modal-body">
+<div class="item">
     <div class="item-header">
       <div class="item-info">
         <strong>S.W.E.D.</strong>
@@ -1185,7 +1651,7 @@
       <a href="https://www.google.com/maps/search/?api=1&query=Abraxas+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
     </div>
   </div>
-
+  </div>
 </div>
 </div>
 
@@ -1194,13 +1660,17 @@
 ════════════════════════════════════════════════════════════════════════ -->
 <div id="m-body" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-body-title">
 <div class="modal-content">
-  <button class="close-btn" onclick="closeModal('m-body')" aria-label="Fechar">✕</button>
-  <h2 id="m-body-title" class="pt">Corpo & Mente</h2>
-  <h2 class="en">Body & Mind</h2>
-  <p class="modal-subtitle pt">Amsterdam · 8 lugares</p>
-  <p class="modal-subtitle en">Amsterdam · 8 spots</p>
-
-  <span class="sub-cat">🧖 Wellness</span>
+  <div class="modal-header">
+    <div class="modal-header-text">
+      <h2 id="m-body-title" class="pt">Corpo & Mente</h2>
+      <h2 class="en">Body & Mind</h2>
+      <p class="modal-subtitle pt">Amsterdam · 8 lugares</p>
+      <p class="modal-subtitle en">Amsterdam · 8 spots</p>
+    </div>
+    <button class="close-btn" onclick="closeModal('m-body')" aria-label="Fechar">✕</button>
+  </div>
+  <div class="modal-body">
+<span class="sub-cat">🧖 Wellness</span>
 
   <div class="item">
     <div class="item-header">
@@ -1295,7 +1765,7 @@
       <a href="https://www.google.com/maps/search/?api=1&query=CrossFit+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
     </div>
   </div>
-
+  </div>
 </div>
 </div>
 
@@ -1304,13 +1774,17 @@
 ════════════════════════════════════════════════════════════════════════ -->
 <div id="m-culture" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-culture-title">
 <div class="modal-content">
-  <button class="close-btn" onclick="closeModal('m-culture')" aria-label="Fechar">✕</button>
-  <h2 id="m-culture-title" class="pt">Cultura & Arte</h2>
-  <h2 class="en">Culture & Art</h2>
-  <p class="modal-subtitle pt">Amsterdam · 9 lugares</p>
-  <p class="modal-subtitle en">Amsterdam · 9 spots</p>
-
-  <span class="sub-cat"><span class="pt">🏛️ Museus</span><span class="en">🏛️ Museums</span></span>
+  <div class="modal-header">
+    <div class="modal-header-text">
+      <h2 id="m-culture-title" class="pt">Cultura & Arte</h2>
+      <h2 class="en">Culture & Art</h2>
+      <p class="modal-subtitle pt">Amsterdam · 9 lugares</p>
+      <p class="modal-subtitle en">Amsterdam · 9 spots</p>
+    </div>
+    <button class="close-btn" onclick="closeModal('m-culture')" aria-label="Fechar">✕</button>
+  </div>
+  <div class="modal-body">
+<span class="sub-cat"><span class="pt">🏛️ Museus</span><span class="en">🏛️ Museums</span></span>
 
   <div class="item">
     <div class="item-header">
@@ -1420,7 +1894,7 @@
       <a href="https://www.google.com/maps/search/?api=1&query=Our+House+Museum+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
     </div>
   </div>
-
+  </div>
 </div>
 </div>
 
@@ -1429,13 +1903,17 @@
 ════════════════════════════════════════════════════════════════════════ -->
 <div id="m-hype" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-hype-title">
 <div class="modal-content">
-  <button class="close-btn" onclick="closeModal('m-hype')" aria-label="Fechar">✕</button>
-  <h2 id="m-hype-title" class="pt">Hype & Experiências</h2>
-  <h2 class="en">Hype & Experiences</h2>
-  <p class="modal-subtitle pt">Amsterdam · 6 lugares · Turístico, mas com motivo</p>
-  <p class="modal-subtitle en">Amsterdam · 6 spots · Touristy, but for a reason</p>
-
-  <span class="sub-cat"><span class="pt">🍟 Comida Viral</span><span class="en">🍟 Viral Food</span></span>
+  <div class="modal-header">
+    <div class="modal-header-text">
+      <h2 id="m-hype-title" class="pt">Hype & Experiências</h2>
+      <h2 class="en">Hype & Experiences</h2>
+      <p class="modal-subtitle pt">Amsterdam · 6 lugares · Turístico, mas com motivo</p>
+      <p class="modal-subtitle en">Amsterdam · 6 spots · Touristy, but for a reason</p>
+    </div>
+    <button class="close-btn" onclick="closeModal('m-hype')" aria-label="Fechar">✕</button>
+  </div>
+  <div class="modal-body">
+<span class="sub-cat"><span class="pt">🍟 Comida Viral</span><span class="en">🍟 Viral Food</span></span>
 
   <div class="item">
     <div class="item-header">
@@ -1508,7 +1986,7 @@
       <a href="https://www.google.com/maps/search/?api=1&query=ADAM+Lookout+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
     </div>
   </div>
-
+  </div>
 </div>
 </div>
 
@@ -1517,13 +1995,17 @@
 ════════════════════════════════════════════════════════════════════════ -->
 <div id="m-find" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-find-title">
 <div class="modal-content">
-  <button class="close-btn" onclick="closeModal('m-find')" aria-label="Fechar">✕</button>
-  <h2 id="m-find-title" class="pt">Garimpos</h2>
-  <h2 class="en">The Find</h2>
-  <p class="modal-subtitle pt">Amsterdam · 6 lugares</p>
-  <p class="modal-subtitle en">Amsterdam · 6 spots</p>
-
-  <span class="sub-cat"><span class="pt">🛒 Mercados</span><span class="en">🛒 Markets</span></span>
+  <div class="modal-header">
+    <div class="modal-header-text">
+      <h2 id="m-find-title" class="pt">Garimpos</h2>
+      <h2 class="en">The Find</h2>
+      <p class="modal-subtitle pt">Amsterdam · 6 lugares</p>
+      <p class="modal-subtitle en">Amsterdam · 6 spots</p>
+    </div>
+    <button class="close-btn" onclick="closeModal('m-find')" aria-label="Fechar">✕</button>
+  </div>
+  <div class="modal-body">
+<span class="sub-cat"><span class="pt">🛒 Mercados</span><span class="en">🛒 Markets</span></span>
 
   <div class="item">
     <div class="item-header">
@@ -1596,7 +2078,7 @@
       <a href="https://www.google.com/maps/search/?api=1&query=Rumors+Vintage+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
     </div>
   </div>
-
+  </div>
 </div>
 </div>
 
@@ -1605,13 +2087,17 @@
 ════════════════════════════════════════════════════════════════════════ -->
 <div id="m-explore" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-explore-title">
 <div class="modal-content">
-  <button class="close-btn" onclick="closeModal('m-explore')" aria-label="Fechar">✕</button>
-  <h2 id="m-explore-title" class="pt">Explorar</h2>
-  <h2 class="en">Explore</h2>
-  <p class="modal-subtitle pt">Amsterdam · 7 lugares</p>
-  <p class="modal-subtitle en">Amsterdam · 7 spots</p>
-
-  <span class="sub-cat"><span class="pt">🌳 Parques</span><span class="en">🌳 Parks</span></span>
+  <div class="modal-header">
+    <div class="modal-header-text">
+      <h2 id="m-explore-title" class="pt">Explorar</h2>
+      <h2 class="en">Explore</h2>
+      <p class="modal-subtitle pt">Amsterdam · 7 lugares</p>
+      <p class="modal-subtitle en">Amsterdam · 7 spots</p>
+    </div>
+    <button class="close-btn" onclick="closeModal('m-explore')" aria-label="Fechar">✕</button>
+  </div>
+  <div class="modal-body">
+<span class="sub-cat"><span class="pt">🌳 Parques</span><span class="en">🌳 Parks</span></span>
 
   <div class="item">
     <div class="item-header">
@@ -1701,7 +2187,7 @@
       <a href="https://www.google.com/maps/search/?api=1&query=Keukenhof+Lisse" target="_blank" rel="noopener" class="maps-btn">Maps</a>
     </div>
   </div>
-
+  </div>
 </div>
 </div>
 
@@ -1710,13 +2196,17 @@
 ════════════════════════════════════════════════════════════════════════ -->
 <div id="m-football" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-football-title">
 <div class="modal-content">
-  <button class="close-btn" onclick="closeModal('m-football')" aria-label="Fechar">✕</button>
-  <h2 id="m-football-title" class="pt">Futebol</h2>
-  <h2 class="en">Football</h2>
-  <p class="modal-subtitle pt">Holanda · 3 estádios que valem a visita</p>
-  <p class="modal-subtitle en">Netherlands · 3 stadiums worth visiting</p>
-
-  <span class="sub-cat">🏟️ Amsterdam</span>
+  <div class="modal-header">
+    <div class="modal-header-text">
+      <h2 id="m-football-title" class="pt">Futebol</h2>
+      <h2 class="en">Football</h2>
+      <p class="modal-subtitle pt">Holanda · 3 estádios que valem a visita</p>
+      <p class="modal-subtitle en">Netherlands · 3 stadiums worth visiting</p>
+    </div>
+    <button class="close-btn" onclick="closeModal('m-football')" aria-label="Fechar">✕</button>
+  </div>
+  <div class="modal-body">
+<span class="sub-cat">🏟️ Amsterdam</span>
 
   <div class="item">
     <div class="item-header">
@@ -1756,7 +2246,7 @@
       <a href="https://www.google.com/maps/search/?api=1&query=De+Kuip+Rotterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
     </div>
   </div>
-
+  </div>
 </div>
 </div>
 
@@ -1765,13 +2255,17 @@
 ════════════════════════════════════════════════════════════════════════ -->
 <div id="m-beyond" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-beyond-title">
 <div class="modal-content">
-  <button class="close-btn" onclick="closeModal('m-beyond')" aria-label="Fechar">✕</button>
-  <h2 id="m-beyond-title" class="pt">Além de AMS</h2>
-  <h2 class="en">Beyond AMS</h2>
-  <p class="modal-subtitle pt">Holanda · 8 cidades · Tudo a menos de 1h30 de trem</p>
-  <p class="modal-subtitle en">Netherlands · 8 cities · All under 1h30 by train</p>
-
-  <span class="city-label">🏙️ Utrecht</span>
+  <div class="modal-header">
+    <div class="modal-header-text">
+      <h2 id="m-beyond-title" class="pt">Além de AMS</h2>
+      <h2 class="en">Beyond AMS</h2>
+      <p class="modal-subtitle pt">Holanda · 8 cidades · Tudo a menos de 1h30 de trem</p>
+      <p class="modal-subtitle en">Netherlands · 8 cities · All under 1h30 by train</p>
+    </div>
+    <button class="close-btn" onclick="closeModal('m-beyond')" aria-label="Fechar">✕</button>
+  </div>
+  <div class="modal-body">
+<span class="city-label">🏙️ Utrecht</span>
 
   <div class="item">
     <div class="item-header">
@@ -1940,7 +2434,7 @@
       <a href="https://www.google.com/maps/search/?api=1&query=Royal+Delft+Museum" target="_blank" rel="noopener" class="maps-btn">Maps</a>
     </div>
   </div>
-
+  </div>
 </div>
 </div>
 
@@ -1949,13 +2443,17 @@
 ════════════════════════════════════════════════════════════════════════ -->
 <div id="m-cal" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-cal-title">
 <div class="modal-content">
-  <button class="close-btn" onclick="closeModal('m-cal')" aria-label="Fechar">✕</button>
-  <h2 id="m-cal-title" class="pt">Eventos & Calendário</h2>
-  <h2 class="en">Events & Calendar</h2>
-  <p class="modal-subtitle pt">Amsterdam · 10 eventos anuais que valem o planejamento</p>
-  <p class="modal-subtitle en">Amsterdam · 10 annual events worth planning around</p>
-
-  <div class="event-item">
+  <div class="modal-header">
+    <div class="modal-header-text">
+      <h2 id="m-cal-title" class="pt">Eventos & Calendário</h2>
+      <h2 class="en">Events & Calendar</h2>
+      <p class="modal-subtitle pt">Amsterdam · 10 eventos anuais que valem o planejamento</p>
+      <p class="modal-subtitle en">Amsterdam · 10 annual events worth planning around</p>
+    </div>
+    <button class="close-btn" onclick="closeModal('m-cal')" aria-label="Fechar">✕</button>
+  </div>
+  <div class="modal-body">
+<div class="event-item">
     <div class="event-month">ABR<br/>27</div>
     <div class="event-info">
       <strong class="pt">King's Day — Koningsdag</strong>
@@ -2055,7 +2553,7 @@
     </div>
     <a href="https://www.sail.nl" target="_blank" rel="noopener" class="maps-btn">Info</a>
   </div>
-
+  </div>
 </div>
 </div>
 
@@ -2064,13 +2562,17 @@
 ════════════════════════════════════════════════════════════════════════ -->
 <div id="m-br-ams" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-br-ams-title">
 <div class="modal-content">
-  <button class="close-btn" onclick="closeModal('m-br-ams')" aria-label="Fechar">✕</button>
-  <h2 id="m-br-ams-title" class="pt">Brasileiro em AMS</h2>
-  <h2 class="en">Brazilian in AMS</h2>
-  <p class="modal-subtitle pt">O que ninguém conta antes de você chegar</p>
-  <p class="modal-subtitle en">What nobody tells you before you arrive</p>
-
-  <span class="sub-cat"><span class="pt">📋 Primeiros documentos</span><span class="en">📋 First Steps</span></span>
+  <div class="modal-header">
+    <div class="modal-header-text">
+      <h2 id="m-br-ams-title" class="pt">Brasileiro em AMS</h2>
+      <h2 class="en">Brazilian in AMS</h2>
+      <p class="modal-subtitle pt">O que ninguém conta antes de você chegar</p>
+      <p class="modal-subtitle en">What nobody tells you before you arrive</p>
+    </div>
+    <button class="close-btn" onclick="closeModal('m-br-ams')" aria-label="Fechar">✕</button>
+  </div>
+  <div class="modal-body">
+<span class="sub-cat"><span class="pt">📋 Primeiros documentos</span><span class="en">📋 First Steps</span></span>
 
   <div class="item">
     <div class="item-header">
@@ -2222,7 +2724,7 @@
       <a href="https://www.ov-chipkaart.nl" target="_blank" rel="noopener" class="maps-btn">Site</a>
     </div>
   </div>
-
+  </div>
 </div>
 </div>
 
@@ -2231,13 +2733,17 @@
 ════════════════════════════════════════════════════════════════════════ -->
 <div id="m-multas" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-multas-title">
 <div class="modal-content">
-  <button class="close-btn" onclick="closeModal('m-multas')" aria-label="Fechar">✕</button>
-  <h2 id="m-multas-title" class="pt">Como Evitar Multas</h2>
-  <h2 class="en">Avoid Fines</h2>
-  <p class="modal-subtitle pt">Amsterdam · infrações comuns + como não cair nelas</p>
-  <p class="modal-subtitle en">Amsterdam · common violations + how to avoid them</p>
-
-  <span class="sub-cat"><span class="pt">🚲 Bicicleta</span><span class="en">🚲 Bicycle</span></span>
+  <div class="modal-header">
+    <div class="modal-header-text">
+      <h2 id="m-multas-title" class="pt">Como Evitar Multas</h2>
+      <h2 class="en">Avoid Fines</h2>
+      <p class="modal-subtitle pt">Amsterdam · infrações comuns + como não cair nelas</p>
+      <p class="modal-subtitle en">Amsterdam · common violations + how to avoid them</p>
+    </div>
+    <button class="close-btn" onclick="closeModal('m-multas')" aria-label="Fechar">✕</button>
+  </div>
+  <div class="modal-body">
+<span class="sub-cat"><span class="pt">🚲 Bicicleta</span><span class="en">🚲 Bicycle</span></span>
 
   <div class="item">
     <div class="item-header">
@@ -2361,7 +2867,7 @@
       </div>
     </div>
   </div>
-
+  </div>
 </div>
 </div>
 
@@ -2370,13 +2876,17 @@
 ════════════════════════════════════════════════════════════════════════ -->
 <div id="m-shops" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-shops-title">
 <div class="modal-content">
-  <button class="close-btn" onclick="closeModal('m-shops')" aria-label="Fechar">✕</button>
-  <h2 id="m-shops-title" class="pt">Mercados & Utilidades</h2>
-  <h2 class="en">Shops & Essentials</h2>
-  <p class="modal-subtitle pt">Amsterdam · o que encontrar em cada lugar — sem descobrir na hora errada</p>
-  <p class="modal-subtitle en">Amsterdam · what to find where — so you're never caught off guard</p>
-
-  <span class="sub-cat"><span class="pt">🛒 Supermercados</span><span class="en">🛒 Supermarkets</span></span>
+  <div class="modal-header">
+    <div class="modal-header-text">
+      <h2 id="m-shops-title" class="pt">Mercados & Utilidades</h2>
+      <h2 class="en">Shops & Essentials</h2>
+      <p class="modal-subtitle pt">Amsterdam · o que encontrar em cada lugar — sem descobrir na hora errada</p>
+      <p class="modal-subtitle en">Amsterdam · what to find where — so you're never caught off guard</p>
+    </div>
+    <button class="close-btn" onclick="closeModal('m-shops')" aria-label="Fechar">✕</button>
+  </div>
+  <div class="modal-body">
+<span class="sub-cat"><span class="pt">🛒 Supermercados</span><span class="en">🛒 Supermarkets</span></span>
 
   <div class="item">
     <div class="item-header">
@@ -2553,7 +3063,48 @@
       </div>
     </div>
   </div>
+  </div>
+</div>
+</div>
 
+<!-- ═══════════════════════════════════════════════════════════════════════
+     MODAL — FAVORITOS
+════════════════════════════════════════════════════════════════════════ -->
+<div id="m-favs" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-favs-title">
+<div class="modal-content">
+  <div class="modal-header">
+    <div class="modal-header-text">
+      <h2 id="m-favs-title" class="pt">Meus Favoritos</h2>
+      <h2 class="en">My Saved Spots</h2>
+      <p class="modal-subtitle pt">Lugares que você marcou ♡</p>
+      <p class="modal-subtitle en">Spots you've saved ♡</p>
+    </div>
+    <button class="close-btn" onclick="closeModal('m-favs')" aria-label="Fechar">✕</button>
+  </div>
+  <div class="modal-body">
+    <div id="favs-list"></div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     MODAL — MAPA
+════════════════════════════════════════════════════════════════════════ -->
+<div id="m-map" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-map-title">
+<div class="modal-content">
+  <div class="modal-header">
+    <div class="modal-header-text">
+      <h2 id="m-map-title" class="pt">Mapa Insider</h2>
+      <h2 class="en">Insider Map</h2>
+      <p class="modal-subtitle pt">Amsterdam · todos os lugares num só lugar</p>
+      <p class="modal-subtitle en">Amsterdam · all spots in one place</p>
+    </div>
+    <button class="close-btn" onclick="closeModal('m-map')" aria-label="Fechar">✕</button>
+  </div>
+  <div class="modal-body">
+    <div class="map-legend" id="map-legend"></div>
+    <div id="map-container"></div>
+  </div>
 </div>
 </div>
 
@@ -2561,14 +3112,19 @@
      JS
 ════════════════════════════════════════════════════════════════════════ -->
 <script>
+  /* ─── MODAL ──────────────────────────────────────────────────────────── */
+  let mapInstance = null;
+
   function openModal(id) {
     const el = document.getElementById(id);
     if (!el) return;
     el.style.display = 'flex';
     document.body.style.overflow = 'hidden';
-    // focus close button for accessibility
     const btn = el.querySelector('.close-btn');
     if (btn) setTimeout(() => btn.focus(), 80);
+
+    if (id === 'm-favs') renderFavs();
+    if (id === 'm-map')  initMap();
   }
 
   function closeModal(id) {
@@ -2578,12 +3134,10 @@
     document.body.style.overflow = '';
   }
 
-  // Close on backdrop click
   document.addEventListener('click', function(e) {
     if (e.target.classList.contains('modal')) closeModal(e.target.id);
   });
 
-  // Close on ESC
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
       document.querySelectorAll('.modal').forEach(m => {
@@ -2592,10 +3146,337 @@
     }
   });
 
+  /* ─── LANGUAGE ───────────────────────────────────────────────────────── */
   function toggleLang() {
     document.body.classList.toggle('lang-pt');
     document.body.classList.toggle('lang-en');
   }
+
+  /* ─── FAVORITES ──────────────────────────────────────────────────────── */
+  const FAV_KEY = 'tim_favs';
+
+  function getFavs() {
+    try { return JSON.parse(localStorage.getItem(FAV_KEY)) || []; }
+    catch(e) { return []; }
+  }
+
+  function saveFavs(arr) {
+    localStorage.setItem(FAV_KEY, JSON.stringify(arr));
+  }
+
+  function toggleFav(name, cat, desc, tip, mapsHref, e) {
+    e.stopPropagation();
+    let favs = getFavs();
+    const idx = favs.findIndex(f => f.name === name);
+    if (idx > -1) {
+      favs.splice(idx, 1);
+    } else {
+      favs.push({ name, cat, desc, tip, mapsHref });
+    }
+    saveFavs(favs);
+    updateFavUI();
+  }
+
+  function updateFavUI() {
+    const favs = getFavs();
+    // update all heart buttons
+    document.querySelectorAll('.fav-btn').forEach(btn => {
+      const name = btn.dataset.name;
+      const active = favs.some(f => f.name === name);
+      btn.classList.toggle('active', active);
+      btn.textContent = active ? '♥' : '♡';
+      btn.setAttribute('aria-label', active ? 'Remover dos favoritos' : 'Adicionar aos favoritos');
+    });
+    // update header badge
+    const badge = document.getElementById('fav-header-badge');
+    if (badge) {
+      badge.textContent = favs.length;
+      badge.style.display = favs.length > 0 ? 'flex' : 'none';
+    }
+  }
+
+  function renderFavs() {
+    const favs = getFavs();
+    const container = document.getElementById('favs-list');
+    if (!container) return;
+
+    if (favs.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <span class="empty-emoji">🗺️</span>
+          <p class="pt">Não vacila — salva os lugares aqui e faz sua lista insider.</p>
+          <p class="en">Don't sleep on it — save your spots and build your insider list.</p>
+        </div>`;
+      return;
+    }
+
+    const safeName = n => n.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+
+    container.innerHTML = favs.map(f => `
+      <div class="fav-list-item">
+        <div class="fav-item-body">
+          <div class="fav-item-top">
+            <div>
+              <div class="fav-name">${f.name}</div>
+              <div class="fav-cat">${f.cat}</div>
+            </div>
+            <button class="fav-remove" onclick="removeFav('${safeName(f.name)}');event.stopPropagation()" aria-label="Remover">✕</button>
+          </div>
+          ${f.desc ? `<p class="fav-desc">${f.desc}</p>` : ''}
+          ${f.tip  ? `<p class="fav-tip">💡 ${f.tip}</p>` : ''}
+          ${f.mapsHref ? `<a href="${f.mapsHref}" target="_blank" rel="noopener" class="fav-maps-btn">📍 Maps</a>` : ''}
+        </div>
+      </div>`).join('');
+  }
+
+  function removeFav(name) {
+    let favs = getFavs();
+    favs = favs.filter(f => f.name !== name);
+    saveFavs(favs);
+    updateFavUI();
+    renderFavs();
+  }
+
+  // Inject ♡ buttons into every .item on page load
+  function injectFavButtons() {
+    document.querySelectorAll('.item').forEach(item => {
+      const nameEl = item.querySelector('strong');
+      if (!nameEl) return;
+      const name = nameEl.textContent.trim();
+      const modal = item.closest('.modal');
+      const titleEl = modal ? modal.querySelector('.modal-header h2') : null;
+      const cat = titleEl ? titleEl.textContent.trim() : '';
+
+      // capture description (PT preferred, fallback EN)
+      const descEl = item.querySelector('p.pt') || item.querySelector('p.en') || item.querySelector('p');
+      const desc = descEl ? descEl.textContent.trim() : '';
+
+      // capture insider tip (PT preferred)
+      const tipEl = item.querySelector('.item-tip.pt') || item.querySelector('.item-tip');
+      const tip = tipEl ? tipEl.textContent.trim() : '';
+
+      // capture Maps link
+      const mapsEl = item.querySelector('a.maps-btn');
+      const mapsHref = mapsEl ? mapsEl.href : '';
+
+      if (item.querySelector('.fav-btn')) return; // already injected
+
+      const btn = document.createElement('button');
+      btn.className = 'fav-btn';
+      btn.dataset.name = name;
+      btn.dataset.cat = cat;
+      btn.textContent = '♡';
+      btn.setAttribute('aria-label', 'Adicionar aos favoritos');
+      btn.addEventListener('click', (e) => toggleFav(name, cat, desc, tip, mapsHref, e));
+
+      // inject inside .item-header (the flex row), after the maps-btn
+      const header = item.querySelector('.item-header');
+      if (header) {
+        header.style.alignItems = 'flex-start';
+        header.appendChild(btn);
+      } else {
+        item.appendChild(btn);
+      }
+    });
+    updateFavUI();
+  }
+
+  /* ─── MAP ────────────────────────────────────────────────────────────── */
+  const mapSpots = [
+    // ── Gastronomia ─────────────────────────────────────────────────────
+    { name: 'nNea',                  cat: 'Gastronomia', emoji: '🍕', lat: 52.3594, lng: 4.8759, modal: 'm-eat' },
+    { name: 'Klaproos',              cat: 'Gastronomia', emoji: '🍕', lat: 52.3724, lng: 4.8883, modal: 'm-eat' },
+    { name: 'Ken Sushi',             cat: 'Gastronomia', emoji: '🍣', lat: 52.3720, lng: 4.8820, modal: 'm-eat' },
+    { name: 'Ryo Sushi',             cat: 'Gastronomia', emoji: '🍣', lat: 52.3618, lng: 4.8755, modal: 'm-eat' },
+    { name: 'Otemba',                cat: 'Gastronomia', emoji: '🍜', lat: 52.3921, lng: 4.9143, modal: 'm-eat' },
+    { name: 'Barracuda',             cat: 'Gastronomia', emoji: '🦞', lat: 52.3741, lng: 4.8972, modal: 'm-eat' },
+    { name: 'Pesca',                 cat: 'Gastronomia', emoji: '🦞', lat: 52.3664, lng: 4.8962, modal: 'm-eat' },
+    { name: "Kim's So",              cat: 'Gastronomia', emoji: '🇰🇷', lat: 52.3543, lng: 4.8981, modal: 'm-eat' },
+    { name: 'Dumplings (Westerpark)',cat: 'Gastronomia', emoji: '🥟', lat: 52.3875, lng: 4.8672, modal: 'm-eat' },
+    { name: 'Cannibale Royale',      cat: 'Gastronomia', emoji: '🍔', lat: 52.3630, lng: 4.8830, modal: 'm-eat' },
+    { name: 'The Butcher',           cat: 'Gastronomia', emoji: '🍔', lat: 52.3538, lng: 4.8974, modal: 'm-eat' },
+    { name: 'Paindemie',             cat: 'Gastronomia', emoji: '🍷', lat: 52.3718, lng: 4.8786, modal: 'm-eat' },
+    // ── Bares & Noite ────────────────────────────────────────────────────
+    { name: 'Brouwerij \'t IJ',      cat: 'Bares', emoji: '🍺', lat: 52.3657, lng: 4.9227, modal: 'm-night' },
+    { name: 'Soundgarden',           cat: 'Bares', emoji: '🍺', lat: 52.3792, lng: 4.8803, modal: 'm-night' },
+    { name: 'Waterkant',             cat: 'Bares', emoji: '🍺', lat: 52.3782, lng: 4.8783, modal: 'm-night' },
+    { name: 'Hannekes Boom',         cat: 'Bares', emoji: '🍺', lat: 52.3744, lng: 4.9103, modal: 'm-night' },
+    { name: 'Café Brandon',          cat: 'Bares', emoji: '🍺', lat: 52.3712, lng: 4.8882, modal: 'm-night' },
+    { name: 'Café Dapper',           cat: 'Bares', emoji: '🍺', lat: 52.3617, lng: 4.9222, modal: 'm-night' },
+    { name: 'Belushi\'s',            cat: 'Bares', emoji: '🍺', lat: 52.3760, lng: 4.8943, modal: 'm-night' },
+    { name: 'The Waterhole',         cat: 'Bares', emoji: '🍺', lat: 52.3627, lng: 4.8814, modal: 'm-night' },
+    { name: 'Casablanca',            cat: 'Bares', emoji: '🎵', lat: 52.3752, lng: 4.8998, modal: 'm-night' },
+    { name: 'Door 74',               cat: 'Cocktails', emoji: '🍸', lat: 52.3636, lng: 4.8927, modal: 'm-night' },
+    { name: 'Feijoa',                cat: 'Cocktails', emoji: '🍸', lat: 52.3531, lng: 4.8928, modal: 'm-night' },
+    { name: 'Bar Buka',              cat: 'Cocktails', emoji: '🍸', lat: 52.3762, lng: 4.8820, modal: 'm-night' },
+    { name: 'Duke of Tokyo',         cat: 'Cocktails', emoji: '🍸', lat: 52.3632, lng: 4.8921, modal: 'm-night' },
+    { name: 'Saarein',               cat: 'Bares', emoji: '🏳️‍🌈', lat: 52.3738, lng: 4.8772, modal: 'm-night' },
+    { name: 'Prik',                  cat: 'Bares', emoji: '🏳️‍🌈', lat: 52.3710, lng: 4.8893, modal: 'm-night' },
+    { name: "Café 't Mandje",        cat: 'Bares', emoji: '🏳️‍🌈', lat: 52.3742, lng: 4.8995, modal: 'm-night' },
+    { name: 'Taboo Bar',             cat: 'Bares', emoji: '🏳️‍🌈', lat: 52.3634, lng: 4.8930, modal: 'm-night' },
+    { name: 'Hiding in Plain Sight', cat: 'Vinho', emoji: '🍷', lat: 52.3726, lng: 4.8792, modal: 'm-night' },
+    { name: 'Vyne',                  cat: 'Vinho', emoji: '🍷', lat: 52.3678, lng: 4.8805, modal: 'm-night' },
+    { name: 'Bar Spek',              cat: 'Vinho', emoji: '🍷', lat: 52.3530, lng: 4.8960, modal: 'm-night' },
+    { name: 'Café R. de Rosa',       cat: 'Vinho', emoji: '🍷', lat: 52.3760, lng: 4.8810, modal: 'm-night' },
+    { name: 'Café Twee Prinsen',     cat: 'Vinho', emoji: '🍷', lat: 52.3764, lng: 4.8818, modal: 'm-night' },
+    // ── Café & Brunch ────────────────────────────────────────────────────
+    { name: 'Haku',                  cat: 'Café', emoji: '☕', lat: 52.3698, lng: 4.8923, modal: 'm-cafe' },
+    { name: 'Rum Baba',              cat: 'Café', emoji: '☕', lat: 52.3655, lng: 4.8847, modal: 'm-cafe' },
+    { name: 'Crew de la Crema',      cat: 'Café', emoji: '☕', lat: 52.3748, lng: 4.8793, modal: 'm-cafe' },
+    { name: 'Sango',                 cat: 'Café', emoji: '☕', lat: 52.3602, lng: 4.9198, modal: 'm-cafe' },
+    { name: 'Salvo Bake House',      cat: 'Café', emoji: '🥐', lat: 52.3641, lng: 4.8683, modal: 'm-cafe' },
+    { name: 'Box Sociaal',           cat: 'Café', emoji: '🥐', lat: 52.3534, lng: 4.8920, modal: 'm-cafe' },
+    { name: 'Farine',                cat: 'Café', emoji: '🥐', lat: 52.3740, lng: 4.8818, modal: 'm-cafe' },
+    { name: 'Lova',                  cat: 'Café', emoji: '🥐', lat: 52.3552, lng: 4.8953, modal: 'm-cafe' },
+    // ── Cultura ─────────────────────────────────────────────────────────
+    { name: 'Rijksmuseum',           cat: 'Cultura', emoji: '🏛️', lat: 52.3600, lng: 4.8852, modal: 'm-culture' },
+    { name: 'Van Gogh Museum',       cat: 'Cultura', emoji: '🎨', lat: 52.3584, lng: 4.8811, modal: 'm-culture' },
+    { name: 'Stedelijk Museum',      cat: 'Cultura', emoji: '🎨', lat: 52.3580, lng: 4.8797, modal: 'm-culture' },
+    { name: 'FOAM',                  cat: 'Cultura', emoji: '🏛️', lat: 52.3634, lng: 4.8942, modal: 'm-culture' },
+    { name: 'Anne Frank House',      cat: 'Cultura', emoji: '🏛️', lat: 52.3752, lng: 4.8840, modal: 'm-culture' },
+    { name: 'Moco Museum',           cat: 'Cultura', emoji: '🎨', lat: 52.3600, lng: 4.8831, modal: 'm-culture' },
+    { name: 'STRAAT Museum',         cat: 'Cultura', emoji: '🎨', lat: 52.3840, lng: 4.9075, modal: 'm-culture' },
+    { name: 'Fabrique des Lumières', cat: 'Cultura', emoji: '🎨', lat: 52.3854, lng: 4.8646, modal: 'm-culture' },
+    { name: 'Our House Museum',      cat: 'Cultura', emoji: '🏛️', lat: 52.3738, lng: 4.8834, modal: 'm-culture' },
+    // ── Hype ────────────────────────────────────────────────────────────
+    { name: 'Winkel 43',             cat: 'Hype', emoji: '⭐', lat: 52.3755, lng: 4.8882, modal: 'm-hype' },
+    { name: 'Van Stapele',           cat: 'Hype', emoji: '⭐', lat: 52.3705, lng: 4.8937, modal: 'm-hype' },
+    { name: 'Chun Café',             cat: 'Hype', emoji: '⭐', lat: 52.3702, lng: 4.8942, modal: 'm-hype' },
+    { name: 'Fabel Friet',           cat: 'Hype', emoji: '⭐', lat: 52.3551, lng: 4.9018, modal: 'm-hype' },
+    { name: 'Heineken Experience',   cat: 'Hype', emoji: '🍺', lat: 52.3578, lng: 4.8954, modal: 'm-hype' },
+    { name: "A'DAM Lookout",         cat: 'Hype', emoji: '🌆', lat: 52.4009, lng: 4.8963, modal: 'm-hype' },
+    // ── Garimpos ────────────────────────────────────────────────────────
+    { name: 'IJ-Hallen',             cat: 'Garimpos', emoji: '🛍️', lat: 52.3872, lng: 4.9033, modal: 'm-find' },
+    { name: 'Noordermarkt',          cat: 'Garimpos', emoji: '🛍️', lat: 52.3773, lng: 4.8841, modal: 'm-find' },
+    { name: 'Albert Cuypmarkt',      cat: 'Garimpos', emoji: '🛒', lat: 52.3540, lng: 4.8968, modal: 'm-find' },
+    { name: 'Episode',               cat: 'Garimpos', emoji: '👗', lat: 52.3688, lng: 4.8863, modal: 'm-find' },
+    { name: 'Zipper',                cat: 'Garimpos', emoji: '👗', lat: 52.3678, lng: 4.8798, modal: 'm-find' },
+    { name: 'Rumors Vintage',        cat: 'Garimpos', emoji: '👗', lat: 52.3740, lng: 4.8802, modal: 'm-find' },
+    // ── Explorar ────────────────────────────────────────────────────────
+    { name: 'Vondelpark',            cat: 'Explorar', emoji: '🌳', lat: 52.3583, lng: 4.8682, modal: 'm-explore' },
+    { name: 'Amsterdamse Bos',       cat: 'Explorar', emoji: '🌳', lat: 52.3082, lng: 4.8513, modal: 'm-explore' },
+    { name: 'Westerpark',            cat: 'Explorar', emoji: '🌳', lat: 52.3868, lng: 4.8660, modal: 'm-explore' },
+    { name: 'Mokumboot',             cat: 'Explorar', emoji: '⛵', lat: 52.3617, lng: 4.9140, modal: 'm-explore' },
+    // ── Wellness ────────────────────────────────────────────────────────
+    { name: 'Stretch and Fold',      cat: 'Wellness', emoji: '🧘', lat: 52.3630, lng: 4.8694, modal: 'm-body' },
+    { name: 'Kuuma',                 cat: 'Wellness', emoji: '🧖', lat: 52.3726, lng: 4.8818, modal: 'm-body' },
+    { name: 'Spa Zuiver',            cat: 'Wellness', emoji: '🧖', lat: 52.3199, lng: 4.8537, modal: 'm-body' },
+    { name: 'EQUAL Yoga',            cat: 'Wellness', emoji: '🧘', lat: 52.3674, lng: 4.8922, modal: 'm-body' },
+    { name: 'Beest Boulders',        cat: 'Wellness', emoji: '🧗', lat: 52.3917, lng: 4.9122, modal: 'm-body' },
+    // ── Mercados ────────────────────────────────────────────────────────
+    { name: 'Toko Dun Yong',         cat: 'Mercados', emoji: '🛒', lat: 52.3724, lng: 4.9009, modal: 'm-shops' },
+  ];
+
+  const catColors = {
+    'Gastronomia': '#ff4500',
+    'Bares':       '#e63946',
+    'Cocktails':   '#c77dff',
+    'Café':        '#6d4c41',
+    'Cultura':     '#1d7cd4',
+    'Hype':        '#f4a261',
+    'Garimpos':    '#2a9d8f',
+    'Explorar':    '#3a8f3a',
+    'Wellness':    '#e76f51',
+    'Mercados':    '#457b9d',
+  };
+
+  function makeIcon(emoji, color) {
+    return L.divIcon({
+      className: '',
+      html: `<div style="background:${color};color:#fff;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:16px;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.35)">${emoji}</div>`,
+      iconSize: [34, 34],
+      iconAnchor: [17, 17],
+      popupAnchor: [0, -20],
+    });
+  }
+
+  function initMap() {
+    const container = document.getElementById('map-container');
+    if (!container || typeof L === 'undefined') return;
+
+    if (mapInstance) {
+      // just refresh size — map already exists
+      setTimeout(() => mapInstance.invalidateSize(), 150);
+      return;
+    }
+
+    // Wait for modal animation to finish before init (animation is 300ms)
+    setTimeout(() => {
+      mapInstance = L.map('map-container', { zoomControl: true }).setView([52.370, 4.895], 13);
+
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '© <a href="https://carto.com/">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19,
+      }).addTo(mapInstance);
+
+      let allMarkers = [];
+
+      mapSpots.forEach(spot => {
+        const color = catColors[spot.cat] || '#ff4500';
+        const marker = L.marker([spot.lat, spot.lng], { icon: makeIcon(spot.emoji, color) })
+          .addTo(mapInstance);
+
+        marker.bindPopup(`
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;min-width:160px">
+            <div style="font-weight:700;font-size:1rem;margin-bottom:4px">${spot.name}</div>
+            <div style="font-size:0.78rem;color:#888;margin-bottom:8px">${spot.cat}</div>
+            <button onclick="closeModal('m-map');setTimeout(()=>openModal('${spot.modal}'),150)"
+              style="background:#ff4500;color:#fff;border:none;padding:6px 14px;border-radius:4px;cursor:pointer;font-size:0.8rem;font-weight:600">
+              Ver dicas →
+            </button>
+          </div>`);
+
+        allMarkers.push({ marker, cat: spot.cat });
+      });
+
+      // Build legend filter buttons
+      const legendEl = document.getElementById('map-legend');
+      if (legendEl) {
+        const cats = [...new Set(mapSpots.map(s => s.cat))];
+        legendEl.innerHTML =
+          `<button class="map-filter-btn map-filter-todos" onclick="filterMap(null)">Todos</button>` +
+          cats.map(c => `
+            <button class="map-filter-btn" data-cat="${c}" onclick="filterMap('${c}')"
+              style="border-color:${catColors[c]||'#ccc'}">
+              <span class="dot" style="background:${catColors[c]||'#ccc'}"></span>
+              ${c}
+            </button>`).join('');
+      }
+
+      window._mapMarkers = allMarkers;
+      setTimeout(() => mapInstance.invalidateSize(), 200);
+    }, 400);
+  }
+
+  function filterMap(cat) {
+    if (!window._mapMarkers) return;
+
+    // update button active states
+    document.querySelectorAll('.map-filter-btn').forEach(btn => {
+      const btnCat = btn.dataset.cat;
+      const isActive = cat ? btnCat === cat : btn.classList.contains('map-filter-todos');
+      btn.classList.toggle('active', isActive);
+      if (isActive && btnCat) {
+        btn.style.background = catColors[btnCat] || '#0d0d0d';
+      } else if (isActive) {
+        btn.style.background = '#0d0d0d';
+      } else {
+        btn.style.background = '';
+      }
+    });
+
+    // show/hide markers
+    window._mapMarkers.forEach(({ marker, cat: mCat }) => {
+      if (!cat || mCat === cat) marker.addTo(mapInstance);
+      else marker.remove();
+    });
+  }
+
+  /* ─── INIT ───────────────────────────────────────────────────────────── */
+  document.addEventListener('DOMContentLoaded', function() {
+    injectFavButtons();
+  });
 </script>
 
 </body>
