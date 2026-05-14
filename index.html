@@ -1,0 +1,1964 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ═══ SEO ═══════════════════════════════════════════════════════════ -->
+  <title>The Insiders Map by Mari — Guia Real de Amsterdam 2026</title>
+  <meta name="description" content="O guia de Amsterdam de quem mora aqui: melhores restaurantes, bares, coffee shops, museus, wellness e eventos. Sem ciladas de turista." />
+  <meta name="keywords" content="dicas amsterdam, guia amsterdam 2026, melhores restaurantes amsterdam, coffee shops amsterdam, o que fazer em amsterdam, bares amsterdam" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://theinsidersmap.com/" />
+
+  <!-- ═══ OPEN GRAPH ═════════════════════════════════════════════════════ -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="The Insiders Map by Mari — Amsterdam Real" />
+  <meta property="og:description" content="Não é guia turístico. É o WhatsApp da Mari que mora em Amsterdam." />
+  <meta property="og:url" content="https://theinsidersmap.com/" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:locale:alternate" content="en_GB" />
+
+  <!-- ═══ TWITTER CARD ═══════════════════════════════════════════════════ -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Insiders Map by Mari" />
+  <meta name="twitter:description" content="Não é guia turístico. É o WhatsApp da Mari que mora em Amsterdam." />
+
+  <!-- ═══ FONTS ══════════════════════════════════════════════════════════ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── TOKENS ──────────────────────────────────────────────────────── */
+    :root {
+      --orange:      #ff4500;
+      --dark:        #111111;
+      --slate:       #4b5563;
+      --bg:          #ffffff;
+      --surface:     #f9f9f7;
+      --border:      3px solid #111111;
+      --border-thin: 1px solid #e5e5e5;
+      --radius:      0px;
+      --shadow-hover: 8px 8px 0px var(--orange);
+      --transition:  0.18s ease-in-out;
+    }
+
+    /* ─── RESET ───────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; }
+    img { display: block; max-width: 100%; }
+
+    /* ─── LANG HELPERS ────────────────────────────────────────────────── */
+    body.lang-en .pt { display: none !important; }
+    body.lang-pt .en { display: none !important; }
+
+    /* ─── HEADER ──────────────────────────────────────────────────────── */
+    header {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 0 50px;
+      border-bottom: var(--border);
+    }
+    .header-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    header h1 {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(4rem, 10vw, 8rem);
+      line-height: 0.85;
+      letter-spacing: -2px;
+    }
+    .lang-btn {
+      flex-shrink: 0;
+      margin-top: 0.5rem;
+      background: var(--dark);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      box-shadow: 3px 3px 0 var(--orange);
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .lang-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0 var(--orange);
+    }
+    .personal-intro { margin-top: 32px; max-width: 860px; }
+    .intro-text {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      line-height: 1.7;
+      color: var(--slate);
+      font-weight: 400;
+    }
+    .intro-text b { color: var(--dark); font-weight: 800; }
+
+    /* ─── CATEGORY GRID ───────────────────────────────────────────────── */
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 0;
+      width: 90%;
+      max-width: 1200px;
+      margin: 60px auto 100px;
+      border-top: var(--border);
+      border-left: var(--border);
+    }
+    .cat-card {
+      padding: 40px 28px;
+      border-right: var(--border);
+      border-bottom: var(--border);
+      background: var(--bg);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    .cat-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--orange);
+      transform: translateY(100%);
+      transition: transform 0.22s ease-in-out;
+      z-index: 0;
+    }
+    .cat-card:hover::after  { transform: translateY(0); }
+    .cat-card:hover .cat-emoji,
+    .cat-card:hover .cat-title,
+    .cat-card:hover .cat-count { color: #fff; }
+    .cat-card > * { position: relative; z-index: 1; }
+
+    .cat-emoji {
+      font-size: 2.2rem;
+      display: block;
+      margin-bottom: 18px;
+      transition: color var(--transition);
+    }
+    .cat-title {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: color var(--transition);
+    }
+    .cat-count {
+      display: block;
+      margin-top: 8px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--slate);
+      letter-spacing: 1px;
+      transition: color var(--transition);
+    }
+
+    /* ─── MODAL OVERLAY ───────────────────────────────────────────────── */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(17, 17, 17, 0.55);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 4000;
+      justify-content: center;
+      align-items: flex-end;
+      padding: 0;
+      animation: fadeOverlay 0.2s ease forwards;
+    }
+    @media (min-width: 640px) {
+      .modal { align-items: center; padding: 2rem; }
+    }
+    @keyframes fadeOverlay {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .modal-content {
+      background: var(--bg);
+      width: 100%;
+      max-width: 860px;
+      max-height: 88vh;
+      padding: 48px 40px;
+      position: relative;
+      overflow-y: auto;
+      border: var(--border);
+      border-bottom: none;
+      border-radius: 0;
+      box-shadow: 12px 12px 0 rgba(0,0,0,0.12);
+      animation: slideUp 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    @media (min-width: 640px) {
+      .modal-content {
+        border-bottom: var(--border);
+        border-radius: 0;
+      }
+    }
+    @keyframes slideUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+    @media (max-width: 600px) {
+      .modal-content { padding: 32px 20px; }
+    }
+
+    .modal-content h2 {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+      line-height: 1;
+    }
+    .modal-subtitle {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--slate);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+
+    .close-btn {
+      position: sticky;
+      float: right;
+      top: 0;
+      background: var(--dark);
+      color: #fff;
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-weight: 800;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--transition), transform var(--transition);
+      z-index: 10;
+    }
+    .close-btn:hover { background: var(--orange); transform: rotate(90deg); }
+
+    /* ─── MODAL CONTENT ELEMENTS ──────────────────────────────────────── */
+    .sub-cat {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 44px 0 6px;
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: var(--orange);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      border-bottom: 2px solid #efefef;
+      padding-bottom: 10px;
+    }
+    .sub-cat:first-of-type { margin-top: 8px; }
+
+    .item {
+      padding: 24px 0;
+      border-bottom: var(--border-thin);
+    }
+    .item:last-child { border-bottom: none; }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .item-info { flex: 1; min-width: 0; }
+    .item-info strong {
+      display: block;
+      font-size: clamp(1.2rem, 3vw, 1.6rem);
+      color: var(--dark);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+    .item-info p {
+      font-size: 0.975rem;
+      color: var(--slate);
+      line-height: 1.6;
+    }
+    .item-tip {
+      display: block;
+      margin-top: 14px;
+      font-size: 0.9rem;
+      color: var(--dark);
+      font-weight: 600;
+      background: #fff5f2;
+      padding: 12px 16px;
+      border-left: 4px solid var(--orange);
+      line-height: 1.5;
+    }
+    .item-tip::before {
+      content: '→ ';
+      color: var(--orange);
+      font-weight: 800;
+    }
+
+    .maps-btn {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--dark);
+      font-size: 0.65rem;
+      font-weight: 900;
+      border: 2px solid var(--dark);
+      padding: 10px 16px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      white-space: nowrap;
+      transition: background var(--transition), color var(--transition);
+      align-self: flex-start;
+    }
+    .maps-btn:hover { background: var(--dark); color: #fff; }
+    .maps-btn::before { content: '📍'; font-size: 0.75rem; }
+
+    /* ─── EVENT ITEMS (Eventos modal) ─────────────────────────────────── */
+    .event-item {
+      padding: 22px 0;
+      border-bottom: var(--border-thin);
+      display: grid;
+      grid-template-columns: 90px 1fr auto;
+      gap: 16px;
+      align-items: start;
+    }
+    .event-item:last-child { border-bottom: none; }
+    .event-month {
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--orange);
+      padding: 6px 10px;
+      text-align: center;
+      line-height: 1.4;
+    }
+    .event-info strong {
+      display: block;
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .event-info p { font-size: 0.9rem; color: var(--slate); line-height: 1.5; }
+
+    /* ─── BEYOND AMS — city group ──────────────────────────────────────── */
+    .city-group {
+      margin-bottom: 8px;
+    }
+    .city-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 40px 0 4px;
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: var(--orange);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      border-bottom: 2px solid #efefef;
+      padding-bottom: 10px;
+      width: 100%;
+    }
+    .city-label:first-of-type { margin-top: 8px; }
+
+    /* ─── RESPONSIVE ──────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      header { padding-top: 40px; }
+      .event-item { grid-template-columns: 70px 1fr; }
+      .event-item .maps-btn { grid-column: 2; }
+    }
+    @media (max-width: 480px) {
+      .dashboard { grid-template-columns: 1fr 1fr; }
+      .item-header { flex-direction: column; }
+      .maps-btn { align-self: flex-start; }
+    }
+  </style>
+</head>
+<body class="lang-pt">
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════════════════════════════════ -->
+<header>
+  <div class="header-top">
+    <h1>THE INSIDERS MAP</h1>
+    <button class="lang-btn" onclick="toggleLang()" aria-label="Alternar idioma">EN / PT</button>
+  </div>
+  <div class="personal-intro">
+    <p class="intro-text pt">
+      Oi, meu nome é Mari e faço o possível para que meus amigos não caiam em ciladas de turista
+      — ou pelo menos caiam sabendo que é cilada. Este site é o meu mapa mental de onde eu
+      <b>realmente bato ponto</b>: daquela pizza napolitana que ganha qualquer discussão ao ritual
+      de sauna que salva o meu domingo. Se o lugar está aqui, é porque eu confio ou pelo menos
+      quero dar uma conferida. Aproveite a vibe da cidade, aprecie a arquitetura e, por favor,
+      <b>saia da ciclovia se estiver a pé.</b>
+    </p>
+    <p class="intro-text en">
+      Hi, I'm Mari — I do my best to keep my friends out of tourist traps, or at least make sure
+      they walk into them knowingly. This is my mental map of the spots I <b>actually frequent</b>:
+      from the Neapolitan pizza that wins every argument to the sauna ritual that saves my Sunday.
+      If it's on this list, I trust it. Enjoy the vibe, appreciate the architecture, and please,
+      <b>stay off the bike lane if you're on foot.</b>
+    </p>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     CATEGORY GRID
+════════════════════════════════════════════════════════════════════════ -->
+<main>
+  <nav class="dashboard" aria-label="Categorias">
+
+    <div class="cat-card" onclick="openModal('m-eat')" role="button" tabindex="0"
+         onkeydown="if(event.key==='Enter')openModal('m-eat')">
+      <span class="cat-emoji" aria-hidden="true">🍕</span>
+      <span class="cat-title pt">Gastronomia</span>
+      <span class="cat-title en">Eats</span>
+      <span class="cat-count">9 lugares</span>
+    </div>
+
+    <div class="cat-card" onclick="openModal('m-night')" role="button" tabindex="0"
+         onkeydown="if(event.key==='Enter')openModal('m-night')">
+      <span class="cat-emoji" aria-hidden="true">🍺</span>
+      <span class="cat-title pt">Beber & Noite</span>
+      <span class="cat-title en">Drinks & Night</span>
+      <span class="cat-count">18 lugares</span>
+    </div>
+
+    <div class="cat-card" onclick="openModal('m-cafe')" role="button" tabindex="0"
+         onkeydown="if(event.key==='Enter')openModal('m-cafe')">
+      <span class="cat-emoji" aria-hidden="true">☕</span>
+      <span class="cat-title pt">Café & Brunch</span>
+      <span class="cat-title en">Caffeine & Brunch</span>
+      <span class="cat-count">8 lugares</span>
+    </div>
+
+    <div class="cat-card" onclick="openModal('m-cs')" role="button" tabindex="0"
+         onkeydown="if(event.key==='Enter')openModal('m-cs')">
+      <span class="cat-emoji" aria-hidden="true">🌿</span>
+      <span class="cat-title pt">Coffee Shops</span>
+      <span class="cat-title en">Coffee Shops</span>
+      <span class="cat-count">3 lugares</span>
+    </div>
+
+    <div class="cat-card" onclick="openModal('m-body')" role="button" tabindex="0"
+         onkeydown="if(event.key==='Enter')openModal('m-body')">
+      <span class="cat-emoji" aria-hidden="true">🧘</span>
+      <span class="cat-title pt">Corpo & Mente</span>
+      <span class="cat-title en">Body & Mind</span>
+      <span class="cat-count">8 lugares</span>
+    </div>
+
+    <div class="cat-card" onclick="openModal('m-culture')" role="button" tabindex="0"
+         onkeydown="if(event.key==='Enter')openModal('m-culture')">
+      <span class="cat-emoji" aria-hidden="true">🎨</span>
+      <span class="cat-title pt">Cultura & Arte</span>
+      <span class="cat-title en">Culture & Art</span>
+      <span class="cat-count">9 lugares</span>
+    </div>
+
+    <div class="cat-card" onclick="openModal('m-hype')" role="button" tabindex="0"
+         onkeydown="if(event.key==='Enter')openModal('m-hype')">
+      <span class="cat-emoji" aria-hidden="true">🔥</span>
+      <span class="cat-title pt">Hype & Experiências</span>
+      <span class="cat-title en">Hype & Experiences</span>
+      <span class="cat-count">6 lugares</span>
+    </div>
+
+    <div class="cat-card" onclick="openModal('m-find')" role="button" tabindex="0"
+         onkeydown="if(event.key==='Enter')openModal('m-find')">
+      <span class="cat-emoji" aria-hidden="true">🛍️</span>
+      <span class="cat-title pt">Garimpos</span>
+      <span class="cat-title en">The Find</span>
+      <span class="cat-count">6 lugares</span>
+    </div>
+
+    <div class="cat-card" onclick="openModal('m-explore')" role="button" tabindex="0"
+         onkeydown="if(event.key==='Enter')openModal('m-explore')">
+      <span class="cat-emoji" aria-hidden="true">🌳</span>
+      <span class="cat-title pt">Explorar</span>
+      <span class="cat-title en">Explore</span>
+      <span class="cat-count">7 lugares</span>
+    </div>
+
+    <div class="cat-card" onclick="openModal('m-football')" role="button" tabindex="0"
+         onkeydown="if(event.key==='Enter')openModal('m-football')">
+      <span class="cat-emoji" aria-hidden="true">⚽</span>
+      <span class="cat-title pt">Futebol</span>
+      <span class="cat-title en">Football</span>
+      <span class="cat-count">3 estádios</span>
+    </div>
+
+    <div class="cat-card" onclick="openModal('m-beyond')" role="button" tabindex="0"
+         onkeydown="if(event.key==='Enter')openModal('m-beyond')">
+      <span class="cat-emoji" aria-hidden="true">🚲</span>
+      <span class="cat-title pt">Além de AMS</span>
+      <span class="cat-title en">Beyond AMS</span>
+      <span class="cat-count">8 cidades</span>
+    </div>
+
+    <div class="cat-card" onclick="openModal('m-cal')" role="button" tabindex="0"
+         onkeydown="if(event.key==='Enter')openModal('m-cal')">
+      <span class="cat-emoji" aria-hidden="true">📅</span>
+      <span class="cat-title pt">Eventos</span>
+      <span class="cat-title en">Calendar</span>
+      <span class="cat-count">10 eventos</span>
+    </div>
+
+  </nav>
+</main>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     MODAL — GASTRONOMIA
+════════════════════════════════════════════════════════════════════════ -->
+<div id="m-eat" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-eat-title">
+<div class="modal-content">
+  <button class="close-btn" onclick="closeModal('m-eat')" aria-label="Fechar">✕</button>
+  <h2 id="m-eat-title" class="pt">Gastronomia</h2>
+  <h2 class="en">Eats</h2>
+  <p class="modal-subtitle pt">Amsterdam · 9 lugares</p>
+  <p class="modal-subtitle en">Amsterdam · 9 spots</p>
+
+  <span class="sub-cat">🍕 Pizza</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>nNea</strong>
+        <p class="pt">Melhor pizza de Amsterdam e top 50 da Europa. Forno a lenha, massa napolitana, sem conversa.</p>
+        <p class="en">Best pizza in Amsterdam and top 50 in Europe. Wood-fired, Neapolitan dough, no argument.</p>
+        <span class="item-tip pt">Reserve com antecedência ou pega pra levar e come na beira do canal. Tem um mercado perto pra comprar vinho — e não deixa de pedir o tiramisu.</span>
+        <span class="item-tip en">Book ahead or grab it to eat by the canal. There's a market nearby for wine — don't skip the tiramisu.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=nNea+Pizza+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Klaproos</strong>
+        <p class="pt">Pizza e vinho honestos numa vibe mais local em Noord. Sem pose, sem fila de turista.</p>
+        <p class="en">Honest pizza and wine with a local vibe in Noord. No posturing, no tourist queues.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Klaproos+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="sub-cat">🍣 Oriental</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Ken Sushi</strong>
+        <p class="pt">Omakase pra quem entende. Experiência de balcão de outro nível — o chef decide, você confia.</p>
+        <p class="en">Omakase for those who know. Counter-level experience — the chef decides, you trust.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Ken+Sushi+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Ryo Sushi</strong>
+        <p class="pt">O melhor sushi que já comi na vida. Tem bluefin, wagyu — é uma experiência cara e que vale cada euro.</p>
+        <p class="en">Best sushi of my life. Bluefin, wagyu — a pricey experience worth every euro.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Sushi+Ryo+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Otemba</strong>
+        <p class="pt">Ramen moderno com atitude e barulho. Ambiente vibrante, caldo honesto.</p>
+        <p class="en">Modern ramen with attitude and noise. Vibrant atmosphere, honest broth.</p>
+        <span class="item-tip pt">Chegue cedo ou reserve com antecedência. O Takoyaki é bizarro de bom.</span>
+        <span class="item-tip en">Arrive early or book ahead. The Takoyaki is absurdly good.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Otemba+Ramen+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="sub-cat">🦞 Frutos do Mar</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Barracuda</strong>
+        <p class="pt">Peixe fresco num galpão industrial em Noord. Ótimo pra dividir pratos numa vibe bem casual.</p>
+        <p class="en">Fresh fish in an industrial warehouse in Noord. Great for sharing plates in a casual vibe.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Barracuda+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Pesca</strong>
+        <p class="pt">O "teatro do peixe": você escolhe o jantar direto na banca de peixe. Conceito único na cidade.</p>
+        <p class="en">The "fish theater": you choose your dinner straight from the fish counter. Unique concept in the city.</p>
+        <span class="item-tip pt">O polvo é uma sacanagem. A sobremesa também.</span>
+        <span class="item-tip en">The octopus is ridiculous. So is the dessert.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Pesca+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="sub-cat">🇰🇷 Coreana</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Kim's So</strong>
+        <p class="pt">Comida coreana que parece um abraço. Bom demais — o tipo de lugar que você quer no dia ruim.</p>
+        <p class="en">Korean food that feels like a hug. So good — the kind of place you want on a bad day.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Kims+So+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="sub-cat">🥟 Street Food</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Dumplings (Westerpark)</strong>
+        <p class="pt">Um quiosque minúsculo com crepe chinês (Jianbing) e dumplings que valem cada minuto na fila.</p>
+        <p class="en">A tiny kiosk with Chinese crepes (Jianbing) and dumplings worth every minute in line.</p>
+        <span class="item-tip pt">Pega e vai comer no parque. Experiência completa.</span>
+        <span class="item-tip en">Grab it and eat in the park. Full experience.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Dumplings+Westerpark+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     MODAL — BEBER & NOITE
+════════════════════════════════════════════════════════════════════════ -->
+<div id="m-night" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-night-title">
+<div class="modal-content">
+  <button class="close-btn" onclick="closeModal('m-night')" aria-label="Fechar">✕</button>
+  <h2 id="m-night-title" class="pt">Beber & Noite</h2>
+  <h2 class="en">Drinks & Night</h2>
+  <p class="modal-subtitle pt">Amsterdam · 18 lugares</p>
+  <p class="modal-subtitle en">Amsterdam · 18 spots</p>
+
+  <span class="sub-cat">🍻 Roots & Vibe</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Soundgarden</strong>
+        <p class="pt">Bom e barato — a cerveja mais barata de Amsterdam com certeza. Rock, sinuca, sem frescura.</p>
+        <p class="en">Good and cheap — definitely the cheapest beer in Amsterdam. Rock, pool, no fuss.</p>
+        <span class="item-tip pt">Vá com baixa expectativa e vai se surpreender.</span>
+        <span class="item-tip en">Go with low expectations and you'll be pleasantly surprised.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Soundgarden+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Brouwerij 't IJ</strong>
+        <p class="pt">Cervejaria artesanal embaixo de um moinho de vento histórico. Experiência clássica de Amsterdam.</p>
+        <p class="en">Craft brewery under a historic windmill. A classic Amsterdam experience.</p>
+        <span class="item-tip pt">Peça o prato com todos os snacks de bar e a régua de degustação de cervejas. A IPA deles é o que a Heineken sonha que é.</span>
+        <span class="item-tip en">Order the bar snacks platter and the tasting paddle. Their IPA is what Heineken wishes it was.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Brouwerij+t+IJ+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Waterkant</strong>
+        <p class="pt">Point favorito quando o sol resolve aparecer. Bar sem frescura, na beira do canal, barulhento e animado.</p>
+        <p class="en">Favorite spot when the sun shows up. No-nonsense canal-side bar, loud and lively.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Waterkant+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Hannekes Boom</strong>
+        <p class="pt">Mesma vibe do Waterkant, ótimo pra dias de sol e boa conversa na beira da água.</p>
+        <p class="en">Same vibe as Waterkant, great for sunny days and good conversation by the water.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Hannekes+Boom+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Café Brandon</strong>
+        <p class="pt">Brown bar de 1626. Bar de locais, poucas opções de cerveja, vibe completamente clássica.</p>
+        <p class="en">Brown bar since 1626. Locals bar, few beer options, completely classic vibe.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Cafe+Brandon+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Café Dapper</strong>
+        <p class="pt">Bar no Oost, ótimo pra fugir do fervo turístico. Bons drinks, vinhos, cervejas e snacks pra dividir.</p>
+        <p class="en">Bar in Oost, great for escaping the tourist scene. Good drinks, wines, beers and sharing snacks.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Cafe+Dapper+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="sub-cat">🍸 Cocktails</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Door 74</strong>
+        <p class="pt">Speakeasy real. Porta discreta, coquetéis de respeito, bartenders que levam o trabalho a sério.</p>
+        <p class="en">Real speakeasy. Discreet door, serious cocktails, bartenders who mean business.</p>
+        <span class="item-tip pt">Reserve. Sem reserva, não entra.</span>
+        <span class="item-tip en">Book ahead. No reservation, no entry.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Door+74+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Feijoa</strong>
+        <p class="pt">Balcão animado e drinks impecáveis. Boa opção de drinks sem se matar para ser atendido.</p>
+        <p class="en">Lively bar and impeccable drinks. Great option without fighting for service.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Feijoa+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="sub-cat">🏳️‍🌈 Queer Bars</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Saarein</strong>
+        <p class="pt">O bar queer mais charmoso do Jordaan. Histórico, com uma pegada bem feminista e ótima energia.</p>
+        <p class="en">The most charming queer bar in Jordaan. Historic, with a strong feminist edge and great energy.</p>
+        <span class="item-tip pt">A sinuca é de graça!</span>
+        <span class="item-tip en">Free pool table!</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Cafe+Saarein+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Pamela</strong>
+        <p class="pt">Bar queer descolado, inclusivo e com ótimos drinks. Mais vibe de balada conforme a noite avança.</p>
+        <p class="en">Cool, inclusive queer bar with great drinks. More club vibe as the night progresses.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Pamela+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Prik</strong>
+        <p class="pt">Premiado, vibe rosa, prosecco on tap e um terraço que sempre ferve. Clássico da cena queer.</p>
+        <p class="en">Award-winning, pink vibe, prosecco on tap and a terrace that's always buzzing. Queer scene classic.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Prik+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Bar Buka</strong>
+        <p class="pt">Where girls meet girls. Foco em mulheres, mas ambiente super inclusivo e relax.</p>
+        <p class="en">Where girls meet girls. Women-focused but super inclusive and laid-back.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Bar+Buka+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Café 't Mandje</strong>
+        <p class="pt">Aberto desde 1927 na Zeedijk. O bar queer mais antigo e histórico da cidade. Imperdível.</p>
+        <p class="en">Open since 1927 on Zeedijk. The oldest and most historic queer bar in the city. A must.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Cafe+t+Mandje+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Taboo Bar</strong>
+        <p class="pt">Vale conferir a programação — às vezes rola drag bingo e outras coisas. Depois de certa hora vira um rolê.</p>
+        <p class="en">Check the schedule — sometimes there's drag bingo and other stuff. Gets clubby later on.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Taboo+Bar+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="sub-cat">🎤 Karaoke</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Duke of Tokyo</strong>
+        <p class="pt">Vibe de Tóquio com cabines privadas e coquetéis bons. É o hype do momento — com motivo.</p>
+        <p class="en">Tokyo vibe with private booths and good cocktails. Current hype — and deservedly so.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Duke+of+Tokyo+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Casablanca</strong>
+        <p class="pt">Karaoke raiz na Zeedijk. Meio jazz, meio trash, 100% autêntico. Clássico de Amsterdam.</p>
+        <p class="en">Raw karaoke on Zeedijk. Half jazz, half trash, 100% authentic. Amsterdam classic.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Casablanca+Zeedijk+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="sub-cat">🌙 Fim de Noite</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>The Waterhole</strong>
+        <p class="pt">Música ao vivo, sinuca e gente de todo tipo. Pra fechar a conta sem julgamentos.</p>
+        <p class="en">Live music, pool and all kinds of people. To close the night without judgment.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=The+Waterhole+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Belushi's</strong>
+        <p class="pt">Caos, mochileiros e cerveja barata. Onde a noite vai pra morrer — ou renascer.</p>
+        <p class="en">Chaos, backpackers and cheap beer. Where the night goes to die — or be reborn.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Belushis+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     MODAL — CAFÉ & BRUNCH
+════════════════════════════════════════════════════════════════════════ -->
+<div id="m-cafe" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-cafe-title">
+<div class="modal-content">
+  <button class="close-btn" onclick="closeModal('m-cafe')" aria-label="Fechar">✕</button>
+  <h2 id="m-cafe-title" class="pt">Café & Brunch</h2>
+  <h2 class="en">Caffeine & Brunch</h2>
+  <p class="modal-subtitle pt">Amsterdam · 8 lugares</p>
+  <p class="modal-subtitle en">Amsterdam · 8 spots</p>
+
+  <span class="sub-cat">☕ Café Especial</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Haku</strong>
+        <p class="pt">Minimalismo japonês e bons grãos. Silêncio, precisão e um espresso que você pensa durante o dia.</p>
+        <p class="en">Japanese minimalism and great beans. Silence, precision and an espresso you'll think about all day.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Haku+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Crew de la Crema</strong>
+        <p class="pt">Staff incrível, café de respeito. Um dos lugares que você vai pra beber café e acaba ficando pelo papo.</p>
+        <p class="en">Incredible staff, serious coffee. One of those places you come for coffee and stay for the conversation.</p>
+        <span class="item-tip pt">Peça sugestão pro staff — eles são fofíssimos e entendem muito.</span>
+        <span class="item-tip en">Ask the staff for a recommendation — they're lovely and really know their stuff.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Crew+de+la+Crema+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Rum Baba</strong>
+        <p class="pt">Torrefação local e vibe foda. Tem algumas opções de bolos e pastries que combinam perfeitamente.</p>
+        <p class="en">Local roastery and great vibe. Some cake and pastry options that pair perfectly.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Rum+Baba+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Sango</strong>
+        <p class="pt">Cafés bem fermentados e frutados — o tipo de café que muda sua referência de café. Ótimos pastries também.</p>
+        <p class="en">Well-fermented and fruity coffees — the kind that reset your coffee benchmark. Great pastries too.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Sango+Specialty+Coffee+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="sub-cat">🥐 Brunch & Padaria</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Salvo Bake House</strong>
+        <p class="pt">Aqui é pra se deliciar com os olhos antes de comer. Várias opções, café honesto. Espere uma fila — vale.</p>
+        <p class="en">A feast for the eyes before you even eat. Many options, honest coffee. Expect a queue — worth it.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Salvo+Bake+House+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Box Sociaal</strong>
+        <p class="pt">A melhor shakshuka do mundo é aqui. Ponto final. Ambiente cheio de vida, brunch que justifica sair da cama.</p>
+        <p class="en">The best shakshuka in the world is right here. Full stop. Lively atmosphere, brunch that justifies getting out of bed.</p>
+        <span class="item-tip pt">Se você curte espresso martini, eles fazem um 10/10.</span>
+        <span class="item-tip en">If you're into espresso martinis, theirs are a solid 10/10.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Box+Sociaal+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Farine</strong>
+        <p class="pt">Padaria famosa com várias opções de pastries e pão artesanal que merece a fila.</p>
+        <p class="en">Famous bakery with great pastry and artisan bread that deserves the queue.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Farine+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Lova</strong>
+        <p class="pt">Alma brasileira e pão de queijo quentinho. Aquela releitura pra quando a saudade do Brasil bater.</p>
+        <p class="en">Brazilian soul and warm pão de queijo. That comforting touch when you miss home.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Lova+Cafe+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     MODAL — COFFEE SHOPS
+════════════════════════════════════════════════════════════════════════ -->
+<div id="m-cs" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-cs-title">
+<div class="modal-content">
+  <button class="close-btn" onclick="closeModal('m-cs')" aria-label="Fechar">✕</button>
+  <h2 id="m-cs-title">Coffee Shops</h2>
+  <p class="modal-subtitle pt">Amsterdam · 3 lugares · Exclusivo para maiores de 18 anos com documento</p>
+  <p class="modal-subtitle en">Amsterdam · 3 spots · 18+ with ID only</p>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>S.W.E.D.</strong>
+        <p class="pt">O novo pico do Snoop Dogg em Amsterdam. Bem fresh, ambiente cuidado e curadoria de produto de primeira.</p>
+        <p class="en">Snoop Dogg's newest Amsterdam spot. Very fresh, well-designed space and premium product curation.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=SWED+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Boerejongens</strong>
+        <p class="pt">Vibe de farmácia de luxo com curadoria premium. Múltiplas unidades na cidade — qualidade consistente.</p>
+        <p class="en">Luxury pharmacy vibe with premium curation. Multiple locations across the city — consistently high quality.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Boerejongens+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Abraxas</strong>
+        <p class="pt">Escondido no centro com vibe mais mística. Três andares, ambiente único — o tipo que você descobre e não conta pra todo mundo.</p>
+        <p class="en">Hidden in the center with a more mystical vibe. Three floors, unique atmosphere — the kind you discover and don't tell everyone about.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Abraxas+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     MODAL — CORPO & MENTE
+════════════════════════════════════════════════════════════════════════ -->
+<div id="m-body" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-body-title">
+<div class="modal-content">
+  <button class="close-btn" onclick="closeModal('m-body')" aria-label="Fechar">✕</button>
+  <h2 id="m-body-title" class="pt">Corpo & Mente</h2>
+  <h2 class="en">Body & Mind</h2>
+  <p class="modal-subtitle pt">Amsterdam · 8 lugares</p>
+  <p class="modal-subtitle en">Amsterdam · 8 spots</p>
+
+  <span class="sub-cat">🧖 Wellness</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Stretch and Fold</strong>
+        <p class="pt">Yoga, sauna e piscina num rooftop. Sai de lá com a alma limpa — e ainda pega um bronze num dia de sol.</p>
+        <p class="en">Yoga, sauna and rooftop pool. You leave with a clean soul — and a tan on a sunny day.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Stretch+and+Fold+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Kuuma</strong>
+        <p class="pt">Sauna perto do canal. Vibe mais exclusiva, experiência de alto nível pra quem quer silêncio de verdade.</p>
+        <p class="en">Canal-side sauna. More exclusive vibe, high-end experience for those who want real silence.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Kuuma+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Spa Zuiver</strong>
+        <p class="pt">Spa completo no Amsterdamse Bos. Piscinas, saunas, tratamentos — uma tarde inteira que vale o preço.</p>
+        <p class="en">Full spa in the Amsterdamse Bos forest. Pools, saunas, treatments — a full afternoon worth every cent.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Spa+Zuiver+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="sub-cat">🏋️ Fitness</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>EQUAL Yoga</strong>
+        <p class="pt">O melhor Hot Yoga da cidade, sem discussão. Instrutores incríveis, ambiente que você quer voltar.</p>
+        <p class="en">The best Hot Yoga in the city, no argument. Incredible instructors, atmosphere you'll want to return to.</p>
+        <span class="item-tip pt">Se você não estiver bem condicionado, evite o hot pilates. Nível hard — sério.</span>
+        <span class="item-tip en">If you're not well-conditioned, skip the hot pilates. Hard level — seriously.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Equal+Yoga+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Beest Boulders</strong>
+        <p class="pt">Escalada num espaço industrial massa. Tem geralmente um DJ e um bom café com restaurante — dá pra passar o dia.</p>
+        <p class="en">Bouldering in a cool industrial space. Usually has a DJ and a good café with restaurant — you can spend the whole day.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Beest+Boulders+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>TrainMore</strong>
+        <p class="pt">Academia honesta e bem equipada. Várias unidades pela cidade, bom custo-benefício.</p>
+        <p class="en">Honest and well-equipped gym. Several locations across the city, good value for money.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=TrainMore+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>CrossFit AKA</strong>
+        <p class="pt">CrossFit com pelo menos duas unidades na cidade. Comunidade boa, programação séria.</p>
+        <p class="en">CrossFit with at least two locations in the city. Good community, serious programming.</p>
+        <span class="item-tip pt">Marca um free trial antes de assinar.</span>
+        <span class="item-tip en">Book a free trial before committing.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=CrossFit+AKA+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>CrossFit Amsterdam</strong>
+        <p class="pt">Um box bem inclusivo com uma comunidade massa. Muito expat treina lá — fácil de se sentir em casa.</p>
+        <p class="en">A very inclusive box with a great community. Lots of expats train there — easy to feel at home.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=CrossFit+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     MODAL — CULTURA & ARTE
+════════════════════════════════════════════════════════════════════════ -->
+<div id="m-culture" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-culture-title">
+<div class="modal-content">
+  <button class="close-btn" onclick="closeModal('m-culture')" aria-label="Fechar">✕</button>
+  <h2 id="m-culture-title" class="pt">Cultura & Arte</h2>
+  <h2 class="en">Culture & Art</h2>
+  <p class="modal-subtitle pt">Amsterdam · 9 lugares</p>
+  <p class="modal-subtitle en">Amsterdam · 9 spots</p>
+
+  <span class="sub-cat">🏛️ Museus</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Rijksmuseum</strong>
+        <p class="pt">Clássico absoluto. Rembrandt mora aqui. A Galeria de Honra é uma das experiências mais impactantes que você vai ter em Amsterdam.</p>
+        <p class="en">Absolute classic. Rembrandt lives here. The Gallery of Honour is one of the most impactful experiences you'll have in Amsterdam.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Rijksmuseum+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Van Gogh Museum</strong>
+        <p class="pt">Essencial. Reserve com muita antecedência — os ingressos somem semanas antes.</p>
+        <p class="en">Essential. Book very far in advance — tickets disappear weeks ahead.</p>
+        <span class="item-tip pt">Não deixe de alugar o audioguia. Ele muda completamente a experiência.</span>
+        <span class="item-tip en">Don't skip the audio guide. It completely transforms the experience.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Van+Gogh+Museum+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Stedelijk Museum</strong>
+        <p class="pt">Design e arte moderna. Coleção permanente forte, exposições temporárias que costumam surpreender.</p>
+        <p class="en">Design and modern art. Strong permanent collection, temporary exhibitions that tend to surprise.</p>
+        <span class="item-tip pt">Confere a programação antes — pra quem gosta de arte moderna vale muito a pena.</span>
+        <span class="item-tip en">Check the program first — really worth it for modern art fans.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Stedelijk+Museum+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>FOAM</strong>
+        <p class="pt">O melhor da fotografia contemporânea. Pequeno mas com curadoria que envergonha museus três vezes maiores.</p>
+        <p class="en">The best in contemporary photography. Small but with curation that shames museums three times its size.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=FOAM+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Anne Frank House</strong>
+        <p class="pt">História pesada, mas necessária. Uma das experiências mais marcantes que Amsterdam oferece.</p>
+        <p class="en">Heavy history, but necessary. One of the most powerful experiences Amsterdam has to offer.</p>
+        <span class="item-tip pt">As vendas abrem com 6 semanas de antecedência e esgotam rápido. Não deixa pra última hora.</span>
+        <span class="item-tip en">Tickets open 6 weeks ahead and sell out fast. Don't leave it for last minute.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Anne+Frank+House+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Moco Museum</strong>
+        <p class="pt">Banksy e arte pop num espaço pequeno mas bem produzido.</p>
+        <p class="en">Banksy and pop art in a small but well-produced space.</p>
+        <span class="item-tip pt">É bem pequeno — custo-benefício baixo se você não curte arte pop. Se curte, vai adorar.</span>
+        <span class="item-tip en">It's quite small — low value if you're not into pop art. If you are, you'll love it.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Moco+Museum+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="sub-cat">🎨 Arte Urbana & Digital</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>STRAAT Museum</strong>
+        <p class="pt">Museu de grafite gigante em Noord, num galpão industrial enorme. Curadoria de alto nível — não é o que você espera.</p>
+        <p class="en">Giant graffiti museum in Noord, inside a massive industrial warehouse. High-level curation — not what you'd expect.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=STRAAT+Museum+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Fabrique des Lumières</strong>
+        <p class="pt">Exposições imersivas num galpão industrial antigo. Experiência visual impactante — bom especialmente se a programação for de artista que você curte.</p>
+        <p class="en">Immersive exhibitions in an old industrial warehouse. Stunning visual experience — especially good if the program features an artist you love.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Fabrique+des+Lumieres+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Our House Museum</strong>
+        <p class="pt">Museu da música house em Amsterdam. Para quem tem alguma ligação com a cena eletrônica — é uma visita especial.</p>
+        <p class="en">Amsterdam's house music museum. For those with a connection to the electronic scene — it's a special visit.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Our+House+Museum+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     MODAL — HYPE & EXPERIÊNCIAS
+════════════════════════════════════════════════════════════════════════ -->
+<div id="m-hype" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-hype-title">
+<div class="modal-content">
+  <button class="close-btn" onclick="closeModal('m-hype')" aria-label="Fechar">✕</button>
+  <h2 id="m-hype-title" class="pt">Hype & Experiências</h2>
+  <h2 class="en">Hype & Experiences</h2>
+  <p class="modal-subtitle pt">Amsterdam · 6 lugares · Turístico, mas com motivo</p>
+  <p class="modal-subtitle en">Amsterdam · 6 spots · Touristy, but for a reason</p>
+
+  <span class="sub-cat">🍟 Comida Viral</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Winkel 43</strong>
+        <p class="pt">A torta de maçã mais famosa de Amsterdam. O hype é real — a fila vale a pena, mesmo quando parece longa demais.</p>
+        <p class="en">Amsterdam's most famous apple pie. The hype is real — the queue is worth it, even when it looks too long.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Winkel+43+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Chun Café</strong>
+        <p class="pt">O toast de Rib-eye que parou o TikTok — e realmente entrega sabor. Um dos poucos hypes que se justifica.</p>
+        <p class="en">The TikTok-famous Rib-eye toast — and it actually delivers. One of the few hypes that justifies itself.</p>
+        <span class="item-tip pt">Procure as unidades mais alternativas com menos fila.</span>
+        <span class="item-tip en">Look for the alternative locations with shorter queues.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Chun+Cafe+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Fabel Friet</strong>
+        <p class="pt">Batata com trufa lendária. Simples, direto, perfeito. O tipo de coisa que você pensa depois.</p>
+        <p class="en">Legendary truffle fries. Simple, direct, perfect. The kind of thing you think about afterwards.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Fabel+Friet+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Van Stapele</strong>
+        <p class="pt">Um cookie. Um sabor. Perfeito. Só isso — e é o suficiente pra justificar qualquer fila.</p>
+        <p class="en">One cookie. One flavor. Perfect. That's it — and it's enough to justify any queue.</p>
+        <span class="item-tip pt">A fila só vale se você realmente curte cookie. Chegue cedo — quando acaba a produção do dia, fecham.</span>
+        <span class="item-tip en">The queue's only worth it if you really love cookies. Arrive early — when the day's batch runs out, they close.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Van+Stapele+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="sub-cat">🎡 Experiências</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Heineken Experience</strong>
+        <p class="pt">O tour clássico da verdinha. Turístico, mas a produção é impecável — e você sai com cerveja.</p>
+        <p class="en">The classic green beer tour. Touristy, but impressively produced — and you leave with beer.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Heineken+Experience+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>A'DAM Lookout</strong>
+        <p class="pt">Aquele balanço no topo do prédio em Noord. Vista 360° de Amsterdam — impactante num dia de sol.</p>
+        <p class="en">The swing at the top of the building in Noord. 360° view of Amsterdam — stunning on a clear day.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=ADAM+Lookout+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     MODAL — GARIMPOS
+════════════════════════════════════════════════════════════════════════ -->
+<div id="m-find" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-find-title">
+<div class="modal-content">
+  <button class="close-btn" onclick="closeModal('m-find')" aria-label="Fechar">✕</button>
+  <h2 id="m-find-title" class="pt">Garimpos</h2>
+  <h2 class="en">The Find</h2>
+  <p class="modal-subtitle pt">Amsterdam · 6 lugares</p>
+  <p class="modal-subtitle en">Amsterdam · 6 spots</p>
+
+  <span class="sub-cat">🛒 Mercados</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>IJ-Hallen</strong>
+        <p class="pt">O maior mercado de pulgas da Europa — acontece uma vez por mês em Noord. Uma mistura gloriosa de lixo e tesouro.</p>
+        <p class="en">Europe's largest flea market — once a month in Noord. A glorious mix of junk and treasure.</p>
+        <span class="item-tip pt">Compra ingresso pra sábado de manhã e vai cedo. As melhores coisas somem antes das 11h.</span>
+        <span class="item-tip en">Buy Saturday morning tickets and go early. The best stuff disappears before 11am.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=IJ-Hallen+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Noordermarkt</strong>
+        <p class="pt">Segunda de manhã é o dia pra garimpar roupas vintage. Sábado e domingo é mais vibe de feira de comida orgânica.</p>
+        <p class="en">Monday morning is for vintage clothes hunting. Saturday and Sunday it's more of an organic food market vibe.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Noordermarkt+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Albert Cuypmarkt</strong>
+        <p class="pt">A feira de rua mais icônica de Amsterdam, no coração do De Pijp. Herring fresco, stroopwafel quente, tudo.</p>
+        <p class="en">Amsterdam's most iconic street market, in the heart of De Pijp. Fresh herring, hot stroopwafel, everything.</p>
+        <span class="item-tip pt">Come o Bao Bun no Bunsbar e o stroopwafel feito na hora. Obrigatório.</span>
+        <span class="item-tip en">Eat the Bao Bun at Bunsbar and the freshly made stroopwafel. Non-negotiable.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Albert+Cuypmarkt+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="sub-cat">👗 Vintage</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Episode</strong>
+        <p class="pt">Onde o vintage curado realmente presta. Seleção organizada, preços justos — o melhor ponto de partida pra quem não quer garimpar no caos.</p>
+        <p class="en">Where properly curated vintage actually delivers. Organized selection, fair prices — best starting point if you don't want to dig through chaos.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Episode+Vintage+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Zipper</strong>
+        <p class="pt">Clássico das 9 Straatjes pra achar tesouros escondidos. Pode levar um tempo, mas a recompensa existe.</p>
+        <p class="en">Classic 9 Streets spot for finding hidden treasures. Can take a while, but the reward is real.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Zipper+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Rumors Vintage</strong>
+        <p class="pt">Melhores jaquetas e botas da cidade. Se você procura peças de couro com história, começa aqui.</p>
+        <p class="en">Best jackets and boots in the city. If you're looking for leather pieces with history, start here.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Rumors+Vintage+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     MODAL — EXPLORAR
+════════════════════════════════════════════════════════════════════════ -->
+<div id="m-explore" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-explore-title">
+<div class="modal-content">
+  <button class="close-btn" onclick="closeModal('m-explore')" aria-label="Fechar">✕</button>
+  <h2 id="m-explore-title" class="pt">Explorar</h2>
+  <h2 class="en">Explore</h2>
+  <p class="modal-subtitle pt">Amsterdam · 7 lugares</p>
+  <p class="modal-subtitle en">Amsterdam · 7 spots</p>
+
+  <span class="sub-cat">🌳 Parques</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Vondelpark</strong>
+        <p class="pt">O quintal oficial da cidade. Fica bem lotado em dias de sol — mas é impossível não gostar da energia.</p>
+        <p class="en">The city's official backyard. Gets very crowded on sunny days — but it's impossible not to love the energy.</p>
+        <span class="item-tip pt">Ótimo pra uma corridinha ou passeio de bike. O anfiteatro no verão tem programação grátis.</span>
+        <span class="item-tip en">Great for a run or bike ride. The amphitheater has free programming in summer.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Vondelpark+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Amsterdamse Bos</strong>
+        <p class="pt">Floresta dentro de Amsterdam. Bastante espaço, uma parte com animais, trilhas, lago para remo.</p>
+        <p class="en">Forest inside Amsterdam. Lots of space, an animal section, trails, rowing lake.</p>
+        <span class="item-tip pt">Na época das cerejeiras (março/abril) vale muito a pena — é um espetáculo.</span>
+        <span class="item-tip en">Worth a visit during cherry blossom season (March/April) — it's a spectacle.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Amsterdamse+Bos" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Westerpark</strong>
+        <p class="pt">Mix de indústria e natureza. Vários bares, restaurantes e eventos acontecem aqui — especialmente no verão.</p>
+        <p class="en">Mix of industry and nature. Several bars, restaurants and events happen here — especially in summer.</p>
+        <span class="item-tip pt">Bom pra dar uma corrida pelo parque e terminar com cerveja no Westerunie.</span>
+        <span class="item-tip en">Great for a run through the park, ending with a beer at Westerunie.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Westerpark+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="sub-cat">🛶 Passeios</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Mokumboot</strong>
+        <p class="pt">Alugue seu próprio barco e seja o capitão dos canais de Amsterdam. Sem habilitação necessária.</p>
+        <p class="en">Rent your own boat and be the captain of Amsterdam's canals. No license required.</p>
+        <span class="item-tip pt">Pega bebidas e comida, fecha pelo menos 3h para aproveitar bem. Vai sem medo — é fácil.</span>
+        <span class="item-tip en">Grab drinks and snacks, book at least 3 hours to enjoy properly. Don't be scared — it's easy.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Mokumboot+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Zaanse Schans</strong>
+        <p class="pt">Moinhos de vento clássicos às margens do rio Zaan. Dá pra chegar de trem, ônibus ou bike.</p>
+        <p class="en">Classic windmills on the banks of the Zaan river. Reachable by train, bus or bike.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Zaanse+Schans" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Wetlandsafari</strong>
+        <p class="pt">Canoagem em silêncio pelo norte de Amsterdam. Natureza de verdade a meia hora da cidade.</p>
+        <p class="en">Canoeing in silence through northern Amsterdam. Real nature half an hour from the city.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Wetlandsafari+Watergang" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Keukenhof</strong>
+        <p class="pt">O parque das tulipas — só abre durante a primavera. Um dos espetáculos naturais mais bonitos da Europa.</p>
+        <p class="en">The tulip park — only open during spring. One of the most beautiful natural spectacles in Europe.</p>
+        <span class="item-tip pt">Confere a programação e tenta ir no início da temporada pra pegar toda a floração.</span>
+        <span class="item-tip en">Check the schedule and try to go early in the season for full bloom.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Keukenhof+Lisse" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     MODAL — FUTEBOL
+════════════════════════════════════════════════════════════════════════ -->
+<div id="m-football" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-football-title">
+<div class="modal-content">
+  <button class="close-btn" onclick="closeModal('m-football')" aria-label="Fechar">✕</button>
+  <h2 id="m-football-title" class="pt">Futebol</h2>
+  <h2 class="en">Football</h2>
+  <p class="modal-subtitle pt">Holanda · 3 estádios que valem a visita</p>
+  <p class="modal-subtitle en">Netherlands · 3 stadiums worth visiting</p>
+
+  <span class="sub-cat">🏟️ Amsterdam</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Johan Cruyff Arena</strong>
+        <p class="pt">O templo do Ajax. Um dos clubes mais históricos do futebol mundial — e o estádio faz jus à lenda.</p>
+        <p class="en">Ajax's temple. One of the most historic clubs in world football — and the stadium lives up to the legend.</p>
+        <span class="item-tip pt">O tour pelo estádio e o museu do Ajax valem muito a pena, mesmo fora dos dias de jogo.</span>
+        <span class="item-tip en">The stadium tour and Ajax museum are very much worth it, even on non-match days.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Johan+Cruyff+Arena+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="sub-cat">🏟️ Eindhoven</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Philips Stadion — PSV</strong>
+        <p class="pt">Casa do PSV. Estádio clássico bem no meio da cidade — a dois passos de tudo. Vários brasileiros passaram por aqui.</p>
+        <p class="en">PSV's home. Classic stadium right in the city center — steps from everything. Many Brazilians have played here.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Philips+Stadion+Eindhoven" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="sub-cat">🏟️ Rotterdam</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>De Kuip — Feyenoord</strong>
+        <p class="pt">Esqueça o luxo: aqui é o templo do futebol holandês raiz. Estádio histórico, torcida pesada, atmosfera que você sente na pele.</p>
+        <p class="en">Forget luxury: this is the temple of raw Dutch football. Historic stadium, intense fans, atmosphere you feel in your bones.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=De+Kuip+Rotterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     MODAL — ALÉM DE AMS
+════════════════════════════════════════════════════════════════════════ -->
+<div id="m-beyond" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-beyond-title">
+<div class="modal-content">
+  <button class="close-btn" onclick="closeModal('m-beyond')" aria-label="Fechar">✕</button>
+  <h2 id="m-beyond-title" class="pt">Além de AMS</h2>
+  <h2 class="en">Beyond AMS</h2>
+  <p class="modal-subtitle pt">Holanda · 8 cidades · Tudo a menos de 1h30 de trem</p>
+  <p class="modal-subtitle en">Netherlands · 8 cities · All under 1h30 by train</p>
+
+  <span class="city-label">🏙️ Utrecht</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>O Panuozzo</strong>
+        <p class="pt">O melhor sanduíche de pizza que você vai comer na vida. Motivo suficiente para ir a Utrecht.</p>
+        <p class="en">The best pizza sandwich you'll ever eat. Reason enough to go to Utrecht.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=O+Panuozzo+Utrecht" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>The Village Coffee & Music</strong>
+        <p class="pt">Café, música ao vivo e a melhor vibe local de Utrecht. O tipo de lugar que você fica mais tempo do que planejou.</p>
+        <p class="en">Coffee, live music and the best local vibe in Utrecht. The kind of place you stay longer than planned.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=The+Village+Coffee+Music+Utrecht" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Stichtse Taveerne</strong>
+        <p class="pt">Pub das antigas pra jogar bilhar sem pressa e beber sem agenda. Vibe completamente local.</p>
+        <p class="en">Old-school pub for billiards at your own pace, drinking without an agenda. Completely local vibe.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Stichtse+Taveerne+Utrecht" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Dom Tower</strong>
+        <p class="pt">O clássico de Utrecht. Suba pra ver a cidade de cima — a torre mais alta dos Países Baixos.</p>
+        <p class="en">Utrecht's classic. Climb up for city views — the tallest tower in the Netherlands.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Dom+Tower+Utrecht" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Vredenburg Markt</strong>
+        <p class="pt">A feira de sábado da cidade. Menor que Amsterdam, mais local — menos turista no caminho.</p>
+        <p class="en">The city's Saturday market. Smaller than Amsterdam, more local — fewer tourists in the way.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Vredenburg+Market+Utrecht" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="city-label">🏗️ Rotterdam</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Cube Houses (Kijk-Kubus)</strong>
+        <p class="pt">Casas amarelas que parecem ter caído de lado. Dá pra visitar por dentro — é bizarro e muito massa.</p>
+        <p class="en">Yellow houses that look tilted. You can visit inside — bizarre and very cool.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Cube+Houses+Rotterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Markthal</strong>
+        <p class="pt">Um arco gigante com apartamentos e o mercado embaixo. A arte no teto é absurda — ótimo pra comer de tudo um pouco.</p>
+        <p class="en">A giant arch with apartments above and the market below. The ceiling art is insane — great for eating a bit of everything.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Markthal+Rotterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="city-label">🎨 Den Haag</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Mauritshuis</strong>
+        <p class="pt">Onde mora a "Moça com Brinco de Pérola". Pequeno, elegante e sem as filas intermináveis de Amsterdam.</p>
+        <p class="en">Where "Girl with a Pearl Earring" lives. Small, elegant and without Amsterdam's endless queues.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Mauritshuis+The+Hague" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="city-label">💡 Eindhoven</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Strijp-S</strong>
+        <p class="pt">Antiga fábrica da Philips que virou polo de design e cultura urbana. Vibe muito Berlin — eventos, galerias, street food.</p>
+        <p class="en">Former Philips factory turned design and urban culture hub. Very Berlin vibe — events, galleries, street food.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Strijp-S+Eindhoven" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Van Gogh Village Nuenen</strong>
+        <p class="pt">É onde ele pintou "Os Comedores de Batata". Você anda pelos cenários reais que ele pintou — muito mais imersivo que qualquer museu.</p>
+        <p class="en">Where he painted "The Potato Eaters". You walk through the real scenes he painted — far more immersive than any museum.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Van+Gogh+Village+Nuenen" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="city-label">🧀 Gouda</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Gouda Kaasmarkt</strong>
+        <p class="pt">Toda quinta de manhã (abril a agosto). Turístico — mas ver os queijos gigantes sendo negociados em praça pública é um espetáculo clássico.</p>
+        <p class="en">Every Thursday morning (April to August). Touristy — but watching giant cheeses being traded in the public square is a classic spectacle.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Gouda+Cheese+Market" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="city-label">🧀 Alkmaar</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Alkmaar Cheese Market</strong>
+        <p class="pt">Acontece às sextas. Se Gouda não der certo, Alkmaar entrega o show completo: carregadores de queijo com roupas típicas, cerimônia e tudo.</p>
+        <p class="en">Happens on Fridays. If Gouda doesn't work out, Alkmaar delivers the full show: cheese carriers in traditional dress, ceremony and all.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Alkmaar+Cheese+Market" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="city-label">🎭 Leiden</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Molen de Valk</strong>
+        <p class="pt">Cidade onde Rembrandt nasceu. O moinho é um museu e a cidade parece uma Amsterdam que não foi descoberta pelos turistas.</p>
+        <p class="en">The city where Rembrandt was born. The windmill is a museum and the city feels like an Amsterdam tourists haven't found yet.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Molen+de+Valk+Leiden" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="city-label">🏺 Delft</span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Royal Delft Museum</strong>
+        <p class="pt">Pra quem curte o "azul de Delft". A última fábrica original do século XVII que ainda funciona — e você vê tudo ao vivo.</p>
+        <p class="en">For fans of "Delft Blue". The last original 17th-century factory still in operation — and you watch everything live.</p>
+      </div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Royal+Delft+Museum" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     MODAL — EVENTOS
+════════════════════════════════════════════════════════════════════════ -->
+<div id="m-cal" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-cal-title">
+<div class="modal-content">
+  <button class="close-btn" onclick="closeModal('m-cal')" aria-label="Fechar">✕</button>
+  <h2 id="m-cal-title" class="pt">Eventos & Calendário</h2>
+  <h2 class="en">Events & Calendar</h2>
+  <p class="modal-subtitle pt">Amsterdam · 10 eventos anuais que valem o planejamento</p>
+  <p class="modal-subtitle en">Amsterdam · 10 annual events worth planning around</p>
+
+  <div class="event-item">
+    <div class="event-month">ABR<br/>27</div>
+    <div class="event-info">
+      <strong class="pt">King's Day — Koningsdag</strong>
+      <strong class="en">King's Day — Koningsdag</strong>
+      <p class="pt">Veste laranja e se joga. A cidade inteira vira um mercado de pulgas gigante e uma festa sem fim nos canais.</p>
+      <p class="en">Wear orange and go for it. The whole city becomes a giant flea market and an endless party on the canals.</p>
+    </div>
+    <a href="https://www.iamsterdam.com/en/whats-on/kings-day" target="_blank" rel="noopener" class="maps-btn">Info</a>
+  </div>
+
+  <div class="event-item">
+    <div class="event-month">MAI<br/>Westerpark</div>
+    <div class="event-info">
+      <strong>Rollende Keukens</strong>
+      <p class="pt">Centenas de food trucks e gente feliz comendo na grama do Westerpark. O melhor dia de comer da cidade.</p>
+      <p class="en">Hundreds of food trucks and happy people eating on the Westerpark grass. The city's best eating day.</p>
+    </div>
+    <a href="https://rollendekeukens.amsterdam" target="_blank" rel="noopener" class="maps-btn">Info</a>
+  </div>
+
+  <div class="event-item">
+    <div class="event-month">JUN–AGO<br/>Vondelpark</div>
+    <div class="event-info">
+      <strong>Vondelpark Openluchttheater</strong>
+      <p class="pt">Programação grátis no anfiteatro do parque — dança, música, teatro. Vibe completamente local.</p>
+      <p class="en">Free programming at the park's amphitheater — dance, music, theater. Completely local vibe.</p>
+    </div>
+    <a href="https://www.openluchttheater.nl" target="_blank" rel="noopener" class="maps-btn">Info</a>
+  </div>
+
+  <div class="event-item">
+    <div class="event-month">AGO<br/>Canais</div>
+    <div class="event-info">
+      <strong>Pride Amsterdam</strong>
+      <p class="pt">O desfile de barcos nos canais é o diferencial absoluto. Praticamente todas as empresas têm barco — incluindo a polícia.</p>
+      <p class="en">The boat parade on the canals is the absolute differentiator. Almost every company has a boat — including the police.</p>
+    </div>
+    <a href="https://pride.amsterdam" target="_blank" rel="noopener" class="maps-btn">Info</a>
+  </div>
+
+  <div class="event-item">
+    <div class="event-month">AGO<br/>Amsterdamse Bos</div>
+    <div class="event-info">
+      <strong>Dekmantel Festival</strong>
+      <p class="pt">Techno e house "cabeça" no meio da floresta. Se você curte eletrônico sério, é obrigatório.</p>
+      <p class="en">Cerebral techno and house in the middle of the forest. If you're into serious electronic music, it's mandatory.</p>
+    </div>
+    <a href="https://www.dekmantel.com" target="_blank" rel="noopener" class="maps-btn">Info</a>
+  </div>
+
+  <div class="event-item">
+    <div class="event-month">AGO<br/>Canais</div>
+    <div class="event-info">
+      <strong>Grachtenfestival</strong>
+      <p class="pt">Música clássica e jazz tomando os canais e jardins secretos. Palcos flutuantes, sofisticado mas totalmente pé no chão.</p>
+      <p class="en">Classical music and jazz taking over canals and secret gardens. Floating stages — sophisticated but totally laid-back.</p>
+    </div>
+    <a href="https://www.grachtenfestival.nl" target="_blank" rel="noopener" class="maps-btn">Info</a>
+  </div>
+
+  <div class="event-item">
+    <div class="event-month">OUT<br/>Cidade toda</div>
+    <div class="event-info">
+      <strong>ADE — Amsterdam Dance Event</strong>
+      <p class="pt">Se você curte eletrônico, essa é a sua semana. A cidade não dorme — literalmente.</p>
+      <p class="en">If you're into electronic music, this is your week. The city literally doesn't sleep.</p>
+    </div>
+    <a href="https://www.amsterdam-dance-event.nl" target="_blank" rel="noopener" class="maps-btn">Info</a>
+  </div>
+
+  <div class="event-item">
+    <div class="event-month">NOV<br/>Museus</div>
+    <div class="event-info">
+      <strong>Museum Night — Museumnacht</strong>
+      <p class="pt">Museus com DJ, bebida e zero cara de escola. A melhor noite cultural do ano — sem discussão.</p>
+      <p class="en">Museums with DJ, drinks and zero school vibes. The best cultural night of the year — no argument.</p>
+    </div>
+    <a href="https://museumnacht.amsterdam" target="_blank" rel="noopener" class="maps-btn">Info</a>
+  </div>
+
+  <div class="event-item">
+    <div class="event-month">DEZ–JAN<br/>Canais</div>
+    <div class="event-info">
+      <strong>Amsterdam Light Festival</strong>
+      <p class="pt">Instalações de luz nos canais pra aguentar o frio holandês. Ver de barco é o segredo.</p>
+      <p class="en">Light installations on the canals to survive the Dutch cold. The secret is watching from a boat.</p>
+    </div>
+    <a href="https://amsterdamlightfestival.com" target="_blank" rel="noopener" class="maps-btn">Info</a>
+  </div>
+
+  <div class="event-item">
+    <div class="event-month">A cada<br/>5 anos</div>
+    <div class="event-info">
+      <strong>SAIL Amsterdam</strong>
+      <p class="pt">Navios históricos gigantes atracam no IJ. Impressionante de ver — acontece a cada 5 anos.</p>
+      <p class="en">Giant historic ships dock on the IJ. Spectacular to witness — happens every 5 years.</p>
+    </div>
+    <a href="https://www.sail.nl" target="_blank" rel="noopener" class="maps-btn">Info</a>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     JS
+════════════════════════════════════════════════════════════════════════ -->
+<script>
+  function openModal(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    // focus close button for accessibility
+    const btn = el.querySelector('.close-btn');
+    if (btn) setTimeout(() => btn.focus(), 80);
+  }
+
+  function closeModal(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  // Close on backdrop click
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('modal')) closeModal(e.target.id);
+  });
+
+  // Close on ESC
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal').forEach(m => {
+        if (m.style.display === 'flex') closeModal(m.id);
+      });
+    }
+  });
+
+  function toggleLang() {
+    document.body.classList.toggle('lang-pt');
+    document.body.classList.toggle('lang-en');
+  }
+</script>
+
+</body>
+</html>
