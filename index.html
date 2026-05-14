@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- ═══ SEO ═══════════════════════════════════════════════════════════ -->
-  <title>The Insiders Map — Guia Real de Amsterdam 2026</title>
+  <title>The Insiders Map by Mari — Guia Real de Amsterdam 2026</title>
   <meta name="description" content="O guia de Amsterdam de quem mora aqui: melhores restaurantes, bares, coffee shops, museus, wellness e eventos. Sem ciladas de turista." />
   <meta name="keywords" content="dicas amsterdam, guia amsterdam 2026, melhores restaurantes amsterdam, coffee shops amsterdam, o que fazer em amsterdam, bares amsterdam" />
   <meta name="robots" content="index, follow" />
@@ -14,15 +14,24 @@
   <!-- ═══ OPEN GRAPH ═════════════════════════════════════════════════════ -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="The Insiders Map by Mari — Amsterdam Real" />
-  <meta property="og:description" content="Não é guia turístico. É o WhatsApp de um Insider que mora em Amsterdam." />
+  <meta property="og:description" content="Não é guia turístico. É o WhatsApp da Mari que mora em Amsterdam." />
   <meta property="og:url" content="https://theinsidersmap.com/" />
   <meta property="og:locale" content="pt_BR" />
   <meta property="og:locale:alternate" content="en_GB" />
 
   <!-- ═══ TWITTER CARD ═══════════════════════════════════════════════════ -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="The Insiders Map" />
-  <meta name="twitter:description" content="Não é guia turístico. É o WhatsApp de um Insider que mora em Amsterdam." />
+  <meta name="twitter:title" content="The Insiders Map by Mari" />
+  <meta name="twitter:description" content="Não é guia turístico. É o WhatsApp da Mari que mora em Amsterdam." />
+
+  <!-- ═══ GOOGLE ANALYTICS ══════════════════════════════════════════════ -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FFQB99311L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FFQB99311L');
+  </script>
 
   <!-- ═══ FONTS ══════════════════════════════════════════════════════════ -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -110,6 +119,17 @@
       font-weight: 400;
     }
     .intro-text b { color: var(--dark); font-weight: 800; }
+    .tip-ouro {
+      display: inline-block;
+      margin-top: 16px;
+      background: #fff8f5;
+      border-left: 4px solid var(--orange);
+      padding: 10px 16px;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.95rem !important;
+      color: var(--dark) !important;
+      font-weight: 600;
+    }
 
     /* ─── CATEGORY GRID ───────────────────────────────────────────────── */
     .dashboard {
@@ -274,10 +294,13 @@
     .sub-cat:first-of-type { margin-top: 8px; }
 
     .item {
-      padding: 24px 0;
-      border-bottom: var(--border-thin);
+      padding: 20px;
+      border: 2px solid #e8e8e8;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      background: #fafafa;
     }
-    .item:last-child { border-bottom: none; }
+    .item:last-child { margin-bottom: 0; }
 
     .item-header {
       display: flex;
@@ -385,6 +408,86 @@
     }
     .city-label:first-of-type { margin-top: 8px; }
 
+    /* ─── DE-PARA TABLE ───────────────────────────────────────────────── */
+    .depara-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 0.9rem;
+    }
+    .depara-table th {
+      text-align: left;
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--orange);
+      padding: 10px 12px;
+      border-bottom: 2px solid var(--dark);
+      background: #fff5f2;
+    }
+    .depara-table td {
+      padding: 12px 12px;
+      border-bottom: var(--border-thin);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .depara-table tr:last-child td { border-bottom: none; }
+    .depara-table td:first-child { font-weight: 700; color: var(--dark); }
+    .depara-table td:nth-child(2) { color: var(--slate); }
+    .depara-table td:last-child {
+      color: var(--dark);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    @media (max-width: 480px) {
+      .depara-table { font-size: 0.8rem; }
+      .depara-table td { padding: 10px 8px; }
+    }
+
+    /* ─── CITY TABS ───────────────────────────────────────────────────── */
+    .city-tabs {
+      width: 90%;
+      max-width: 1200px;
+      margin: 48px auto 0;
+      display: flex;
+      gap: 0;
+      border: var(--border);
+      overflow: hidden;
+    }
+    .city-tab {
+      padding: 14px 28px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border: none;
+      background: var(--bg);
+      color: var(--slate);
+      cursor: default;
+      border-right: var(--border);
+      transition: background var(--transition), color var(--transition);
+    }
+    .city-tab:last-child { border-right: none; }
+    .city-tab.active {
+      background: var(--dark);
+      color: #fff;
+      cursor: default;
+    }
+    .city-tab.soon {
+      color: #bbb;
+      font-style: italic;
+      cursor: not-allowed;
+    }
+    .city-tab.soon::after {
+      content: ' (em breve)';
+      font-size: 0.6rem;
+      font-weight: 400;
+    }
+    body.lang-en .city-tab.soon::after {
+      content: ' (coming soon)';
+    }
+
     /* ─── RESPONSIVE ──────────────────────────────────────────────────── */
     @media (max-width: 768px) {
       header { padding-top: 40px; }
@@ -410,22 +513,35 @@
   </div>
   <div class="personal-intro">
     <p class="intro-text pt">
-      Oi, eu sou um insider e faço o possível para que meus amigos não caiam em ciladas de turista
-      — ou pelo menos caiam sabendo que é cilada. Este site é o meu mapa mental de onde eu
-      <b>realmente bato ponto</b>: daquela pizza napolitana que ganha qualquer discussão ao ritual
-      de sauna que salva o meu domingo. Se o lugar está aqui, é porque eu confio ou pelo menos
-      quero dar uma conferida. Aproveite a vibe da cidade, aprecie a arquitetura e, por favor,
+      Oi — sou uma insider morando em Amsterdam e trago <b>dicas além do óbvio</b>. Nada de lista
+      de turista genérica: aqui só entra o que eu realmente frequento, testei ou recomendaria pra
+      um amigo que acabou de chegar. Da pizza napolitana que ganha qualquer discussão ao ritual de
+      sauna que salva o meu domingo. Aproveite a vibe, aprecie a arquitetura e, por favor,
       <b>saia da ciclovia se estiver a pé.</b>
     </p>
+    <p class="intro-text pt tip-ouro">
+      💡 Dica de ouro: se puder, pegue bike. Faz a diferença toda do rolê.
+    </p>
     <p class="intro-text en">
-      Hi, I'm an Insider and I do my best to keep my friends out of tourist traps, or at least make sure
-      they walk into them knowingly. This is my mental map of the spots I <b>actually frequent</b>:
-      from the Neapolitan pizza that wins every argument to the sauna ritual that saves my Sunday.
-      If it's on this list, I trust it. Enjoy the vibe, appreciate the architecture, and please,
-      <b>stay off the bike lane if you're on foot.</b>
+      Hi — I'm an insider living in Amsterdam, here to share <b>tips beyond the obvious</b>.
+      No generic tourist lists: everything here I've actually frequented, tested, or would
+      recommend to a friend who just arrived. From the Neapolitan pizza that wins every argument
+      to the sauna ritual that saves my Sunday. Enjoy the vibe, appreciate the architecture, and
+      please, <b>stay off the bike lane if you're on foot.</b>
+    </p>
+    <p class="intro-text en tip-ouro">
+      💡 Golden tip: if you can, get a bike. It changes everything about the experience.
     </p>
   </div>
 </header>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     CITY TABS
+════════════════════════════════════════════════════════════════════════ -->
+<div class="city-tabs" role="tablist" aria-label="Cidades">
+  <button class="city-tab active" role="tab" aria-selected="true">🇳🇱 Amsterdam</button>
+  <button class="city-tab soon" role="tab" aria-selected="false" tabindex="-1">🇧🇷 São Paulo</button>
+</div>
 
 <!-- ═══════════════════════════════════════════════════════════════════════
      CATEGORY GRID
@@ -438,7 +554,7 @@
       <span class="cat-emoji" aria-hidden="true">🍕</span>
       <span class="cat-title pt">Gastronomia</span>
       <span class="cat-title en">Eats</span>
-      <span class="cat-count">9 lugares</span>
+      <span class="cat-count pt">9 lugares</span><span class="cat-count en">9 spots</span>
     </div>
 
     <div class="cat-card" onclick="openModal('m-night')" role="button" tabindex="0"
@@ -446,7 +562,7 @@
       <span class="cat-emoji" aria-hidden="true">🍺</span>
       <span class="cat-title pt">Beber & Noite</span>
       <span class="cat-title en">Drinks & Night</span>
-      <span class="cat-count">18 lugares</span>
+      <span class="cat-count pt">18 lugares</span><span class="cat-count en">18 spots</span>
     </div>
 
     <div class="cat-card" onclick="openModal('m-cafe')" role="button" tabindex="0"
@@ -454,7 +570,7 @@
       <span class="cat-emoji" aria-hidden="true">☕</span>
       <span class="cat-title pt">Café & Brunch</span>
       <span class="cat-title en">Caffeine & Brunch</span>
-      <span class="cat-count">8 lugares</span>
+      <span class="cat-count pt">8 lugares</span><span class="cat-count en">8 spots</span>
     </div>
 
     <div class="cat-card" onclick="openModal('m-cs')" role="button" tabindex="0"
@@ -462,7 +578,7 @@
       <span class="cat-emoji" aria-hidden="true">🌿</span>
       <span class="cat-title pt">Coffee Shops</span>
       <span class="cat-title en">Coffee Shops</span>
-      <span class="cat-count">3 lugares</span>
+      <span class="cat-count pt">3 lugares</span><span class="cat-count en">3 spots</span>
     </div>
 
     <div class="cat-card" onclick="openModal('m-body')" role="button" tabindex="0"
@@ -470,7 +586,7 @@
       <span class="cat-emoji" aria-hidden="true">🧘</span>
       <span class="cat-title pt">Corpo & Mente</span>
       <span class="cat-title en">Body & Mind</span>
-      <span class="cat-count">8 lugares</span>
+      <span class="cat-count pt">8 lugares</span><span class="cat-count en">8 spots</span>
     </div>
 
     <div class="cat-card" onclick="openModal('m-culture')" role="button" tabindex="0"
@@ -478,7 +594,7 @@
       <span class="cat-emoji" aria-hidden="true">🎨</span>
       <span class="cat-title pt">Cultura & Arte</span>
       <span class="cat-title en">Culture & Art</span>
-      <span class="cat-count">9 lugares</span>
+      <span class="cat-count pt">9 lugares</span><span class="cat-count en">9 spots</span>
     </div>
 
     <div class="cat-card" onclick="openModal('m-hype')" role="button" tabindex="0"
@@ -486,7 +602,7 @@
       <span class="cat-emoji" aria-hidden="true">🔥</span>
       <span class="cat-title pt">Hype & Experiências</span>
       <span class="cat-title en">Hype & Experiences</span>
-      <span class="cat-count">6 lugares</span>
+      <span class="cat-count pt">6 lugares</span><span class="cat-count en">6 spots</span>
     </div>
 
     <div class="cat-card" onclick="openModal('m-find')" role="button" tabindex="0"
@@ -494,7 +610,7 @@
       <span class="cat-emoji" aria-hidden="true">🛍️</span>
       <span class="cat-title pt">Garimpos</span>
       <span class="cat-title en">The Find</span>
-      <span class="cat-count">6 lugares</span>
+      <span class="cat-count pt">6 lugares</span><span class="cat-count en">6 spots</span>
     </div>
 
     <div class="cat-card" onclick="openModal('m-explore')" role="button" tabindex="0"
@@ -502,7 +618,7 @@
       <span class="cat-emoji" aria-hidden="true">🌳</span>
       <span class="cat-title pt">Explorar</span>
       <span class="cat-title en">Explore</span>
-      <span class="cat-count">7 lugares</span>
+      <span class="cat-count pt">7 lugares</span><span class="cat-count en">7 spots</span>
     </div>
 
     <div class="cat-card" onclick="openModal('m-football')" role="button" tabindex="0"
@@ -510,7 +626,7 @@
       <span class="cat-emoji" aria-hidden="true">⚽</span>
       <span class="cat-title pt">Futebol</span>
       <span class="cat-title en">Football</span>
-      <span class="cat-count">3 estádios</span>
+      <span class="cat-count pt">3 estádios</span><span class="cat-count en">3 stadiums</span>
     </div>
 
     <div class="cat-card" onclick="openModal('m-beyond')" role="button" tabindex="0"
@@ -518,7 +634,7 @@
       <span class="cat-emoji" aria-hidden="true">🚲</span>
       <span class="cat-title pt">Além de AMS</span>
       <span class="cat-title en">Beyond AMS</span>
-      <span class="cat-count">8 cidades</span>
+      <span class="cat-count pt">8 cidades</span><span class="cat-count en">8 cities</span>
     </div>
 
     <div class="cat-card" onclick="openModal('m-cal')" role="button" tabindex="0"
@@ -526,7 +642,31 @@
       <span class="cat-emoji" aria-hidden="true">📅</span>
       <span class="cat-title pt">Eventos</span>
       <span class="cat-title en">Calendar</span>
-      <span class="cat-count">10 eventos</span>
+      <span class="cat-count pt">10 eventos</span><span class="cat-count en">10 events</span>
+    </div>
+
+    <div class="cat-card" onclick="openModal('m-br-ams')" role="button" tabindex="0"
+         onkeydown="if(event.key==='Enter')openModal('m-br-ams')">
+      <span class="cat-emoji" aria-hidden="true">🇧🇷</span>
+      <span class="cat-title pt">Brasileiro em AMS</span>
+      <span class="cat-title en">Brazilian in AMS</span>
+      <span class="cat-count pt">guia de sobrevivência</span><span class="cat-count en">survival guide</span>
+    </div>
+
+    <div class="cat-card" onclick="openModal('m-multas')" role="button" tabindex="0"
+         onkeydown="if(event.key==='Enter')openModal('m-multas')">
+      <span class="cat-emoji" aria-hidden="true">🚨</span>
+      <span class="cat-title pt">Como Evitar Multas</span>
+      <span class="cat-title en">Avoid Fines</span>
+      <span class="cat-count pt">infrações + dicas</span><span class="cat-count en">violations + tips</span>
+    </div>
+
+    <div class="cat-card" onclick="openModal('m-shops')" role="button" tabindex="0"
+         onkeydown="if(event.key==='Enter')openModal('m-shops')">
+      <span class="cat-emoji" aria-hidden="true">🛒</span>
+      <span class="cat-title pt">Mercados & Utilidades</span>
+      <span class="cat-title en">Shops & Essentials</span>
+      <span class="cat-count pt">supermercados · farmácias · mais</span><span class="cat-count en">supermarkets · pharmacies · more</span>
     </div>
 
   </nav>
@@ -569,7 +709,7 @@
     </div>
   </div>
 
-  <span class="sub-cat">🍣 Oriental</span>
+  <span class="sub-cat"><span class="pt">🍣 Oriental</span><span class="en">🍣 Asian</span></span>
 
   <div class="item">
     <div class="item-header">
@@ -606,7 +746,7 @@
     </div>
   </div>
 
-  <span class="sub-cat">🦞 Frutos do Mar</span>
+  <span class="sub-cat"><span class="pt">🦞 Frutos do Mar</span><span class="en">🦞 Seafood</span></span>
 
   <div class="item">
     <div class="item-header">
@@ -632,7 +772,7 @@
     </div>
   </div>
 
-  <span class="sub-cat">🇰🇷 Coreana</span>
+  <span class="sub-cat"><span class="pt">🇰🇷 Coreana</span><span class="en">🇰🇷 Korean</span></span>
 
   <div class="item">
     <div class="item-header">
@@ -866,7 +1006,7 @@
     </div>
   </div>
 
-  <span class="sub-cat">🌙 Fim de Noite</span>
+  <span class="sub-cat"><span class="pt">🌙 Fim de Noite</span><span class="en">🌙 Late Night</span></span>
 
   <div class="item">
     <div class="item-header">
@@ -904,7 +1044,7 @@
   <p class="modal-subtitle pt">Amsterdam · 8 lugares</p>
   <p class="modal-subtitle en">Amsterdam · 8 spots</p>
 
-  <span class="sub-cat">☕ Café Especial</span>
+  <span class="sub-cat"><span class="pt">☕ Café Especial</span><span class="en">☕ Specialty Coffee</span></span>
 
   <div class="item">
     <div class="item-header">
@@ -952,7 +1092,7 @@
     </div>
   </div>
 
-  <span class="sub-cat">🥐 Brunch & Padaria</span>
+  <span class="sub-cat"><span class="pt">🥐 Brunch & Padaria</span><span class="en">🥐 Brunch & Bakery</span></span>
 
   <div class="item">
     <div class="item-header">
@@ -1170,7 +1310,7 @@
   <p class="modal-subtitle pt">Amsterdam · 9 lugares</p>
   <p class="modal-subtitle en">Amsterdam · 9 spots</p>
 
-  <span class="sub-cat">🏛️ Museus</span>
+  <span class="sub-cat"><span class="pt">🏛️ Museus</span><span class="en">🏛️ Museums</span></span>
 
   <div class="item">
     <div class="item-header">
@@ -1246,7 +1386,7 @@
     </div>
   </div>
 
-  <span class="sub-cat">🎨 Arte Urbana & Digital</span>
+  <span class="sub-cat"><span class="pt">🎨 Arte Urbana & Digital</span><span class="en">🎨 Urban & Digital Art</span></span>
 
   <div class="item">
     <div class="item-header">
@@ -1295,7 +1435,7 @@
   <p class="modal-subtitle pt">Amsterdam · 6 lugares · Turístico, mas com motivo</p>
   <p class="modal-subtitle en">Amsterdam · 6 spots · Touristy, but for a reason</p>
 
-  <span class="sub-cat">🍟 Comida Viral</span>
+  <span class="sub-cat"><span class="pt">🍟 Comida Viral</span><span class="en">🍟 Viral Food</span></span>
 
   <div class="item">
     <div class="item-header">
@@ -1345,7 +1485,7 @@
     </div>
   </div>
 
-  <span class="sub-cat">🎡 Experiências</span>
+  <span class="sub-cat"><span class="pt">🎡 Experiências</span><span class="en">🎡 Experiences</span></span>
 
   <div class="item">
     <div class="item-header">
@@ -1383,7 +1523,7 @@
   <p class="modal-subtitle pt">Amsterdam · 6 lugares</p>
   <p class="modal-subtitle en">Amsterdam · 6 spots</p>
 
-  <span class="sub-cat">🛒 Mercados</span>
+  <span class="sub-cat"><span class="pt">🛒 Mercados</span><span class="en">🛒 Markets</span></span>
 
   <div class="item">
     <div class="item-header">
@@ -1471,7 +1611,7 @@
   <p class="modal-subtitle pt">Amsterdam · 7 lugares</p>
   <p class="modal-subtitle en">Amsterdam · 7 spots</p>
 
-  <span class="sub-cat">🌳 Parques</span>
+  <span class="sub-cat"><span class="pt">🌳 Parques</span><span class="en">🌳 Parks</span></span>
 
   <div class="item">
     <div class="item-header">
@@ -1512,7 +1652,7 @@
     </div>
   </div>
 
-  <span class="sub-cat">🛶 Passeios</span>
+  <span class="sub-cat"><span class="pt">🛶 Passeios</span><span class="en">🛶 Day Trips</span></span>
 
   <div class="item">
     <div class="item-header">
@@ -1914,6 +2054,504 @@
       <p class="en">Giant historic ships dock on the IJ. Spectacular to witness — happens every 5 years.</p>
     </div>
     <a href="https://www.sail.nl" target="_blank" rel="noopener" class="maps-btn">Info</a>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     MODAL — BRASILEIRO EM AMSTERDAM
+════════════════════════════════════════════════════════════════════════ -->
+<div id="m-br-ams" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-br-ams-title">
+<div class="modal-content">
+  <button class="close-btn" onclick="closeModal('m-br-ams')" aria-label="Fechar">✕</button>
+  <h2 id="m-br-ams-title" class="pt">Brasileiro em AMS</h2>
+  <h2 class="en">Brazilian in AMS</h2>
+  <p class="modal-subtitle pt">O que ninguém conta antes de você chegar</p>
+  <p class="modal-subtitle en">What nobody tells you before you arrive</p>
+
+  <span class="sub-cat"><span class="pt">📋 Primeiros documentos</span><span class="en">📋 First Steps</span></span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>BSN (Burgerservicenummer)</strong>
+        <p class="pt">É o seu CPF holandês — sem ele você não abre conta, não trabalha, não faz nada. Agendamento no gemeente (prefeitura) da sua cidade. Leva passaporte + comprovante de endereço.</p>
+        <p class="en">Your Dutch tax ID — without it you can't open a bank account, work, or do anything. Book an appointment at your local gemeente (city hall). Bring passport + proof of address.</p>
+        <span class="item-tip pt">Agende pelo site do município assim que tiver endereço fixo. Pode demorar semanas.</span>
+        <span class="item-tip en">Book as soon as you have a fixed address. It can take weeks.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>DigiD</strong>
+        <p class="pt">Identidade digital do governo holandês. Você usa pra declarar imposto, acessar seu seguro saúde, portal do seguro desemprego e vários serviços públicos. Solicite logo após ter o BSN.</p>
+        <p class="en">Dutch government digital ID. You'll use it to file taxes, access health insurance, unemployment portal and public services. Apply right after getting your BSN.</p>
+        <span class="item-tip pt">Demora até 2 semanas pra chegar pelo correio. Solicite no digid.nl.</span>
+        <span class="item-tip en">Takes up to 2 weeks to arrive by post. Apply at digid.nl.</span>
+      </div>
+      <a href="https://www.digid.nl" target="_blank" rel="noopener" class="maps-btn">Site</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong><span class="pt">Conta bancária</span><span class="en">Bank account</span></strong>
+        <p class="pt">Bunq e Revolut aceitam recém-chegados sem BSN. Assim que tiver o BSN, abra conta no ING ou ABN AMRO — você vai precisar pro iDEAL (sistema de pagamento holandês usado em tudo).</p>
+        <p class="en">Bunq and Revolut accept newcomers without a BSN. Once you have it, open an ING or ABN AMRO account — you'll need iDEAL (the Dutch payment system used everywhere).</p>
+        <span class="item-tip pt">iDEAL é essencial. Sem conta holandesa, você não consegue pagar aluguel, streaming, ou qualquer serviço local.</span>
+        <span class="item-tip en">iDEAL is essential. Without a Dutch account, you can't pay rent, streaming, or any local service.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong><span class="pt">Seguro saúde (Zorgverzekering)</span><span class="en">Health insurance (Zorgverzekering)</span></strong>
+        <p class="pt">Obrigatório para quem mora e trabalha aqui. Você tem 4 meses a partir da chegada pra contratar — se não fizer, leva multa. CZ, Menzis e Zilveren Kruis são os mais comuns.</p>
+        <p class="en">Mandatory for residents and workers. You have 4 months from arrival to get it — if you don't, you get fined. CZ, Menzis and Zilveren Kruis are the most common.</p>
+        <span class="item-tip pt">Se sua renda for baixa, peça zorgtoeslag (subsídio do governo para o plano de saúde) via Belastingdienst.</span>
+        <span class="item-tip en">If your income is low, apply for zorgtoeslag (government health insurance subsidy) via Belastingdienst.</span>
+      </div>
+    </div>
+  </div>
+
+  <span class="sub-cat"><span class="pt">🛒 Onde comprar (homesick kit)</span><span class="en">🛒 Where to Shop (homesick kit)</span></span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Toko Dun Yong — Chinatown</strong>
+        <p class="pt">Supermercado asiático enorme em pleno centro. Tem feijão preto, goiabada, tapioca, polvilho, açaí congelado e várias marcas brasileiras. Melhor opção de ingredientes brasileiros no centro.</p>
+        <p class="en">Huge Asian supermarket in the city center. Has black beans, goiabada, tapioca, açaí and several Brazilian brands. Best option for Brazilian ingredients downtown.</p>
+      </div>
+      <a href="https://maps.app.goo.gl/WJbGsBBbKJsD2MHBA" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Jumbo & Albert Heijn</strong>
+        <p class="pt">Supermercados holandeses que têm alguns itens surpresa: leite de coco, farinha de amêndoas, queijo quark (substituto do requeijão), iogurte grego. Jumbo costuma ser mais barato.</p>
+        <p class="en">Dutch supermarkets with some surprise items: coconut milk, almond flour, quark cheese (requeijão substitute), Greek yogurt. Jumbo tends to be cheaper.</p>
+        <span class="item-tip pt">O app do Albert Heijn tem desconto "Bonuskaart" — crie uma conta mesmo sem BSN.</span>
+        <span class="item-tip en">Albert Heijn app has "Bonuskaart" discounts — create an account even without a BSN.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong><span class="pt">Mercado Brasileiro (várias localidades)</span><span class="en">Brazilian Shop (various locations)</span></strong>
+        <p class="pt">Existem pequenas lojas brasileiras espalhadas pela cidade com cachaça, guaraná, bombom, coxinha congelada e saudade em embalagem plástica. Procure no Instagram por "loja brasileira Amsterdam".</p>
+        <p class="en">Small Brazilian shops scattered around the city with cachaça, guaraná, bombons, frozen coxinha and packaged nostalgia. Search Instagram for "loja brasileira Amsterdam".</p>
+        <span class="item-tip pt">Os preços são mais altos que no Brasil (claro), mas vale a pena pra dias de homesick severo.</span>
+        <span class="item-tip en">Prices are higher than in Brazil (obviously), but worth it for serious homesick days.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Brasil Portugal</strong>
+        <p class="pt">Loja com produtos portugueses e brasileiros — pão de queijo, doce de leite, cachaça e saudades do lar num único lugar. Pequena, cheia de coisa boa.</p>
+        <p class="en">Shop with Portuguese and Brazilian products — pão de queijo, doce de leite, cachaça and a dose of homesickness in one spot. Small, stacked with good stuff.</p>
+      </div>
+      <a href="https://share.google/Y1usESiuNNH8mMcap" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="sub-cat"><span class="pt">💊 Farmácia & remédios</span><span class="en">💊 Pharmacy & Medicine</span></span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Drogist vs. Apotheek</strong>
+        <p class="pt">Drogist (Etos, Kruidvat) = equivalente à farmácia de conveniência. Apotheek = farmácia de verdade com receita. Para dor de cabeça, febre e resfriado, o Drogist resolve.</p>
+        <p class="en">Drogist (Etos, Kruidvat) = convenience pharmacy. Apotheek = real pharmacy with prescriptions. For headaches, fever and colds, Drogist does the job.</p>
+        <span class="item-tip pt">Paracetamol é o remédio padrão aqui. Ibuprofeno existe mas é menos usado. Dipirona não tem — Paracetamol é o substituto.</span>
+        <span class="item-tip en">Paracetamol is the standard medicine here. Dipirona doesn't exist — Paracetamol is the substitute.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong><span class="pt">Médico de família (Huisarts)</span><span class="en">GP / Family doctor (Huisarts)</span></strong>
+        <p class="pt">O sistema holandês exige que você tenha um huisarts (clínico geral) registrado antes de conseguir especialistas. Cadastre-se assim que tiver seguro saúde. Sem cadastro, sem consulta.</p>
+        <p class="en">The Dutch system requires you to have a registered huisarts (GP) before accessing specialists. Register as soon as you have health insurance. No registration, no appointment.</p>
+        <span class="item-tip pt">Use o site independentis.nl ou zorgwijzer.nl para encontrar um huisarts com vaga na sua área.</span>
+        <span class="item-tip en">Use independentis.nl or zorgwijzer.nl to find a huisarts accepting new patients in your area.</span>
+      </div>
+    </div>
+  </div>
+
+  <span class="sub-cat"><span class="pt">🚲 Vida prática</span><span class="en">🚲 Practical Life</span></span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong><span class="pt">Bicicleta</span><span class="en">Bicycle</span></strong>
+        <p class="pt">Não é opcional — é o transporte principal. Compre usada no Marktplaats (site tipo OLX holandês) por €80–150. Nova rouba no Decathlon por €200+. Cadeado é obrigatório.</p>
+        <p class="en">Not optional — it's the main transport. Buy second-hand on Marktplaats (Dutch OLX) for €80–150. New at Decathlon for €200+. A lock is mandatory.</p>
+        <span class="item-tip pt">Nunca amarre só no quadro. Use cadeado passando pelo quadro + roda traseira + poste. Roubo de bike é endêmico.</span>
+        <span class="item-tip en">Never lock only the frame. Loop the lock through frame + rear wheel + post. Bike theft is endemic.</span>
+      </div>
+      <a href="https://www.marktplaats.nl" target="_blank" rel="noopener" class="maps-btn">Marktplaats</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong><span class="pt">OV-chipkaart (transporte público)</span><span class="en">OV-chipkaart (public transport)</span></strong>
+        <p class="pt">Cartão de transporte recarregável usado em trem, metrô, ônibus e bonde em todo o país. Compre na estação Centraal ou no site ov-chipkaart.nl. Mantenha sempre saldo.</p>
+        <p class="en">Rechargeable transport card used on trains, metro, buses and trams nationwide. Buy at Centraal Station or ov-chipkaart.nl. Always keep credit on it.</p>
+        <span class="item-tip pt">Lembre de fazer check-in E check-out — se esquecer o checkout, cobra a tarifa máxima da linha.</span>
+        <span class="item-tip en">Remember to check in AND check out — if you forget checkout, you get charged the maximum fare.</span>
+      </div>
+      <a href="https://www.ov-chipkaart.nl" target="_blank" rel="noopener" class="maps-btn">Site</a>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     MODAL — COMO EVITAR MULTAS
+════════════════════════════════════════════════════════════════════════ -->
+<div id="m-multas" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-multas-title">
+<div class="modal-content">
+  <button class="close-btn" onclick="closeModal('m-multas')" aria-label="Fechar">✕</button>
+  <h2 id="m-multas-title" class="pt">Como Evitar Multas</h2>
+  <h2 class="en">Avoid Fines</h2>
+  <p class="modal-subtitle pt">Amsterdam · infrações comuns + como não cair nelas</p>
+  <p class="modal-subtitle en">Amsterdam · common violations + how to avoid them</p>
+
+  <span class="sub-cat"><span class="pt">🚲 Bicicleta</span><span class="en">🚲 Bicycle</span></span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong class="pt">Andar na ciclovia a pé — €95</strong>
+        <strong class="en">Walking in the bike lane — €95</strong>
+        <p class="pt">A ciclovia (fietspad) é vermelha ou tem símbolo de bicicleta. Cruzar sem olhar pode machucar você e gerar multa. Ciclistas têm prioridade absoluta — eles não desviam.</p>
+        <p class="en">The bike lane (fietspad) is red or marked with a bicycle symbol. Crossing without looking can get you hurt or fined. Cyclists have absolute priority — they don't swerve for you.</p>
+        <span class="item-tip pt">Sempre olhe dos dois lados antes de cruzar uma ciclovia. Eles vêm rápido e silenciosos.</span>
+        <span class="item-tip en">Always look both ways before crossing a bike lane. They come fast and silent.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong class="pt">Andar de bicicleta sem luz à noite — €55</strong>
+        <strong class="en">Cycling without lights at night — €55</strong>
+        <p class="pt">Luz dianteira branca + traseira vermelha são obrigatórias após o anoitecer. A polícia para bicicletas sem luz regularmente, especialmente no outono e inverno.</p>
+        <p class="en">White front light + red rear light are mandatory after dark. Police stop bikes without lights regularly, especially in autumn and winter.</p>
+        <span class="item-tip pt">Compre luzes na Decathlon ou em qualquer fietsenwinkel (loja de bikes) por €10–15. Não vale o risco.</span>
+        <span class="item-tip en">Buy lights at Decathlon or any fietsenwinkel (bike shop) for €10–15. Not worth the risk.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong class="pt">Celular na mão pedalando — €160</strong>
+        <strong class="en">Phone in hand while cycling — €160</strong>
+        <p class="pt">Segurar o celular enquanto pedala é multa alta e cada vez mais fiscalizada. Inclusive fones de ouvido com fio podem gerar advertência dependendo do agente.</p>
+        <p class="en">Holding your phone while cycling is heavily fined and increasingly enforced. Even wired earphones can result in a warning depending on the officer.</p>
+        <span class="item-tip pt">Use suporte de celular no guidão se precisar de GPS.</span>
+        <span class="item-tip en">Use a phone mount on the handlebars if you need GPS.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong class="pt">Estacionar bike em local proibido — reboque + €25</strong>
+        <strong class="en">Parking bike in forbidden area — tow + €25</strong>
+        <p class="pt">No centro há zonas vermelhas onde a prefeitura remove bicicletas regularmente (especialmente perto da Centraal). A bike vai para o depósito municipal — fica €25 para resgatar + diária.</p>
+        <p class="en">In the center there are red zones where the municipality regularly removes bikes (especially near Centraal). The bike goes to the municipal depot — €25 to retrieve + daily fee.</p>
+        <span class="item-tip pt">Procure por racks de bike oficiais (metálicos, em U). Amarrar em poste na zona vermelha é risco certo.</span>
+        <span class="item-tip en">Look for official bike racks (metal U-shaped). Locking to a pole in a red zone is a certain risk.</span>
+      </div>
+    </div>
+  </div>
+
+  <span class="sub-cat"><span class="pt">🚬 Fumar e consumir</span><span class="en">🚬 Smoking & Consuming</span></span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong class="pt">Fumar maconha na rua — €100+</strong>
+        <strong class="en">Smoking weed on the street — €100+</strong>
+        <p class="pt">Desde 2023, fumar maconha em locais públicos no centro é proibido e multado. Só é permitido dentro de coffee shops. A área proibida inclui o Red Light District e arredores da Centraal.</p>
+        <p class="en">Since 2023, smoking weed in public spaces in the center is banned and fined. Only permitted inside coffee shops. The restricted area includes the Red Light District and around Centraal.</p>
+        <span class="item-tip pt">Dentro do coffee shop, liberado. Na rua do centro, não. Simples assim.</span>
+        <span class="item-tip en">Inside the coffee shop, fine. On the street downtown, no. Simple as that.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong class="pt">Álcool em local público — €90</strong>
+        <strong class="en">Alcohol in public spaces — €90</strong>
+        <p class="pt">Beber na rua é proibido em várias áreas do centro. Parques como o Vondelpark têm zonas permitidas, mas o Leidseplein e Rembrandtplein têm restrição — especialmente após eventos.</p>
+        <p class="en">Drinking on the street is banned in several central areas. Parks like Vondelpark have permitted zones, but Leidseplein and Rembrandtplein have restrictions — especially after events.</p>
+        <span class="item-tip pt">A regra na prática: se tiver muita polícia visível, guarde a cerveja.</span>
+        <span class="item-tip en">The practical rule: if lots of police are visible, put away the beer.</span>
+      </div>
+    </div>
+  </div>
+
+  <span class="sub-cat"><span class="pt">🚇 Transporte público</span><span class="en">🚇 Public Transport</span></span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong class="pt">Andar sem bilhete válido — €50 + tarifa</strong>
+        <strong class="en">Travelling without valid ticket — €50 + fare</strong>
+        <p class="pt">Fiscais à paisana (sem uniforme) são comuns no metrô e nos bondes. Esquecer de fazer check-in com a OV-chipkaart conta como viajar sem bilhete. Sem exceção.</p>
+        <p class="en">Plainclothes inspectors (no uniform) are common on the metro and trams. Forgetting to check in with your OV-chipkaart counts as travelling without a ticket. No exceptions.</p>
+        <span class="item-tip pt">Sempre leve a OV-chipkaart perto do leitor. Check-in e check-out são obrigatórios.</span>
+        <span class="item-tip en">Always tap your OV-chipkaart near the reader. Check-in and check-out are both mandatory.</span>
+      </div>
+    </div>
+  </div>
+
+  <span class="sub-cat"><span class="pt">🗑️ Lixo & respeito</span><span class="en">🗑️ Waste & Respect</span></span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong class="pt">Jogar lixo na rua — €140</strong>
+        <strong class="en">Littering — €140</strong>
+        <p class="pt">Amsterdã tem fiscais de lixo (handhavers) à paisana que multam na hora. Isso inclui jogar bituca de cigarro no chão, deixar lixo fora de hora nas lixeiras de rua e descarte incorreto.</p>
+        <p class="en">Amsterdam has plainclothes litter wardens (handhavers) who fine on the spot. This includes throwing cigarette butts on the ground, leaving trash out at wrong times and incorrect disposal.</p>
+        <span class="item-tip pt">Lixo reciclável vai em containers específicos (papel, vidro, plástico). Verifique as cores na sua rua.</span>
+        <span class="item-tip en">Recyclable waste goes in specific containers (paper, glass, plastic). Check the color codes on your street.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong class="pt">Fazer xixi na rua — €140</strong>
+        <strong class="en">Public urination — €140</strong>
+        <p class="pt">Multa salgada e fiscalização real, especialmente à noite e nos fins de semana no centro. Os mictórios públicos (pissoirs) existem justamente pra isso — use-os.</p>
+        <p class="en">Steep fine and real enforcement, especially at night and on weekends in the center. Public urinals (pissoirs) exist for exactly this reason — use them.</p>
+        <span class="item-tip pt">Os pissoirs pop-up laranja aparecem nos fins de semana na Jordan e no Leidseplein.</span>
+        <span class="item-tip en">Orange pop-up pissoirs appear on weekends in the Jordaan and Leidseplein areas.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     MODAL — MERCADOS & UTILIDADES
+════════════════════════════════════════════════════════════════════════ -->
+<div id="m-shops" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-shops-title">
+<div class="modal-content">
+  <button class="close-btn" onclick="closeModal('m-shops')" aria-label="Fechar">✕</button>
+  <h2 id="m-shops-title" class="pt">Mercados & Utilidades</h2>
+  <h2 class="en">Shops & Essentials</h2>
+  <p class="modal-subtitle pt">Amsterdam · o que encontrar em cada lugar — sem descobrir na hora errada</p>
+  <p class="modal-subtitle en">Amsterdam · what to find where — so you're never caught off guard</p>
+
+  <span class="sub-cat"><span class="pt">🛒 Supermercados</span><span class="en">🛒 Supermarkets</span></span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Albert Heijn (AH)</strong>
+        <p class="pt">O supermercado holandês por excelência — tem em todo canto. Qualidade acima da média, preços medianos. Ótimo para frutas, frios, pão artesanal e produtos orgânicos básicos. O app com Bonuskaart dá descontos reais — vale criar mesmo sem BSN.</p>
+        <p class="en">The quintessential Dutch supermarket — everywhere you look. Above-average quality, mid-range prices. Great for fruit, deli, artisan bread and basic organics. The Bonuskaart app gives real discounts — worth creating even without a BSN.</p>
+        <span class="item-tip pt">AH To Go nas estações e aeroporto é conveniente mas mais caro. Prefira as lojas normais.</span>
+        <span class="item-tip en">AH To Go at stations and the airport is convenient but pricier. Stick to regular stores.</span>
+      </div>
+      <a href="https://www.ah.nl" target="_blank" rel="noopener" class="maps-btn">Site</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Jumbo</strong>
+        <p class="pt">Principal concorrente do AH — geralmente mais barato e com produtos de marca própria bons. Tem padaria interna com pão quente. Menos lojas no centro, mais nos bairros. Boa opção para compras de semana.</p>
+        <p class="en">AH's main competitor — usually cheaper with decent own-brand products. In-store bakery with fresh bread. Fewer locations in the center, more in neighborhoods. Good for weekly grocery runs.</p>
+        <span class="item-tip pt">O frango assado do Jumbo é uma unanimidade. Quente, barato e salva o jantar.</span>
+        <span class="item-tip en">Jumbo's rotisserie chicken is a crowd favorite. Hot, cheap and dinner-saving.</span>
+      </div>
+      <a href="https://www.jumbo.com" target="_blank" rel="noopener" class="maps-btn">Site</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Lidl</strong>
+        <p class="pt">O mais barato do trio principal. Produtos de marca própria surpreendentemente bons — queijos, iogurte, snacks. Ótimo para estocar básicos. Não espere variedade enorme nem embalagens bonitas.</p>
+        <p class="en">The cheapest of the main three. Surprisingly good own-brand products — cheeses, yogurt, snacks. Great for stocking basics. Don't expect huge variety or pretty packaging.</p>
+        <span class="item-tip pt">A seção "Semana especial" no meio da loja muda toda quinta — utensílios, roupas, eletrônicos a preço absurdo.</span>
+        <span class="item-tip en">The "Special Week" middle aisle changes every Thursday — utensils, clothes, electronics at wild prices.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Dirk</strong>
+        <p class="pt">O supermercado dos holandeses raiz. Preços muito baixos, sem frescura, variedade honesta. Favorito de quem mora aqui de verdade. Tem bastante em Amsterdam-Zuid e arredores.</p>
+        <p class="en">The no-frills Dutch supermarket. Very low prices, no fuss, honest variety. A favorite among long-term residents. Plenty of locations in Amsterdam-Zuid and surroundings.</p>
+        <span class="item-tip pt">Sem programa de fidelidade, sem app — só preço bom. Respeite isso.</span>
+        <span class="item-tip en">No loyalty program, no app — just good prices. Respect it.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Normaal</strong>
+        <p class="pt">Supermercado discount holandês com foco em preço baixo e produtos de marca própria. Menos lojas que AH ou Jumbo, mas onde tem é bem movimentado. Boa alternativa para básicos do dia a dia sem pesar no bolso.</p>
+        <p class="en">Dutch discount supermarket focused on low prices and own-brand products. Fewer locations than AH or Jumbo, but busy where it exists. Good alternative for everyday basics without breaking the bank.</p>
+        <span class="item-tip pt">Nome é Normaal, mas o preço é o destaque — compare com o Lidl antes de decidir onde estocar.</span>
+        <span class="item-tip en">The name means "Normal" but the prices are the real highlight — compare with Lidl before deciding where to stock up.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Ekoplaza</strong>
+        <p class="pt">Supermercado orgânico e natural. Caro, mas tem coisas que não encontra em outro lugar: produtos veganos, sem glúten, marcas pequenas, leites alternativos variados. Bom para necessidades específicas.</p>
+        <p class="en">Organic and natural supermarket. Pricey, but has things you won't find elsewhere: vegan products, gluten-free, small brands, wide range of alt milks. Good for specific dietary needs.</p>
+        <span class="item-tip pt">Se você tem restrição alimentar, Ekoplaza vai ser o seu salvo. Tenha o cartão de crédito preparado.</span>
+        <span class="item-tip en">If you have dietary restrictions, Ekoplaza will be your salvation. Have your credit card ready.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Marqt</strong>
+        <p class="pt">Supermercado premium com foco em local e sustentável. Pão artesanal excelente, queijos holandeses, vinhos bem selecionados, produtos de fazendas locais. Para o dia que você quer comer bem de verdade.</p>
+        <p class="en">Premium supermarket focused on local and sustainable. Excellent artisan bread, Dutch cheeses, well-curated wines, local farm products. For the day you want to really eat well.</p>
+        <span class="item-tip pt">Ótima charcutaria — experimenta montar uma tábua com queijos locais.</span>
+        <span class="item-tip en">Great charcuterie — try putting together a board with local cheeses.</span>
+      </div>
+    </div>
+  </div>
+
+  <span class="sub-cat"><span class="pt">💊 Farmácias</span><span class="en">💊 Pharmacies</span></span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Etos</strong>
+        <p class="pt">Drogist (para-farmácia) da rede AH — muito comum, fácil de achar. Vende medicamentos sem receita, produtos de higiene, cosméticos, vitaminas e cuidados básicos de saúde. Sem receita, sem problema.</p>
+        <p class="en">Drugstore (para-pharmacy) from the AH group — very common, easy to find. Sells OTC medicines, hygiene products, cosmetics, vitamins and basic health care. No prescription, no problem.</p>
+        <span class="item-tip pt">Paracetamol, ibuprofeno, antialérgico, vitaminas — tudo aqui. Marcas próprias são boas e mais baratas.</span>
+        <span class="item-tip en">Paracetamol, ibuprofen, antihistamine, vitamins — all here. Own brands are good and cheaper.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Kruidvat</strong>
+        <p class="pt">Concorrente direto do Etos — geralmente mais barato. Além de medicamentos sem receita, tem muito mais: cosméticos, produtos de cabelo, cuidados infantis, snacks, pilhas, e coisas aleatórias úteis.</p>
+        <p class="en">Direct Etos competitor — usually cheaper. Beyond OTC medicines, has much more: cosmetics, hair care, baby products, snacks, batteries and random useful stuff.</p>
+        <span class="item-tip pt">Ótimo para montar necessaire de viagem barata. Marca própria de skincare é surpreendentemente boa.</span>
+        <span class="item-tip en">Great for building a cheap travel toiletry kit. Own-brand skincare is surprisingly good.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong><span class="pt">Apotheek (farmácia de verdade)</span><span class="en">Apotheek (real pharmacy)</span></strong>
+        <p class="pt">Para medicamentos com receita ou orientação farmacêutica. Diferente do drogist — aqui tem farmacêutico de plantão. Você precisa estar registrado em uma apotheek da sua área. Geralmente aberta em horário comercial.</p>
+        <p class="en">For prescription medicines or pharmacist advice. Different from a drogist — here there's a pharmacist on duty. You need to be registered at an apotheek in your area. Usually open during business hours.</p>
+        <span class="item-tip pt">Fora do horário, existe a Dienstdoende Apotheek — farmácia de plantão 24h. Consulte apotheek.nl.</span>
+        <span class="item-tip en">Outside hours, there's the Dienstdoende Apotheek — 24h on-call pharmacy. Check apotheek.nl.</span>
+      </div>
+      <a href="https://www.apotheek.nl" target="_blank" rel="noopener" class="maps-btn">Site</a>
+    </div>
+  </div>
+
+  <span class="sub-cat"><span class="pt">🔧 Utilidades do dia a dia</span><span class="en">🔧 Day-to-day Essentials</span></span>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Action</strong>
+        <p class="pt">O queridinho da Holanda — artigos de casa, decoração, limpeza, papelaria, ferramentas, eletrônicos simples e itens de cozinha. Tudo muito barato. Impossível sair sem comprar algo que não estava nos planos.</p>
+        <p class="en">The Netherlands' darling — home goods, decor, cleaning, stationery, tools, basic electronics and kitchen items. Everything very cheap. Impossible to leave without buying something unplanned.</p>
+        <span class="item-tip pt">Cabides, organizadores, molduras, velas, luminárias — monta uma casa do zero com €50.</span>
+        <span class="item-tip en">Hangers, organizers, frames, candles, lamps — furnish a home from scratch for €50.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>HEMA</strong>
+        <p class="pt">Equivalente holandês do Renner/Riachuelo — mas melhor. Roupas básicas, produtos de casa, papelaria, culinária, artigos de viagem e a famosa rookworst (salsicha defumada) quente na entrada. Qualidade confiável.</p>
+        <p class="en">The Dutch equivalent of a mid-range department store — but better. Basic clothes, homewares, stationery, cooking, travel items and the famous hot rookworst (smoked sausage) at the entrance. Reliable quality.</p>
+        <span class="item-tip pt">Ótimo para cueca, meia, pijama e básicos de cozinha sem gastar muito. E experimenta a rookworst.</span>
+        <span class="item-tip en">Great for underwear, socks, pyjamas and kitchen basics without overspending. And try the rookworst.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Marktplaats</strong>
+        <p class="pt">O OLX holandês — compra e venda de tudo. Móveis, bikes, eletrônicos, roupas, instrumentos. Essencial para quem está montando casa ou precisando de bike. Interface simples, transações diretas.</p>
+        <p class="en">The Dutch OLX — buy and sell everything. Furniture, bikes, electronics, clothes, instruments. Essential for anyone setting up a home or needing a bike. Simple interface, direct transactions.</p>
+        <span class="item-tip pt">Filtre por região e combine retirada local. Evite pagar por transferência — prefira pagamento na entrega.</span>
+        <span class="item-tip en">Filter by region and arrange local pickup. Avoid bank transfers upfront — prefer payment on delivery.</span>
+      </div>
+      <a href="https://www.marktplaats.nl" target="_blank" rel="noopener" class="maps-btn">Site</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Blokker</strong>
+        <p class="pt">Tudo para a casa — utensílios de cozinha, eletrodomésticos pequenos, organização, têxteis. Uma mistura de Tok&Stok com utilidades. Útil quando você precisa de uma panela, escorredor ou travessa sem gastar muito.</p>
+        <p class="en">Everything for the home — kitchen utensils, small appliances, storage, textiles. A mix between a homewares shop and a utility store. Useful when you need a pot, colander or baking dish without spending much.</p>
+        <span class="item-tip pt">Promoções frequentes e liquidações boas. Vale esperar venda se a pressa não for urgente.</span>
+        <span class="item-tip en">Frequent promotions and good clearance sales. Worth waiting for a sale if it's not urgent.</span>
+      </div>
+    </div>
   </div>
 
 </div>
