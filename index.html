@@ -341,14 +341,59 @@
       text-transform: uppercase;
       margin-top: 6px;
     }
-    .modal-body {
-      padding: 36px 40px 48px;
-    }
-    @media (max-width: 600px) {
-      .modal-body { padding: 24px 20px 36px; }
-    }
+     .modal-body {
+       padding: 36px 40px 48px;
+     }
+     @media (max-width: 600px) {
+       .modal-body { padding: 24px 20px 36px; }
+     }
 
-    .close-btn {
+    /* ── Night filters ── */
+    .modal-sticky-top {
+      position: sticky;
+      top: 0;
+      z-index: 11;
+    }
+    .modal-sticky-top .modal-header {
+      position: static;
+    }
+    .night-filters {
+      display: flex;
+      gap: 8px;
+      padding: 12px 40px 8px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      flex-shrink: 0;
+      background: #fff;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .night-filters::-webkit-scrollbar { display: none; }
+    @media (max-width: 600px) {
+      .night-filters { padding: 8px 16px 8px; }
+    }
+    .nf-pill {
+      white-space: nowrap;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 20px;
+      padding: 8px 16px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.8rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
+      background: #fff;
+      color: #555;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .nf-pill:hover { border-color: #ff4500; color: #ff4500; }
+    .nf-pill.active { background: #ff4500; border-color: #ff4500; color: #fff; }
+    .item[data-cat].hidden { display: none; }
+
+
       background: rgba(255,255,255,0.12);
       color: #fff;
       border: 1px solid rgba(255,255,255,0.2);
@@ -883,7 +928,7 @@
       <span class="cat-emoji" aria-hidden="true">🍺</span>
       <span class="cat-title pt">Beber & Noite</span>
       <span class="cat-title en">Drinks & Night</span>
-      <span class="cat-count pt">23 lugares</span><span class="cat-count en">23 spots</span>
+      <span class="cat-count pt">26 lugares</span><span class="cat-count en">26 spots</span>
       <span class="cat-arrow" aria-hidden="true">→</span>
     </div>
 
@@ -892,7 +937,7 @@
       <span class="cat-emoji" aria-hidden="true">☕</span>
       <span class="cat-title pt">Café & Brunch</span>
       <span class="cat-title en">Caffeine & Brunch</span>
-      <span class="cat-count pt">8 lugares</span><span class="cat-count en">8 spots</span>
+      <span class="cat-count pt">9 lugares</span><span class="cat-count en">9 spots</span>
       <span class="cat-arrow" aria-hidden="true">→</span>
     </div>
 
@@ -910,7 +955,7 @@
       <span class="cat-emoji" aria-hidden="true">🧘</span>
       <span class="cat-title pt">Corpo & Mente</span>
       <span class="cat-title en">Body & Mind</span>
-      <span class="cat-count pt">8 lugares</span><span class="cat-count en">8 spots</span>
+      <span class="cat-count pt">9 lugares</span><span class="cat-count en">9 spots</span>
       <span class="cat-arrow" aria-hidden="true">→</span>
     </div>
 
@@ -919,7 +964,7 @@
       <span class="cat-emoji" aria-hidden="true">🎨</span>
       <span class="cat-title pt">Cultura & Arte</span>
       <span class="cat-title en">Culture & Art</span>
-      <span class="cat-count pt">9 lugares</span><span class="cat-count en">9 spots</span>
+      <span class="cat-count pt">13 lugares</span><span class="cat-count en">13 spots</span>
       <span class="cat-arrow" aria-hidden="true">→</span>
     </div>
 
@@ -935,9 +980,9 @@
     <div class="cat-card" onclick="openModal('m-find')" role="button" tabindex="0"
          onkeydown="if(event.key==='Enter')openModal('m-find')">
       <span class="cat-emoji" aria-hidden="true">🛍️</span>
-      <span class="cat-title pt">Garimpos</span>
-      <span class="cat-title en">The Find</span>
-      <span class="cat-count pt">6 lugares</span><span class="cat-count en">6 spots</span>
+      <span class="cat-title pt">Garimpos e feirinhas de rua</span>
+      <span class="cat-title en">Markets & Finds</span>
+      <span class="cat-count pt">8 lugares</span><span class="cat-count en">8 spots</span>
       <span class="cat-arrow" aria-hidden="true">→</span>
     </div>
 
@@ -1229,19 +1274,31 @@
 ════════════════════════════════════════════════════════════════════════ -->
 <div id="m-night" class="modal" role="dialog" aria-modal="true" aria-labelledby="m-night-title">
 <div class="modal-content">
+  <div class="modal-sticky-top">
   <div class="modal-header">
     <div class="modal-header-text">
       <h2 id="m-night-title" class="pt">Beber & Noite</h2>
       <h2 class="en">Drinks & Night</h2>
-      <p class="modal-subtitle pt">Amsterdam · 23 lugares</p>
-      <p class="modal-subtitle en">Amsterdam · 23 spots</p>
+      <p class="modal-subtitle pt">Amsterdam · 26 lugares</p>
+      <p class="modal-subtitle en">Amsterdam · 26 spots</p>
     </div>
     <button class="close-btn" onclick="closeModal('m-night')" aria-label="Fechar">✕</button>
   </div>
-  <div class="modal-body">
-<span class="sub-cat">🍻 Roots & Vibe</span>
+  <div class="night-filters" id="night-filters">
+    <button class="nf-pill active" data-filter="all"><span class="pt">Todos</span><span class="en">All</span></button>
+    <button class="nf-pill" data-filter="bar">🍺 Bar & Bier</button>
+    <button class="nf-pill" data-filter="cocktail">🍸 Cocktails</button>
+    <button class="nf-pill" data-filter="lgbtq">🏳️‍🌈 LGBTQ+</button>
+    <button class="nf-pill" data-filter="live">🎵 Club / Live</button>
+    <button class="nf-pill" data-filter="karaoke">🎤 Karaoke</button>
+    <button class="nf-pill" data-filter="vinho">🍷 Vinho Natural</button>
+    <button class="nf-pill" data-filter="view">🌊 Vista / Terraço</button>
+   </div>
+  </div><!-- /.modal-sticky-top -->
+  <div class="modal-body" id="night-body">
+<span class="sub-cat"><span class="pt">🍻 Roots & Vibe</span><span class="en">🍻 Roots & Vibe</span></span>
 
-  <div class="item">
+  <div class="item" data-cat="bar">
     <div class="item-header">
       <div class="item-info">
         <strong>Soundgarden</strong>
@@ -1254,7 +1311,7 @@
     </div>
   </div>
 
-  <div class="item">
+  <div class="item" data-cat="bar">
     <div class="item-header">
       <div class="item-info">
         <strong>Brouwerij 't IJ</strong>
@@ -1267,7 +1324,7 @@
     </div>
   </div>
 
-  <div class="item">
+  <div class="item" data-cat="bar view">
     <div class="item-header">
       <div class="item-info">
         <strong>Waterkant</strong>
@@ -1278,7 +1335,7 @@
     </div>
   </div>
 
-  <div class="item">
+  <div class="item" data-cat="bar view">
     <div class="item-header">
       <div class="item-info">
         <strong>Hannekes Boom</strong>
@@ -1289,7 +1346,7 @@
     </div>
   </div>
 
-  <div class="item">
+  <div class="item" data-cat="bar">
     <div class="item-header">
       <div class="item-info">
         <strong>Café Brandon</strong>
@@ -1300,7 +1357,7 @@
     </div>
   </div>
 
-  <div class="item">
+  <div class="item" data-cat="bar">
     <div class="item-header">
       <div class="item-info">
         <strong>Café Dapper</strong>
@@ -1313,7 +1370,7 @@
 
   <span class="sub-cat">🍸 Cocktails</span>
 
-  <div class="item">
+  <div class="item" data-cat="cocktail">
     <div class="item-header">
       <div class="item-info">
         <strong>Door 74</strong>
@@ -1326,7 +1383,7 @@
     </div>
   </div>
 
-  <div class="item">
+  <div class="item" data-cat="cocktail">
     <div class="item-header">
       <div class="item-info">
         <strong>Feijoa</strong>
@@ -1339,7 +1396,7 @@
 
   <span class="sub-cat">🏳️‍🌈 Queer Bars</span>
 
-  <div class="item">
+  <div class="item" data-cat="lgbtq">
     <div class="item-header">
       <div class="item-info">
         <strong>Saarein</strong>
@@ -1352,7 +1409,7 @@
     </div>
   </div>
 
-  <div class="item">
+  <div class="item" data-cat="lgbtq">
     <div class="item-header">
       <div class="item-info">
         <strong>Pamela</strong>
@@ -1363,7 +1420,7 @@
     </div>
   </div>
 
-  <div class="item">
+  <div class="item" data-cat="lgbtq">
     <div class="item-header">
       <div class="item-info">
         <strong>Prik</strong>
@@ -1374,18 +1431,18 @@
     </div>
   </div>
 
-  <div class="item">
+  <div class="item" data-cat="lgbtq">
     <div class="item-header">
       <div class="item-info">
         <strong>Bar Buka</strong>
-        <p class="pt">Where girls meet girls. Foco em mulheres, mas ambiente super inclusivo e relax.</p>
+        <p class="pt">Where girls meet girls. Foco em mulheres e não-bináries, mas ambiente super inclusivo e relax.</p>
         <p class="en">Where girls meet girls. Women-focused but super inclusive and laid-back.</p>
       </div>
       <a href="https://www.google.com/maps/search/?api=1&query=Bar+Buka+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
     </div>
   </div>
 
-  <div class="item">
+  <div class="item" data-cat="lgbtq">
     <div class="item-header">
       <div class="item-info">
         <strong>Café 't Mandje</strong>
@@ -1396,7 +1453,7 @@
     </div>
   </div>
 
-  <div class="item">
+  <div class="item" data-cat="lgbtq">
     <div class="item-header">
       <div class="item-info">
         <strong>Taboo Bar</strong>
@@ -1409,7 +1466,7 @@
 
   <span class="sub-cat">🎤 Karaoke</span>
 
-  <div class="item">
+  <div class="item" data-cat="karaoke">
     <div class="item-header">
       <div class="item-info">
         <strong>Duke of Tokyo</strong>
@@ -1420,7 +1477,7 @@
     </div>
   </div>
 
-  <div class="item">
+  <div class="item" data-cat="karaoke">
     <div class="item-header">
       <div class="item-info">
         <strong>Casablanca</strong>
@@ -1433,7 +1490,7 @@
 
   <span class="sub-cat"><span class="pt">🌙 Fim de Noite</span><span class="en">🌙 Late Night</span></span>
 
-  <div class="item">
+  <div class="item" data-cat="bar">
     <div class="item-header">
       <div class="item-info">
         <strong>The Waterhole</strong>
@@ -1444,7 +1501,7 @@
     </div>
   </div>
 
-   <div class="item">
+  <div class="item" data-cat="bar">
     <div class="item-header">
       <div class="item-info">
         <strong>Belushi's</strong>
@@ -1457,7 +1514,7 @@
 
   <span class="sub-cat"><span class="pt">🍷 Bares de Vinho</span><span class="en">🍷 Wine Bars</span></span>
 
-  <div class="item">
+  <div class="item" data-cat="vinho">
     <div class="item-header">
       <div class="item-info">
         <strong>Hiding in Plain Sight</strong>
@@ -1470,7 +1527,7 @@
     </div>
   </div>
 
-  <div class="item">
+  <div class="item" data-cat="vinho">
     <div class="item-header">
       <div class="item-info">
         <strong>Vyne</strong>
@@ -1483,7 +1540,7 @@
     </div>
   </div>
 
-  <div class="item">
+  <div class="item" data-cat="vinho">
     <div class="item-header">
       <div class="item-info">
         <strong>Bar Spek</strong>
@@ -1496,7 +1553,7 @@
     </div>
   </div>
 
-  <div class="item">
+  <div class="item" data-cat="bar vinho">
     <div class="item-header">
       <div class="item-info">
         <strong>Café R. de Rosa</strong>
@@ -1509,7 +1566,7 @@
     </div>
   </div>
 
-  <div class="item">
+  <div class="item" data-cat="bar">
     <div class="item-header">
       <div class="item-info">
         <strong>Café Twee Prinsen</strong>
@@ -1519,6 +1576,45 @@
         <span class="item-tip en">Brown cafés are the real Dutch bar experience: dark, cosy and unhurried. This is one of the best in the Jordaan.</span>
       </div>
       <a href="https://www.google.com/maps/search/?api=1&query=Cafe+Twee+Prinsen+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <span class="sub-cat"><span class="pt">🎵 Club & Música ao Vivo</span><span class="en">🎵 Club & Live Music</span></span>
+
+  <div class="item" data-cat="live">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Skatecafe</strong>
+        <p class="pt">Restaurante com pista de skate que vira balada à noite. A vibe é descolada, a energia muda conforme o horário — e às vezes rola festa brasileira por lá. Abre quinta a sábado a partir das 15h.</p>
+        <p class="en">Restaurant with a skate ramp that turns into a club at night. The vibe is effortlessly cool, the energy shifts as the night goes on — and sometimes there are Brazilian parties. Open Thursday to Saturday from 3pm.</p>
+      </div>
+      <a href="https://share.google/93NUgP2HXtXmwvUit" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item" data-cat="live">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Café Alto</strong>
+        <p class="pt">O melhor bar de jazz de Amsterdam — clima introspectivo, bons whiskies e música ao vivo que você realmente ouve. Pequeno, apertado e perfeito.</p>
+        <p class="en">The best jazz bar in Amsterdam — introspective vibe, good whiskies and live music you actually listen to. Small, packed and perfect.</p>
+        <span class="item-tip pt">Lota muito. Vale chegar perto do horário de abertura — se deixar pra tarde, você pode pegar uma fila longa e entrar bem mais tarde do que queria.</span>
+        <span class="item-tip en">Gets packed fast. Arrive close to opening time — if you leave it late, you could end up in a long queue and get in much later than planned.</span>
+      </div>
+      <a href="https://share.google/4g2XucyGQsU6FsFKh" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item" data-cat="bar view">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>PLLEK</strong>
+        <p class="pt">Restaurante e bar em Amsterdam Noord com terraço enorme de frente pro IJ — no verão, parece praia urbana. Vista da skyline da cidade, comida sustentável de verdade e uma energia relaxada que não existe no centro. Um dos melhores spots pra um fim de tarde longo.</p>
+        <p class="en">Restaurant and bar in Amsterdam Noord with a huge terrace facing the IJ — in summer it feels like an urban beach. Skyline views, genuinely sustainable food and a relaxed energy you won't find in the centre. One of the best spots for a long late afternoon.</p>
+        <span class="item-tip pt">Pega a balsa gratuita atrás da Centraal Station em direção a NDSM. 15 minutos e outro mundo.</span>
+        <span class="item-tip en">Take the free ferry behind Centraal Station towards NDSM. 15 minutes and you're in another world.</span>
+      </div>
+      <a href="https://share.google/eFbMZcnIzTcPwYnkZ" target="_blank" rel="noopener" class="maps-btn">Maps</a>
     </div>
   </div>
   </div>
@@ -1534,8 +1630,8 @@
     <div class="modal-header-text">
       <h2 id="m-cafe-title" class="pt">Café & Brunch</h2>
       <h2 class="en">Caffeine & Brunch</h2>
-      <p class="modal-subtitle pt">Amsterdam · 8 lugares</p>
-      <p class="modal-subtitle en">Amsterdam · 8 spots</p>
+      <p class="modal-subtitle pt">Amsterdam · 9 lugares</p>
+      <p class="modal-subtitle en">Amsterdam · 9 spots</p>
     </div>
     <button class="close-btn" onclick="closeModal('m-cafe')" aria-label="Fechar">✕</button>
   </div>
@@ -1635,6 +1731,19 @@
       <a href="https://www.google.com/maps/search/?api=1&query=Lova+Cafe+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
     </div>
   </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Café de Ceuvel — Amsterdam Noord</strong>
+        <p class="pt">Café-restaurante vegano dentro de um antigo estaleiro transformado em parque sustentável. Funciona em uma casa-barco reciclada rodeada de plantas, com terraço à beira do canal. No verão é outro nível — clima gostoso, energia criativa, longe do centro. Menu sazonal, tudo local.</p>
+        <p class="en">Vegan café-restaurant inside a former shipyard turned sustainable creative park. Housed in a recycled houseboat surrounded by plants, with a canal-side terrace. In summer it's on another level — great atmosphere, creative energy, far from the crowds. Seasonal menu, everything local.</p>
+        <span class="item-tip pt">Tem uma sauna de barril privativa no próprio local — a <strong>Badhus</strong>. Sessão de 75 min pra até 6 pessoas. Combina o almoço com a sauna e você não volta cedo.</span>
+        <span class="item-tip en">There's a private barrel sauna on-site — <strong>Badhus</strong>. 75-min sessions for up to 6 people. Combine lunch with the sauna and you're not going home early.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/cafe+de+ceuvel/@52.3934964,4.9092502,17z?entry=ttu&g_ep=EgoyMDI2MDUxMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
   </div>
 </div>
 </div>
@@ -1698,8 +1807,8 @@
     <div class="modal-header-text">
       <h2 id="m-body-title" class="pt">Corpo & Mente</h2>
       <h2 class="en">Body & Mind</h2>
-      <p class="modal-subtitle pt">Amsterdam · 8 lugares</p>
-      <p class="modal-subtitle en">Amsterdam · 8 spots</p>
+      <p class="modal-subtitle pt">Amsterdam · 9 lugares</p>
+      <p class="modal-subtitle en">Amsterdam · 9 spots</p>
     </div>
     <button class="close-btn" onclick="closeModal('m-body')" aria-label="Fechar">✕</button>
   </div>
@@ -1736,6 +1845,19 @@
         <p class="en">Full spa in the Amsterdamse Bos forest. Pools, saunas, treatments — a full afternoon worth every cent.</p>
       </div>
       <a href="https://www.google.com/maps/search/?api=1&query=Spa+Zuiver+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Badhus — De Ceuvel</strong>
+        <p class="pt">Sauna de barril privativa dentro do De Ceuvel, o parque sustentável em Noord. 75 minutos pra até 6 pessoas — é um barrel sauna ao ar livre com vista pra natureza e o canal. Reserva pelo site do De Ceuvel.</p>
+        <p class="en">Private barrel sauna inside De Ceuvel, the sustainable creative park in Noord. 75 minutes for up to 6 people — an outdoor barrel sauna with views of nature and the canal. Book via the De Ceuvel website.</p>
+        <span class="item-tip pt">Combina com almoço ou jantar no Café de Ceuvel ao lado. Melhor no verão, mas funciona o ano todo.</span>
+        <span class="item-tip en">Pairs perfectly with lunch or dinner at Café de Ceuvel next door. Best in summer, but runs year-round.</span>
+      </div>
+      <a href="https://www.google.com/maps/search/badhus+sauna/@52.3934964,4.9092502,17z/data=!3m1!4b1?entry=ttu&g_ep=EgoyMDI2MDUxMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener" class="maps-btn">Maps</a>
     </div>
   </div>
 
@@ -1812,8 +1934,8 @@
     <div class="modal-header-text">
       <h2 id="m-culture-title" class="pt">Cultura & Arte</h2>
       <h2 class="en">Culture & Art</h2>
-      <p class="modal-subtitle pt">Amsterdam · 9 lugares</p>
-      <p class="modal-subtitle en">Amsterdam · 9 spots</p>
+      <p class="modal-subtitle pt">Amsterdam · 13 lugares</p>
+      <p class="modal-subtitle en">Amsterdam · 13 spots</p>
     </div>
     <button class="close-btn" onclick="closeModal('m-culture')" aria-label="Fechar">✕</button>
   </div>
@@ -1942,6 +2064,63 @@
       <a href="https://www.google.com/maps/search/?api=1&query=Our+House+Museum+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
     </div>
   </div>
+
+  <span class="sub-cat"><span class="pt">🎬 Cinemas alternativos</span><span class="en">🎬 Independent Cinemas</span></span>
+
+  <div class="item" style="background:#fff8f0;border-left:4px solid #ff4500;margin-bottom:8px">
+    <div class="item-header">
+      <div class="item-info">
+        <p class="pt">Amsterdam tem uma cena de cinema independente que não existe em muitos lugares do mundo. Salas pequenas, programação cult, filmes que você não vai encontrar no multiplex — e uma atmosfera que faz parte da experiência. Se você gosta de cinema de verdade, vai amar.</p>
+        <p class="en">Amsterdam has an independent cinema scene unlike most cities. Small screens, cult programming, films you won't find at the multiplex — and an atmosphere that's part of the experience. If you care about real cinema, you'll love it here.</p>
+        <span class="item-tip pt">💳 <strong>Cineville</strong> — um passe mensal (~€22) que dá acesso ilimitado a todos os cinemas alternativos da cidade. Se ficar mais de duas semanas, já vale a pena. <a href="https://cineville.nl" target="_blank" rel="noopener" style="color:#ff4500">cineville.nl</a></span>
+        <span class="item-tip en">💳 <strong>Cineville</strong> — a monthly pass (~€22) giving unlimited access to all independent cinemas in the city. If you're staying more than two weeks, it pays for itself. <a href="https://cineville.nl" target="_blank" rel="noopener" style="color:#ff4500">cineville.nl</a></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Lab 111</strong>
+        <p class="pt">Cinema, bar e restaurante num antigo laboratório médico em De Baarsjes. Programação eclética — de clássicos a estreias independentes. A sala em si já é motivo pra ir.</p>
+        <p class="en">Cinema, bar and restaurant inside a former medical laboratory in De Baarsjes. Eclectic programming — from classics to indie premieres. The space itself is reason enough to go.</p>
+      </div>
+      <a href="https://www.google.com/maps/place/LAB111/@52.3635926,4.8647882,17z/data=!3m2!4b1!5s0x47c5e20a0a7817c1:0xc468914da5d30eca!4m6!3m5!1s0x47c5e20a09a7ac83:0x5adf87f53faa6df7!8m2!3d52.3635894!4d4.8673631!16s%2Fg%2F1232kr_bl?entry=ttu&g_ep=EgoyMDI2MDUxMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>The Movies</strong>
+        <p class="pt">O cinema mais antigo de Amsterdam ainda em funcionamento, no Jordaan. Art déco, cadeiras confortáveis e um bar que te convida a ficar antes e depois do filme. Clássico no sentido mais bonito da palavra.</p>
+        <p class="en">Amsterdam's oldest still-running cinema, in the Jordaan. Art déco interior, comfortable seats and a bar that invites you to linger before and after the film. Classic in the best possible sense.</p>
+      </div>
+      <a href="https://www.google.com/maps/place/The+Movies/@52.3839608,4.8820116,17z/data=!3m1!4b1!4m6!3m5!1s0x47c609cdf6b404d5:0x113d7c0eaca6e46f!8m2!3d52.3839576!4d4.8845865!16s%2Fg%2F1215ppgh?entry=ttu&g_ep=EgoyMDI2MDUxMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>EYE Film Museum — Cinema</strong>
+        <p class="pt">Além do museu, o EYE tem salas de cinema com programação de arquivo e retrospectivas que não existem em nenhum outro lugar. O prédio às margens do IJ já vale a travessia de balsa.</p>
+        <p class="en">Beyond the museum, EYE has screening rooms with archive programming and retrospectives you won't find anywhere else. The building on the IJ waterfront is worth the ferry crossing alone.</p>
+      </div>
+      <a href="https://www.google.com/maps/place/Eye+Film+Museum/@52.3843512,4.8964051,16z/data=!3m1!4b1!4m6!3m5!1s0x47c609b44d95e1d9:0xb322c46184413eb9!8m2!3d52.384348!4d4.901276!16s%2Fm%2F04glklr?entry=ttu&g_ep=EgoyMDI2MDUxMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Kriterion</strong>
+        <p class="pt">Cinema gerido por estudantes desde 1945 — nasceu como cooperativa e continua sendo. Programação séria, preços justos e uma energia universitária que combina muito com Amsterdam.</p>
+        <p class="en">Student-run cinema since 1945 — born as a cooperative and still going. Serious programming, fair prices and a university energy that suits Amsterdam perfectly.</p>
+      </div>
+      <a href="https://www.google.com/maps/place/Filmtheater+Kriterion/@52.3625312,4.9081368,17z/data=!3m1!4b1!4m6!3m5!1s0x47c609821f1c38bb:0x11a54f52315c1487!8m2!3d52.362528!4d4.9107117!16s%2Fg%2F1tf6fv7j?entry=ttu&g_ep=EgoyMDI2MDUxMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
   </div>
 </div>
 </div>
@@ -2061,10 +2240,10 @@
 <div class="modal-content">
   <div class="modal-header">
     <div class="modal-header-text">
-      <h2 id="m-find-title" class="pt">Garimpos</h2>
-      <h2 class="en">The Find</h2>
-      <p class="modal-subtitle pt">Amsterdam · 6 lugares</p>
-      <p class="modal-subtitle en">Amsterdam · 6 spots</p>
+      <h2 id="m-find-title" class="pt">Garimpos e feirinhas de rua</h2>
+      <h2 class="en">Markets & Finds</h2>
+      <p class="modal-subtitle pt">Amsterdam · 8 lugares</p>
+      <p class="modal-subtitle en">Amsterdam · 8 spots</p>
     </div>
     <button class="close-btn" onclick="closeModal('m-find')" aria-label="Fechar">✕</button>
   </div>
@@ -2108,6 +2287,17 @@
     </div>
   </div>
 
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Ten Kate Markt</strong>
+        <p class="pt">Mercado de bairro com cara internacional na Kinkerbuurt. Frutas, legumes, streetfood e energia de mercado de verdade. Fica ao lado de De Hallen — combina os dois numa tarde. Abre segunda a sábado.</p>
+        <p class="en">Neighbourhood market with international flair in the Kinkerbuurt. Fresh produce, street food and real market energy. Right next to De Hallen — combine both in one afternoon. Open Monday to Saturday.</p>
+      </div>
+      <a href="https://www.google.com/maps/place/Ten+Kate+Market/@52.3660174,4.8648811,17z/data=!3m1!4b1!4m6!3m5!1s0x47c5e339376b453b:0x30c97d0471dbc2c9!8m2!3d52.3660142!4d4.867456!16s%2Fg%2F11kkps67wh?entry=ttu&g_ep=EgoyMDI2MDUxMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
   <span class="sub-cat">👗 Vintage</span>
 
   <div class="item">
@@ -2140,6 +2330,17 @@
         <p class="en">Best jackets and boots in the city. If you're looking for leather pieces with history, start here.</p>
       </div>
       <a href="https://www.google.com/maps/search/?api=1&query=Rumors+Vintage+Amsterdam" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>FIGO Vintage</strong>
+        <p class="pt">Loja de vintage curada com peças que realmente valem a pena. Sem aquele caos de brechó genérico — aqui tem seleção. Abre quinta a domingo, das 11h às 18h.</p>
+        <p class="en">Curated vintage shop with pieces that are actually worth it. None of that generic thrift store chaos — there's real selection here. Open Thursday to Sunday, 11am to 6pm.</p>
+      </div>
+      <a href="https://www.google.com/maps/place/Figo+Vintage/@52.3932327,4.9003965,16z/data=!3m1!4b1!4m6!3m5!1s0x47c609ab1a080db5:0x9bf6c180f7d67a51!8m2!3d52.3932295!4d4.9029714!16s%2Fg%2F11vz99g2f2?entry=ttu&g_ep=EgoyMDI2MDUxMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener" class="maps-btn">Maps</a>
     </div>
   </div>
   </div>
@@ -2735,6 +2936,19 @@
     </div>
   </div>
 
+  <div class="item">
+    <div class="item-header">
+      <div class="item-info">
+        <strong>Eskina — Ten Kate Market</strong>
+        <p class="pt">O Ten Kate é um mercado de bairro com cara internacional — frutas, legumes, streetfood e aquela energia de mercado de verdade. Fica na Kinkerbuurt, ao lado de De Hallen. E é lá que o Eskina opera: pastel de feira, coxinha, pão de queijo. O lugar que a comunidade brasileira adotou. Abre segunda a sábado.</p>
+        <p class="en">Ten Kate is a neighbourhood market with international flair — fresh produce, street food and that real market energy. Located in the Kinkerbuurt, right next to De Hallen. And that's where Eskina operates: pastel de feira, coxinha, pão de queijo. The spot the Brazilian community adopted. Open Monday to Saturday.</p>
+        <span class="item-tip pt">Pastel e coxinha são obrigatórios. Come ali mesmo, no mercado.</span>
+        <span class="item-tip en">Pastel and coxinha are non-negotiable. Eat them right there at the market.</span>
+      </div>
+      <a href="https://share.google/1LwcQesKfZNRfAZSH" target="_blank" rel="noopener" class="maps-btn">Maps</a>
+    </div>
+  </div>
+
   <span class="sub-cat"><span class="pt">💊 Farmácia & remédios</span><span class="en">💊 Pharmacy & Medicine</span></span>
 
   <div class="item">
@@ -2767,8 +2981,8 @@
     <div class="item-header">
       <div class="item-info">
         <strong><span class="pt">Bicicleta</span><span class="en">Bicycle</span></strong>
-        <p class="pt">Não é opcional — é o transporte principal. Compre usada no Marktplaats (site tipo OLX holandês) por €80–150. Nova rouba no Decathlon por €200+. Cadeado é obrigatório.</p>
-        <p class="en">Not optional — it's the main transport. Buy second-hand on Marktplaats (Dutch OLX) for €80–150. New at Decathlon for €200+. A lock is mandatory.</p>
+        <p class="pt">Em Amsterdam, bike não é charme — é o transporte principal. A melhor pedida é comprar usada no Marktplaats (site tipo OLX holandês) por €80–150. Se preferir nova, o Decathlon tem opções a partir de €200. E cadeado bom é tão importante quanto a bike em si.</p>
+        <p class="en">In Amsterdam, a bike isn't a cute accessory — it's the main mode of transport. Best move is to buy second-hand on Marktplaats (Dutch OLX equivalent) for €80–150. If you want new, Decathlon has options from €200. And a good lock is just as important as the bike itself.</p>
         <span class="item-tip pt">Nunca amarre só no quadro. Use cadeado passando pelo quadro + roda traseira + poste. Roubo de bike é endêmico.</span>
         <span class="item-tip en">Never lock only the frame. Loop the lock through frame + rear wheel + post. Bike theft is endemic.</span>
       </div>
@@ -2784,6 +2998,8 @@
         <p class="en">Rechargeable transport card used on trains, metro, buses and trams nationwide. Buy at Centraal Station or ov-chipkaart.nl. Always keep credit on it.</p>
         <span class="item-tip pt">Lembre de fazer check-in E check-out — se esquecer o checkout, cobra a tarifa máxima da linha.</span>
         <span class="item-tip en">Remember to check in AND check out — if you forget checkout, you get charged the maximum fare.</span>
+        <span class="item-tip pt">Você também pode usar cartão de débito ou crédito diretamente nos leitores — sem precisar de OV-chipkaart.</span>
+        <span class="item-tip en">You can also tap your debit or credit card directly on the readers — no OV-chipkaart needed.</span>
       </div>
       <a href="https://www.ov-chipkaart.nl" target="_blank" rel="noopener" class="maps-btn">Site</a>
     </div>
@@ -3396,13 +3612,13 @@
           <span class="item-tip en">In Amsterdam, Jellinek and Unity are two of the most well-known centers. Large music festivals have on-site testing points. It's normalized to a level that shocks people from abroad.</span>
         </div>
       </div>
-    </div>
-
   </div>
-</div>
+  </div>
+  </div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════════════════
+
      JS
 ════════════════════════════════════════════════════════════════════════ -->
 <script>
@@ -3426,7 +3642,44 @@
     if (!el) return;
     el.style.display = 'none';
     document.body.style.overflow = '';
+    // Reset night filters when closing
+    if (id === 'm-night') nightFilter('all');
   }
+
+  /* ── Night filters ── */
+  function nightFilter(cat) {
+    const pills = document.querySelectorAll('.nf-pill');
+    pills.forEach(p => p.classList.toggle('active', p.dataset.filter === cat));
+    const items = document.querySelectorAll('#night-body .item[data-cat]');
+    items.forEach(item => {
+      if (cat === 'all') {
+        item.classList.remove('hidden');
+      } else {
+        const cats = item.dataset.cat.split(' ');
+        item.classList.toggle('hidden', !cats.includes(cat));
+      }
+    });
+    // Reset sub-cat headers visibility
+    document.querySelectorAll('#night-body .sub-cat').forEach(header => {
+      if (cat === 'all') {
+        header.style.display = '';
+        return;
+      }
+      let next = header.nextElementSibling;
+      let hasVisible = false;
+      while (next && !next.classList.contains('sub-cat')) {
+        if (next.classList.contains('item') && !next.classList.contains('hidden')) hasVisible = true;
+        next = next.nextElementSibling;
+      }
+      header.style.display = hasVisible ? '' : 'none';
+    });
+  }
+
+  document.getElementById('night-filters').addEventListener('click', function(e) {
+    const pill = e.target.closest('.nf-pill');
+    if (pill) nightFilter(pill.dataset.filter);
+  });
+
 
   document.addEventListener('click', function(e) {
     if (e.target.classList.contains('modal')) closeModal(e.target.id);
@@ -3634,6 +3887,9 @@
     { name: 'STRAAT Museum',         cat: 'Cultura', emoji: '🎨', lat: 52.3840, lng: 4.9075, modal: 'm-culture' },
     { name: 'EYE Film Museum',       cat: 'Cultura', emoji: '🎬', lat: 52.3842, lng: 4.9006, modal: 'm-culture' },
     { name: 'Our House Museum',      cat: 'Cultura', emoji: '🏛️', lat: 52.3738, lng: 4.8834, modal: 'm-culture' },
+    { name: 'Lab 111',               cat: 'Cultura', emoji: '🎬', lat: 52.3705, lng: 4.8660, modal: 'm-culture' },
+    { name: 'The Movies',            cat: 'Cultura', emoji: '🎬', lat: 52.3763, lng: 4.8831, modal: 'm-culture' },
+    { name: 'Kriterion',             cat: 'Cultura', emoji: '🎬', lat: 52.3617, lng: 4.9063, modal: 'm-culture' },
     // ── Hype ────────────────────────────────────────────────────────────
     { name: 'Winkel 43',             cat: 'Hype', emoji: '⭐', lat: 52.3755, lng: 4.8882, modal: 'm-hype' },
     { name: 'Van Stapele',           cat: 'Hype', emoji: '⭐', lat: 52.3705, lng: 4.8937, modal: 'm-hype' },
@@ -3642,19 +3898,17 @@
     { name: 'Heineken Experience',   cat: 'Hype', emoji: '🍺', lat: 52.3578, lng: 4.8954, modal: 'm-hype' },
     { name: "A'DAM Lookout",         cat: 'Hype', emoji: '🌆', lat: 52.4009, lng: 4.8963, modal: 'm-hype' },
     { name: 'Pannekoek Boat',        cat: 'Hype', emoji: '🥞', lat: 52.3791, lng: 4.9002, modal: 'm-hype' },
-    // ── Garimpos ────────────────────────────────────────────────────────
-    { name: 'IJ-Hallen',             cat: 'Garimpos', emoji: '🛍️', lat: 52.3872, lng: 4.9033, modal: 'm-find' },
-    { name: 'Noordermarkt',          cat: 'Garimpos', emoji: '🛍️', lat: 52.3773, lng: 4.8841, modal: 'm-find' },
-    { name: 'Albert Cuypmarkt',      cat: 'Garimpos', emoji: '🛒', lat: 52.3540, lng: 4.8968, modal: 'm-find' },
-    { name: 'Episode',               cat: 'Garimpos', emoji: '👗', lat: 52.3688, lng: 4.8863, modal: 'm-find' },
-    { name: 'Zipper',                cat: 'Garimpos', emoji: '👗', lat: 52.3678, lng: 4.8798, modal: 'm-find' },
-    { name: 'Rumors Vintage',        cat: 'Garimpos', emoji: '👗', lat: 52.3740, lng: 4.8802, modal: 'm-find' },
-    // ── Explorar ────────────────────────────────────────────────────────
-    { name: 'Vondelpark',            cat: 'Explorar', emoji: '🌳', lat: 52.3583, lng: 4.8682, modal: 'm-explore' },
-    { name: 'Amsterdamse Bos',       cat: 'Explorar', emoji: '🌳', lat: 52.3082, lng: 4.8513, modal: 'm-explore' },
-    { name: 'Westerpark',            cat: 'Explorar', emoji: '🌳', lat: 52.3868, lng: 4.8660, modal: 'm-explore' },
-    { name: 'Mokumboot',             cat: 'Explorar', emoji: '⛵', lat: 52.3617, lng: 4.9140, modal: 'm-explore' },
-    // ── Wellness ────────────────────────────────────────────────────────
+     // ── Garimpos e feirinhas de rua ─────────────────────────────────────
+     { name: 'IJ-Hallen',             cat: 'Garimpos', emoji: '🛍️', lat: 52.3872, lng: 4.9033, modal: 'm-find' },
+     { name: 'Noordermarkt',          cat: 'Garimpos', emoji: '🛍️', lat: 52.3773, lng: 4.8841, modal: 'm-find' },
+     { name: 'Albert Cuypmarkt',      cat: 'Garimpos', emoji: '🛒', lat: 52.3540, lng: 4.8968, modal: 'm-find' },
+     { name: 'Ten Kate Markt',        cat: 'Garimpos', emoji: '🛒', lat: 52.3646, lng: 4.8699, modal: 'm-find' },
+     { name: 'FIGO Vintage',          cat: 'Garimpos', emoji: '👗', lat: 52.3688, lng: 4.8750, modal: 'm-find' },
+    { name: 'Skatecafe',             cat: 'Beber & Noite', emoji: '🍺', lat: 52.3870, lng: 4.8723, modal: 'm-night' },
+    { name: 'PLLEK',                 cat: 'Beber & Noite', emoji: '🍺', lat: 52.4024, lng: 4.9010, modal: 'm-night' },
+    { name: 'Café Alto',             cat: 'Beber & Noite', emoji: '🎷', lat: 52.3634, lng: 4.8917, modal: 'm-night' },
+    { name: 'Café de Ceuvel',        cat: 'Café & Brunch', emoji: '☕', lat: 52.3958, lng: 4.9192, modal: 'm-cafe' },
+    { name: 'Badhus',                cat: 'Wellness',      emoji: '🧖', lat: 52.3958, lng: 4.9192, modal: 'm-body' },
     { name: 'Stretch and Fold',      cat: 'Wellness', emoji: '🧘', lat: 52.3630, lng: 4.8694, modal: 'm-body' },
     { name: 'Kuuma',                 cat: 'Wellness', emoji: '🧖', lat: 52.3726, lng: 4.8818, modal: 'm-body' },
     { name: 'Spa Zuiver',            cat: 'Wellness', emoji: '🧖', lat: 52.3199, lng: 4.8537, modal: 'm-body' },
