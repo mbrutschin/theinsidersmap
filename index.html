@@ -3629,6 +3629,27 @@
   /* ─── MODAL ──────────────────────────────────────────────────────────── */
   let mapInstance = null;
 
+  const modalNames = {
+    'm-eat':          'Gastronomia',
+    'm-night':        'Beber & Noite',
+    'm-cafe':         'Café & Brunch',
+    'm-cs':           'Coffee Shops',
+    'm-body':         'Corpo & Mente',
+    'm-culture':      'Cultura & Arte',
+    'm-hype':         'Hype & Experiências',
+    'm-find':         'Garimpos & Feirinhas',
+    'm-explore':      'Explorar',
+    'm-football':     'Futebol',
+    'm-beyond':       'Além de AMS',
+    'm-cal':          'Eventos',
+    'm-br-ams':       'Brasileiro em AMS',
+    'm-multas':       'Como Evitar Multas',
+    'm-shops':        'Mercados & Utilidades',
+    'm-curiosidades': 'Curiosidades',
+    'm-favs':         'Favoritos',
+    'm-map':          'Mapa',
+  };
+
   function openModal(id) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -3639,6 +3660,13 @@
 
     if (id === 'm-favs') renderFavs();
     if (id === 'm-map')  initMap();
+
+    if (typeof gtag === 'function') {
+      gtag('event', 'open_category', {
+        event_category: 'navigation',
+        event_label: modalNames[id] || id,
+      });
+    }
   }
 
   function closeModal(id) {
